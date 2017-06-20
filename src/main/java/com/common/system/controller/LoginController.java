@@ -1,8 +1,13 @@
 package com.common.system.controller;
 
+import com.common.system.shiro.ShiroKit;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -10,12 +15,12 @@ import org.springframework.web.servlet.ModelAndView;
  * Time:15:58
  * ProjectName:Common-admin
  */
-@RestController
-public class LoginController {
+@Controller
+public class LoginController extends BaseController{
     /**
      * 进入登录页面
      */
-    @RequestMapping(value = {"/login","/"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/login"}, method = RequestMethod.GET)
     public ModelAndView getLogin(ModelAndView modelAndView){
         modelAndView.setViewName("/system/login");
         return modelAndView;
@@ -23,10 +28,15 @@ public class LoginController {
     /**
      * 进入登录页面
      */
-    @RequestMapping(value = {"/login"}, method = RequestMethod.POST)
-    public ModelAndView postLogin(ModelAndView modelAndView){
-        modelAndView.setViewName("/system/admin/index");
-        modelAndView.addObject("ctx","adminlte");
-        return modelAndView;
+    @RequestMapping(value = {"/postLogin"}, method = RequestMethod.POST)
+    public String postLogin(ModelAndView modelAndView,@RequestParam(required = true) String username,@RequestParam(required = true) String password){
+        Subject subject = ShiroKit.getSubject();
+        UsernamePasswordToken token = new UsernamePasswordToken(username,password.toCharArray());
+        try {
+            subject.login(token);
+        } catch (AuthenticationException e) {
+            e.printStackTrace();
+        }
+        return REDIRECT + "/";
     }
 }

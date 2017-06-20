@@ -1,11 +1,14 @@
 package com.common.system.shiro;
 
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.AuthenticationInfo;
-import org.apache.shiro.authc.AuthenticationToken;
+import com.common.system.entity.RcUser;
+import org.apache.shiro.authc.*;
+import org.apache.shiro.authc.credential.CredentialsMatcher;
+import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Created by Mr.Yangxiufeng on 2017/6/20.
@@ -14,6 +17,9 @@ import org.apache.shiro.subject.PrincipalCollection;
  */
 public class ShiroRealm extends AuthorizingRealm{
 
+    @Autowired
+    private ShiroFactory shiroFactory;
+
     /***
      * <p>授权</p>
      * @param principalCollection
@@ -21,7 +27,8 @@ public class ShiroRealm extends AuthorizingRealm{
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        return null;
+        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+        return info;
     }
 
     /**
@@ -32,6 +39,18 @@ public class ShiroRealm extends AuthorizingRealm{
      */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
-        return null;
+        UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
+        RcUser user = shiroFactory.user(token.getUsername());
+        ShiroUser shiroUser = shiroFactory.shiroUser(user);
+        SimpleAuthenticationInfo info = shiroFactory.buildAuthenticationInfo(shiroUser,user,super.getName());
+        return info;
+    }
+
+    @Override
+    public void setCredentialsMatcher(CredentialsMatcher credentialsMatcher) {
+        HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
+        hashedCredentialsMatcher.setHashAlgorithmName(ShiroKit.hashAlgorithmName);
+        hashedCredentialsMatcher.setHashIterations(ShiroKit.hashIterations);
+        super.setCredentialsMatcher(hashedCredentialsMatcher);
     }
 }

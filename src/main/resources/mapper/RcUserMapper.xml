@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.common.system.entity.RcUser">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="avatar" jdbcType="VARCHAR" property="avatar" />
-    <result column="account" jdbcType="VARCHAR" property="account" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="salt" jdbcType="VARCHAR" property="salt" />
     <result column="name" jdbcType="VARCHAR" property="name" />
@@ -18,8 +18,8 @@
     <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, avatar, account, password, salt, name, birthday, sex, email, phone, roleid, deptid, 
-    status, createtime
+    id, avatar, username, password, salt, name, birthday, sex, email, phone, roleid, 
+    deptid, status, createtime
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -32,12 +32,12 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.common.system.entity.RcUser">
-    insert into rc_user (id, avatar, account, 
+    insert into rc_user (id, avatar, username, 
       password, salt, name, 
       birthday, sex, email, 
       phone, roleid, deptid, 
       status, createtime)
-    values (#{id,jdbcType=INTEGER}, #{avatar,jdbcType=VARCHAR}, #{account,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{avatar,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
       #{password,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{birthday,jdbcType=TIMESTAMP}, #{sex,jdbcType=INTEGER}, #{email,jdbcType=VARCHAR}, 
       #{phone,jdbcType=VARCHAR}, #{roleid,jdbcType=VARCHAR}, #{deptid,jdbcType=INTEGER}, 
@@ -52,8 +52,8 @@
       <if test="avatar != null">
         avatar,
       </if>
-      <if test="account != null">
-        account,
+      <if test="username != null">
+        username,
       </if>
       <if test="password != null">
         password,
@@ -96,8 +96,8 @@
       <if test="avatar != null">
         #{avatar,jdbcType=VARCHAR},
       </if>
-      <if test="account != null">
-        #{account,jdbcType=VARCHAR},
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
       </if>
       <if test="password != null">
         #{password,jdbcType=VARCHAR},
@@ -140,8 +140,8 @@
       <if test="avatar != null">
         avatar = #{avatar,jdbcType=VARCHAR},
       </if>
-      <if test="account != null">
-        account = #{account,jdbcType=VARCHAR},
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
       </if>
       <if test="password != null">
         password = #{password,jdbcType=VARCHAR},
@@ -182,7 +182,7 @@
   <update id="updateByPrimaryKey" parameterType="com.common.system.entity.RcUser">
     update rc_user
     set avatar = #{avatar,jdbcType=VARCHAR},
-      account = #{account,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
       salt = #{salt,jdbcType=VARCHAR},
       name = #{name,jdbcType=VARCHAR},
@@ -196,4 +196,7 @@
       createtime = #{createtime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="getUserByName" parameterType="string" resultMap="BaseResultMap">
+    SELECT * FROM rc_user WHERE username=#{username}
+  </select>
 </mapper>

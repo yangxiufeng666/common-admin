@@ -31,6 +31,10 @@ public class FreemarkerCustomConfig {
     public freemarker.template.Configuration getFreemarkerConfiguration(){
         freemarker.template.Configuration configuration = freeMarkerConfigurer.getConfiguration();
         configuration.setSharedVariable("shiro",new ShiroTags());
+        //全局变量设置
+        Map<String,Object> va = new HashMap<>();
+        va.put("ctx","adminlte");
+        freeMarkerConfigurer.setFreemarkerVariables(va);
         return configuration;
     }
 //    @Bean

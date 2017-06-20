@@ -7,7 +7,7 @@ public class RcUser {
 
     private String avatar;
 
-    private String account;
+    private String username;
 
     private String password;
 
@@ -47,12 +47,12 @@ public class RcUser {
         this.avatar = avatar == null ? null : avatar.trim();
     }
 
-    public String getAccount() {
-        return account;
+    public String getUsername() {
+        return username;
     }
 
-    public void setAccount(String account) {
-        this.account = account == null ? null : account.trim();
+    public void setUsername(String username) {
+        this.username = username == null ? null : username.trim();
     }
 
     public String getPassword() {

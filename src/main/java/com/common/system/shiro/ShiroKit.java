@@ -1,7 +1,9 @@
 package com.common.system.shiro;
 
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.crypto.hash.SimpleHash;
+import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.ByteSource;
 
 import java.util.Random;
@@ -48,10 +50,22 @@ public class ShiroKit {
         }
         return sb.toString();
     }
-
-    public static void main(String[] args) {
-        String salt = getRandomSalt(5);
-        System.out.println(salt);
-        System.out.println(md5("123456",salt));
+    /**
+     * 获取当前 Subject
+     * @return Subject
+     */
+    public static Subject getSubject() {
+        return SecurityUtils.getSubject();
     }
+
+//    public static void main(String[] args) {
+//        /**
+//         * 6lqyq
+//         bd29ec972547217cbaec292f7e56a300
+//         */
+//        String salt = ShiroKit.getRandomSalt(5);
+//        String password = ShiroKit.md5("123456",salt);
+//        System.out.println(salt);
+//        System.out.println(password);
+//    }
 }

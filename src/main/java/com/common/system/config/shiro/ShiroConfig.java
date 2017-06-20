@@ -108,6 +108,7 @@ public class ShiroConfig {
 
         Map<String, String> chains = new LinkedHashMap<>();
         chains.put("/login", "anon");
+        chains.put("/postLogin", "anon");
         /**
          * 静态资源不拦截
          * */
