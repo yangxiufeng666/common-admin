@@ -67,7 +67,7 @@
 <#macro header>
 <header class="main-header">
 	<a href="index2.html" class="logo">
-		<span class="logo-mini"><b>R</b><b>C</b></span>
+		<span class="logo-mini"><b>C</b><b>A</b></span>
 		<span class="logo-lg"><b>大数据可视化 </b>LTE</span>
 	</a>
 	<nav class="navbar navbar-static-top">

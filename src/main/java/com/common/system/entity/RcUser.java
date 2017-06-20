@@ -2,7 +2,7 @@ package com.common.system.entity;
 
 import java.util.Date;
 
-public class User {
+public class RcUser {
     private Integer id;
 
     private String avatar;
@@ -30,8 +30,6 @@ public class User {
     private Integer status;
 
     private Date createtime;
-
-    private Integer version;
 
     public Integer getId() {
         return id;
@@ -143,13 +141,5 @@ public class User {
 
     public void setCreatetime(Date createtime) {
         this.createtime = createtime;
-    }
-
-    public Integer getVersion() {
-        return version;
-    }
-
-    public void setVersion(Integer version) {
-        this.version = version;
     }
 }

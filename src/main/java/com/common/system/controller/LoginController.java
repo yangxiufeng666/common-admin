@@ -1,7 +1,5 @@
 package com.common.system.controller;
 
-import com.common.system.mapper.UserMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,8 +12,6 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @RestController
 public class LoginController {
-    @Autowired
-    UserMapper userMapper;
     /**
      * 进入登录页面
      */
@@ -31,7 +27,6 @@ public class LoginController {
     public ModelAndView postLogin(ModelAndView modelAndView){
         modelAndView.setViewName("/system/admin/index");
         modelAndView.addObject("ctx","adminlte");
-        userMapper.selectByPrimaryKey(1);
         return modelAndView;
     }
 }
