@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.common.system.mapper.RcDeptMapper">
+  <resultMap id="BaseResultMap" type="com.common.system.entity.RcDept">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="num" jdbcType="INTEGER" property="num" />
+    <result column="pid" jdbcType="INTEGER" property="pid" />
+    <result column="simplename" jdbcType="VARCHAR" property="simplename" />
+    <result column="fullname" jdbcType="VARCHAR" property="fullname" />
+    <result column="tips" jdbcType="VARCHAR" property="tips" />
+    <result column="version" jdbcType="INTEGER" property="version" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, num, pid, simplename, fullname, tips, version
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from rc_dept
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from rc_dept
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.common.system.entity.RcDept">
+    insert into rc_dept (id, num, pid, 
+      simplename, fullname, tips, 
+      version)
+    values (#{id,jdbcType=INTEGER}, #{num,jdbcType=INTEGER}, #{pid,jdbcType=INTEGER}, 
+      #{simplename,jdbcType=VARCHAR}, #{fullname,jdbcType=VARCHAR}, #{tips,jdbcType=VARCHAR}, 
+      #{version,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.common.system.entity.RcDept">
+    insert into rc_dept
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="num != null">
+        num,
+      </if>
+      <if test="pid != null">
+        pid,
+      </if>
+      <if test="simplename != null">
+        simplename,
+      </if>
+      <if test="fullname != null">
+        fullname,
+      </if>
+      <if test="tips != null">
+        tips,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="num != null">
+        #{num,jdbcType=INTEGER},
+      </if>
+      <if test="pid != null">
+        #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="simplename != null">
+        #{simplename,jdbcType=VARCHAR},
+      </if>
+      <if test="fullname != null">
+        #{fullname,jdbcType=VARCHAR},
+      </if>
+      <if test="tips != null">
+        #{tips,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.common.system.entity.RcDept">
+    update rc_dept
+    <set>
+      <if test="num != null">
+        num = #{num,jdbcType=INTEGER},
+      </if>
+      <if test="pid != null">
+        pid = #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="simplename != null">
+        simplename = #{simplename,jdbcType=VARCHAR},
+      </if>
+      <if test="fullname != null">
+        fullname = #{fullname,jdbcType=VARCHAR},
+      </if>
+      <if test="tips != null">
+        tips = #{tips,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null">
+        version = #{version,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.common.system.entity.RcDept">
+    update rc_dept
+    set num = #{num,jdbcType=INTEGER},
+      pid = #{pid,jdbcType=INTEGER},
+      simplename = #{simplename,jdbcType=VARCHAR},
+      fullname = #{fullname,jdbcType=VARCHAR},
+      tips = #{tips,jdbcType=VARCHAR},
+      version = #{version,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

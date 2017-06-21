@@ -11,13 +11,16 @@ import java.util.List;
 public class ShiroUser implements Serializable{
     private static final long serialVersionUID = -4661753370573516137L;
 
-    public Integer id;          // 主键ID
-    public String username;      // 账号
-    public String name;         // 姓名
-    public Integer deptId;      // 部门id
-    public List<Integer> roleList; // 角色集
-    public String deptName;        // 部门名称
-    public List<String> roleNames; // 角色名称集
+    private Integer id;          // 主键ID
+    private String username;      // 账号
+    private String name;         // 姓名
+    private Integer deptId;      // 部门id
+//    public List<Integer> roleList; // 角色集
+    private Integer roleId;
+    private String deptName;        // 部门名称
+//    public List<String> roleNames; // 角色名称集
+    private String roleName;
+    private String roleValue;//角色值
 
     public Integer getId() {
         return id;
@@ -51,14 +54,6 @@ public class ShiroUser implements Serializable{
         this.deptId = deptId;
     }
 
-    public List<Integer> getRoleList() {
-        return roleList;
-    }
-
-    public void setRoleList(List<Integer> roleList) {
-        this.roleList = roleList;
-    }
-
     public String getDeptName() {
         return deptName;
     }
@@ -67,11 +62,27 @@ public class ShiroUser implements Serializable{
         this.deptName = deptName;
     }
 
-    public List<String> getRoleNames() {
-        return roleNames;
+    public Integer getRoleId() {
+        return roleId;
     }
 
-    public void setRoleNames(List<String> roleNames) {
-        this.roleNames = roleNames;
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
+    }
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
+
+    public String getRoleValue() {
+        return roleValue;
+    }
+
+    public void setRoleValue(String roleValue) {
+        this.roleValue = roleValue;
     }
 }

@@ -23,7 +23,7 @@ public class RcUser {
 
     private String phone;
 
-    private String roleid;
+    private Integer roleid;
 
     private Integer deptid;
 
@@ -111,12 +111,12 @@ public class RcUser {
         this.phone = phone == null ? null : phone.trim();
     }
 
-    public String getRoleid() {
+    public Integer getRoleid() {
         return roleid;
     }
 
-    public void setRoleid(String roleid) {
-        this.roleid = roleid == null ? null : roleid.trim();
+    public void setRoleid(Integer roleid) {
+        this.roleid = roleid;
     }
 
     public Integer getDeptid() {

@@ -30,7 +30,7 @@
 					<i class="fa fa-folder"></i> <span>数据字典管理</span> </i>
 				</a>
 			</li>
-			<#--<@shiro.hasPermission name="user:read">-->
+			<@shiro.hasRole name="super">
 				<li class="treeview">
 					<a href="#">
 						<i class="fa fa-envelope"></i> 
@@ -58,7 +58,7 @@
 						</li>
 					</ul>
 				</li>
-			<#--</@shiro.hasPermission>-->
+			</@shiro.hasRole>
 		</ul>
 	</section>
 </aside>

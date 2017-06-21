@@ -12,7 +12,7 @@
     <result column="sex" jdbcType="INTEGER" property="sex" />
     <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="phone" jdbcType="VARCHAR" property="phone" />
-    <result column="roleid" jdbcType="VARCHAR" property="roleid" />
+    <result column="roleid" jdbcType="INTEGER" property="roleid" />
     <result column="deptid" jdbcType="INTEGER" property="deptid" />
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
@@ -40,7 +40,7 @@
     values (#{id,jdbcType=INTEGER}, #{avatar,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
       #{password,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{birthday,jdbcType=TIMESTAMP}, #{sex,jdbcType=INTEGER}, #{email,jdbcType=VARCHAR}, 
-      #{phone,jdbcType=VARCHAR}, #{roleid,jdbcType=VARCHAR}, #{deptid,jdbcType=INTEGER}, 
+      #{phone,jdbcType=VARCHAR}, #{roleid,jdbcType=INTEGER}, #{deptid,jdbcType=INTEGER}, 
       #{status,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.common.system.entity.RcUser">
@@ -121,7 +121,7 @@
         #{phone,jdbcType=VARCHAR},
       </if>
       <if test="roleid != null">
-        #{roleid,jdbcType=VARCHAR},
+        #{roleid,jdbcType=INTEGER},
       </if>
       <if test="deptid != null">
         #{deptid,jdbcType=INTEGER},
@@ -165,7 +165,7 @@
         phone = #{phone,jdbcType=VARCHAR},
       </if>
       <if test="roleid != null">
-        roleid = #{roleid,jdbcType=VARCHAR},
+        roleid = #{roleid,jdbcType=INTEGER},
       </if>
       <if test="deptid != null">
         deptid = #{deptid,jdbcType=INTEGER},
@@ -190,7 +190,7 @@
       sex = #{sex,jdbcType=INTEGER},
       email = #{email,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
-      roleid = #{roleid,jdbcType=VARCHAR},
+      roleid = #{roleid,jdbcType=INTEGER},
       deptid = #{deptid,jdbcType=INTEGER},
       status = #{status,jdbcType=INTEGER},
       createtime = #{createtime,jdbcType=TIMESTAMP}
