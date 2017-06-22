@@ -1,6 +1,7 @@
 package com.common.system.controller;
 
 import com.common.system.shiro.ShiroKit;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
@@ -25,11 +26,8 @@ public class LoginController extends BaseController{
         modelAndView.setViewName("/system/login");
         return modelAndView;
     }
-    /**
-     * 进入登录页面
-     */
     @RequestMapping(value = {"/postLogin"}, method = RequestMethod.POST)
-    public String postLogin(ModelAndView modelAndView,@RequestParam(required = true) String username,@RequestParam(required = true) String password){
+    public String postLogin(@RequestParam(required = true) String username,@RequestParam(required = true) String password){
         Subject subject = ShiroKit.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(username,password.toCharArray());
         try {
@@ -37,6 +35,11 @@ public class LoginController extends BaseController{
         } catch (AuthenticationException e) {
             e.printStackTrace();
         }
+        return REDIRECT + "/";
+    }
+    @RequestMapping(value = "logout",method = RequestMethod.GET)
+    public String logout(){
+        ShiroKit.getSubject().logout();
         return REDIRECT + "/";
     }
 }
