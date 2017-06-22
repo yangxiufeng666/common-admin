@@ -30,7 +30,7 @@
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-envelope"></i>
-                        <span>权限管理</span>
+                        <span>系统设置</span>
                         <span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i></span>
                     </a>
                     <ul class="treeview-menu">

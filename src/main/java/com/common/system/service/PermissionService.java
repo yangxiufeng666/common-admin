@@ -1,6 +1,7 @@
 package com.common.system.service;
 
 import com.common.system.entity.RcPermission;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
@@ -11,4 +12,6 @@ import java.util.List;
  */
 public interface PermissionService {
     List<RcPermission> getPermissions(List<Integer> idList);
+
+    PageInfo<RcPermission> listForPage(Integer pageNum, Integer pageSize);
 }

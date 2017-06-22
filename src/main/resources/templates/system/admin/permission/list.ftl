@@ -85,7 +85,7 @@ $(function() {
 		"serverSide":true, //启用服务器端分页
 		"bInfo":false,
 		"language":{"url":"plugins/datatables/language.json"},
-		"ajax":{"url":"/admin/permission/page","type":"post"},
+		"ajax":{"url":"/permission/page","type":"post"},
 		"columns":[ 
 		    {"data":null}, 
 			{"data":"permissionsName"},

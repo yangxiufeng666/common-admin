@@ -4,6 +4,8 @@ import com.common.system.entity.RcPermission;
 import com.common.system.entity.RcPermissionExample;
 import com.common.system.mapper.RcPermissionMapper;
 import com.common.system.service.PermissionService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,5 +28,12 @@ public class PermissionServiceImpl implements PermissionService {
         RcPermissionExample.Criteria criteria = example.createCriteria();
         criteria.andIdIn(idList);
         return permissionMapper.selectByExample(example);
+    }
+
+    @Override
+    public PageInfo<RcPermission> listForPage(Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum,pageSize);
+        List<RcPermission> permissionList = permissionMapper.getPermissions();
+        return new PageInfo<>(permissionList);
     }
 }

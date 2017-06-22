@@ -68,11 +68,11 @@ $(function() {
 		"serverSide":true, //启用服务器端分页
 		"bInfo":false,
 		"language":{"url":"plugins/datatables/language.json"},
-		"ajax":{"url":"/admin/role/page","type":"post"},
+		"ajax":{"url":"/role/page","type":"post"},
 		"columns":[ 
 		    {"data":null}, 
-			{"data":"roleName"},
-			{"data":"roleValue"},
+			{"data":"name"},
+			{"data":"value"},
 			{"data":null},
 			{"data":"createTime"},
 			{"data":null} 
@@ -90,10 +90,10 @@ $(function() {
 			    targets: 3,
 			    data: null,
 			    render: function (data) {
-			    	if(data.statusId == "0"){
+			    	if(data.status == "0"){
 			    		return "不可用";
 			    	}
-			    	if(data.statusId == "1"){
+			    	if(data.status == "1"){
 			    		return "可用";
 			    	}
 			    	return "未知状态";

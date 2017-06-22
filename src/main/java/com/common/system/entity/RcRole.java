@@ -1,5 +1,7 @@
 package com.common.system.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class RcRole {
@@ -10,10 +12,12 @@ public class RcRole {
     private String value;
 
     private String tips;
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
+
+    private Integer status;
 
     public Integer getId() {
         return id;
@@ -61,5 +65,13 @@ public class RcRole {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

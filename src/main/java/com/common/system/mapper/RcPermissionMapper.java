@@ -20,4 +20,6 @@ public interface RcPermissionMapper {
     int updateByPrimaryKeySelective(RcPermission record);
 
     int updateByPrimaryKey(RcPermission record);
+
+    List<RcPermission> getPermissions();
 }

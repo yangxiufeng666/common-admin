@@ -146,4 +146,7 @@
       permissions_value = #{permissionsValue,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="getPermissions" resultMap="BaseResultMap">
+    SELECT * FROM rc_permission
+  </select>
 </mapper>
