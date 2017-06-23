@@ -2,9 +2,11 @@ package com.common.system.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class RcPermission {
+public class RcPermission implements Serializable{
+    private static final long serialVersionUID = -379530890431437353L;
     private Integer id;
 
     private String statusId;

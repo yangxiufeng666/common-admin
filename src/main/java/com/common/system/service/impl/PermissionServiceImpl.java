@@ -2,6 +2,7 @@ package com.common.system.service.impl;
 
 import com.common.system.entity.RcPermission;
 import com.common.system.entity.RcPermissionExample;
+import com.common.system.entity.RcRoleExample;
 import com.common.system.mapper.RcPermissionMapper;
 import com.common.system.service.PermissionService;
 import com.github.pagehelper.PageHelper;
@@ -32,8 +33,17 @@ public class PermissionServiceImpl implements PermissionService {
 
     @Override
     public PageInfo<RcPermission> listForPage(Integer pageNum, Integer pageSize) {
-        PageHelper.startPage(pageNum,pageSize);
+        if (pageNum != null && pageSize != null){
+            PageHelper.startPage(pageNum,pageSize);
+        }
         List<RcPermission> permissionList = permissionMapper.getPermissions();
         return new PageInfo<>(permissionList);
+    }
+
+    @Override
+    public List<RcPermission> getPermissionsByRoleId(Integer id) {
+        RcPermissionExample example = new RcPermissionExample();
+        RcPermissionExample.Criteria criteria = example.createCriteria();
+        return null;
     }
 }

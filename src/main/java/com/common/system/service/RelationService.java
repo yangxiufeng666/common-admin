@@ -1,6 +1,7 @@
 package com.common.system.service;
 
 import com.common.system.entity.RcRelation;
+import com.common.system.util.Result;
 
 import java.util.List;
 
@@ -12,4 +13,6 @@ import java.util.List;
 public interface RelationService {
 
     List<RcRelation> getByRoleId(Integer roleId);
+
+    Result<Integer> save(Integer roleId, List<Integer> permissionIds);
 }

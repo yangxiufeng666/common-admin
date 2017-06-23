@@ -2,9 +2,12 @@ package com.common.system.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
-public class RcRole {
+public class RcRole implements Serializable{
+    private static final long serialVersionUID = 6615885049491160726L;
     private Integer id;
 
     private String name;
@@ -18,6 +21,8 @@ public class RcRole {
     private Date updateTime;
 
     private Integer status;
+
+    private List<RcPermission> permissionList;
 
     public Integer getId() {
         return id;
@@ -73,5 +78,13 @@ public class RcRole {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public List<RcPermission> getPermissionList() {
+        return permissionList;
+    }
+
+    public void setPermissionList(List<RcPermission> permissionList) {
+        this.permissionList = permissionList;
     }
 }

@@ -11,7 +11,7 @@
 						<input type="text" class="form-control" name="roleValue" id="roleValue" placeholder="输入角色值...">
 					</div>
 					<div id="checkbox" class="form-group">
-						<label>角色：</label>
+						<label>权限：</label>
 						<label>
 							<input type="checkbox" id="allCheckbox" class="flat-red" onClick="onClickCheckbox('allCheckbox','permission')">全选
 						</label>
@@ -50,15 +50,21 @@ function roleAdd(){
 		return false;
 	}else{
 		$.ajax({
-			url: '${ctx}/admin/role/save',
+			url: '/role/save',
 	        type: 'post',
 	        dataType: 'text',
 	        data: $("#roleAddForm").serialize(),
 	        success: function (data) {
 	        	debugger;
-	        	$("#lgModal").modal('hide');
-	        	alertMsg("添加成功","success");
-	        	reloadTable(list_ajax,"#roleTime","#rolePremise");
+				var json = JSON.parse(data);
+				if (json.status){
+                    $("#lgModal").modal('hide');
+                    alertMsg("添加成功","success");
+                    reloadTable(list_ajax,"#roleTime","#rolePremise");
+				}else{
+                    alertMsg("添加失败",json.msg);
+				}
+
 	        }
 		})
 	}

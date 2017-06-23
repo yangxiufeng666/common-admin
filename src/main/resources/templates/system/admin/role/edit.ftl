@@ -1,15 +1,15 @@
 <div class="row">
 	<div class="col-md-12">
 		<form id="roleEditForm">
-			<input type="hidden" id="id" name="id" value=${bean.id}>
+			<input type="hidden" id="id" name="id" value=${role.id}>
 			<div class="box-body">
 				<div class="form-group">
 					<label id="roleNameLabel">角色名</label>
-					<input type="text" class="form-control" name="roleName" id="roleName" value=${bean.roleName} placeholder="角色名...">
+					<input type="text" class="form-control" name="roleName" id="roleName" value=${role.name} placeholder="角色名...">
 				</div>
 				<div class="form-group">
 					<label id="roleValueLabel">角色值</label>
-					<input type="text" class="form-control" name="roleValue" id="roleValue" value=${bean.roleValue} placeholder="角色值...">
+					<input type="text" class="form-control" name="roleValue" id="roleValue" value=${role.value} placeholder="角色值...">
 				</div>
 				<div class="form-group">
 					<label>权限：</label>

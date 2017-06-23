@@ -5,7 +5,7 @@
 				<h3 class="box-title">角色管理</h3>
 				<div class="box-tools pull-right">
 					<@shiro.hasPermission name="super:insert">
-						<a onclick="roleToListAjax();" class="btn btn-sm btn-primary" target="modal" modal="lg" href="/admin/role/add">添加</a>
+						<a onclick="roleToListAjax();" class="btn btn-sm btn-primary" target="modal" modal="lg" href="/role/add">添加</a>
 					</@shiro.hasPermission>
 				</div>
 			</div>
@@ -103,13 +103,13 @@ $(function() {
 				"targets" : -1,
 				"data" : null,
 				"render" : function(data) {
-					var btn = '<a class="btn btn-xs btn-primary" target="modal" modal="lg" href="/admin/role/view?id='+ data.id+ '">查看</a> &nbsp;';
+					var btn = '<a class="btn btn-xs btn-primary" target="modal" modal="lg" href="/role/view?id='+ data.id+ '">查看</a> &nbsp;';
 						if(data.roleValue != 'super'){
 							btn = btn+'<@shiro.hasPermission name="super:update">'
-							+'<a class="btn btn-xs btn-info" onclick="roleToListAjax();" target="modal" modal="lg" href="/admin/role/edit?id='+ data.id+'">修改</a> &nbsp;'
+							+'<a class="btn btn-xs btn-info" onclick="roleToListAjax();" target="modal" modal="lg" href="/admin/role/edit/'+ data.id+'">修改</a> &nbsp;'
 							+'</@shiro.hasPermission>'
 							+'<@shiro.hasPermission name="super:delete">'
-							+'<a class="btn btn-xs btn-default" callback="roleReload();" data-body="确认要删除吗？" target="ajaxTodo" href="/admin/role/delete?id='+ data.id + '">删除</a>'
+							+'<a class="btn btn-xs btn-default" callback="roleReload();" data-body="确认要删除吗？" target="ajaxTodo" href="/role/delete/'+ data.id + '">删除</a>'
 							+'</@shiro.hasPermission>';
 						}
 				return btn;

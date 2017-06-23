@@ -14,4 +14,6 @@ public interface PermissionService {
     List<RcPermission> getPermissions(List<Integer> idList);
 
     PageInfo<RcPermission> listForPage(Integer pageNum, Integer pageSize);
+    List<RcPermission> getPermissionsByRoleId(Integer id);
+
 }
