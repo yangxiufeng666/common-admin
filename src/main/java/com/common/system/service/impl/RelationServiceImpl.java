@@ -52,4 +52,17 @@ public class RelationServiceImpl implements RelationService {
         result.setMsg("操作成功");
         return result;
     }
+
+    @Override
+    public Result<Integer> update(Integer roleId, List<Integer> permissionList) {
+        Result<Integer> result = new Result<Integer>();
+        if (roleId < 1) {
+            result.setMsg("此角色id无效");
+            result.setStatus(false);
+            result.setCode(MsgCode.FAILED);
+            return result;
+        }
+        relationMapper.deleteByRoleId(roleId);
+        return save(roleId,permissionList);
+    }
 }

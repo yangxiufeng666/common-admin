@@ -41,7 +41,7 @@ public class PermissionServiceImpl implements PermissionService {
     }
 
     @Override
-    public List<RcPermission> getPermissionsByRoleId(Integer id) {
+    public List<RcPermission> getPermissionsByRoleId(Integer roleId) {
         RcPermissionExample example = new RcPermissionExample();
         RcPermissionExample.Criteria criteria = example.createCriteria();
         return null;

@@ -24,4 +24,5 @@ public interface RoleService {
     RcRole selectByRoleValue(String roleValue);
 
     Result<Integer> save(RcRole role, List<Integer> permissionIds);
+    Result<Integer> update(RcRole role);
 }

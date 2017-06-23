@@ -5,11 +5,11 @@
 			<div class="box-body">
 				<div class="form-group">
 					<label id="roleNameLabel">角色名</label>
-					<input type="text" class="form-control" name="roleName" id="roleName" value=${role.name} placeholder="角色名...">
+					<input type="text" class="form-control" name="name" id="name" value=${role.name} placeholder="角色名...">
 				</div>
 				<div class="form-group">
 					<label id="roleValueLabel">角色值</label>
-					<input type="text" class="form-control" name="roleValue" id="roleValue" value=${role.value} placeholder="角色值...">
+					<input type="text" class="form-control" name="value" id="value" value=${role.value} placeholder="角色值...">
 				</div>
 				<div class="form-group">
 					<label>权限：</label>
@@ -18,13 +18,13 @@
 					</label>
 					<br/>
 					<#list permissions as permission>
-						<#if bean.permissionList??>
+						<#if role.permissionList??>
 							<label>
-			                  <input type="checkbox" name="permission" class="flat-red" value="${permission.id}"<#list bean.permissionList as beanPermission> <#if beanPermission.permissionsValue == permission.permissionsValue>checked</#if></#list>> ${permission.permissionsName}
+			                  <input type="checkbox" name="permission" class="flat-red" value="${permission.id}"<#list role.permissionList as beanPermission> <#if beanPermission.permissionsValue == permission.permissionsValue>checked</#if></#list>> ${permission.permissionsName}
 			                </label>
 						<#else>
 							<label>
-			                  <input type="checkbox" name="permission" class="flat-red" value="${permission.id}"> ${permission.permissionName}
+			                  <input type="checkbox" name="permission" class="flat-red" value="${permission.id}"> ${permission.permissionsName}
 			                </label>
 						</#if>
 					</#list>
@@ -61,14 +61,19 @@
 		
 	function ajaxPost() {
 		var options = {
-	        url: '${ctx}/admin/role/update',
+	        url: '/role/update',
 	        type: 'post',
 	        dataType: 'text',
 	        data: $("#roleEditForm").serialize(),
 	        success: function (data) {
-	        	$("#lgModal").modal('hide');
-	        	alertMsg("更新成功","success");
-	        	reloadTable(list_ajax,"#roleTime","#rolePremise");
+                var json = JSON.parse(data);
+                if (json.status){
+                    $("#lgModal").modal('hide');
+                    alertMsg("添加成功","success");
+                    reloadTable(list_ajax,"#roleTime","#rolePremise");
+                }else{
+                    alertMsg("添加失败:"+json.msg,"success");
+                }
 	        }
 		};
 	$.ajax(options);

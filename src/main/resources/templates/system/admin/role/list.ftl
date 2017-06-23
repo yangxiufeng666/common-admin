@@ -103,10 +103,10 @@ $(function() {
 				"targets" : -1,
 				"data" : null,
 				"render" : function(data) {
-					var btn = '<a class="btn btn-xs btn-primary" target="modal" modal="lg" href="/role/view?id='+ data.id+ '">查看</a> &nbsp;';
+					var btn = '<a class="btn btn-xs btn-primary" target="modal" modal="lg" href="/role/view/'+ data.id+ '">查看</a> &nbsp;';
 						if(data.roleValue != 'super'){
 							btn = btn+'<@shiro.hasPermission name="super:update">'
-							+'<a class="btn btn-xs btn-info" onclick="roleToListAjax();" target="modal" modal="lg" href="/admin/role/edit/'+ data.id+'">修改</a> &nbsp;'
+							+'<a class="btn btn-xs btn-info" onclick="roleToListAjax();" target="modal" modal="lg" href="/role/edit/'+ data.id+'">修改</a> &nbsp;'
 							+'</@shiro.hasPermission>'
 							+'<@shiro.hasPermission name="super:delete">'
 							+'<a class="btn btn-xs btn-default" callback="roleReload();" data-body="确认要删除吗？" target="ajaxTodo" href="/role/delete/'+ data.id + '">删除</a>'

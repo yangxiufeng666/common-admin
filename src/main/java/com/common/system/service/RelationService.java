@@ -15,4 +15,6 @@ public interface RelationService {
     List<RcRelation> getByRoleId(Integer roleId);
 
     Result<Integer> save(Integer roleId, List<Integer> permissionIds);
+
+    Result<Integer> update(Integer roleId, List<Integer> permissionList);
 }

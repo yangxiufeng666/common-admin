@@ -14,6 +14,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,7 +72,17 @@ public class RoleServiceImpl implements RoleService {
     }
     @Override
     public Result<Integer> save(RcRole role, List<Integer> permissionIds) {
-        Result<Integer> result;
+        Result<Integer> result=new Result<>();
+        result.setStatus(false);
+        result.setCode(MsgCode.FAILED);
+        if (selectByRoleName(role.getName()) != null){
+            result.setMsg("角色名已存在");
+            return result;
+        }
+        if (selectByRoleValue(role.getValue()) != null){
+            result.setMsg("角色值已存在");
+            return result;
+        }
         roleMapper.insert(role);
         role = selectByRoleName(role.getName());
         result = relationService.save(role.getId(),permissionIds);
@@ -103,5 +114,37 @@ public class RoleServiceImpl implements RoleService {
         List<RcPermission> pList = permissionService.getPermissions(permissionIds);
         role.setPermissionList(pList);
         return result ;
+    }
+
+    @Override
+    public Result<Integer> update(RcRole role) {
+        Result<Integer> result = new Result<>();
+        result.setStatus(false);
+        result.setCode(MsgCode.FAILED);
+        if (!StringUtils.hasText(role.getName())) {
+            result.setMsg("角色名不能为空");
+            return result;
+        }
+        if (!StringUtils.hasText(role.getValue())) {
+            result.setMsg("角色值不能为空");
+            return result;
+        }
+        if (selectByRoleName(role.getName()) != null){
+            result.setMsg("角色名已存在");
+            return result;
+        }
+        if (selectByRoleValue(role.getValue()) != null){
+            result.setMsg("角色值已存在");
+            return result;
+        }
+        try {
+            roleMapper.updateByPrimaryKeySelective(role);
+            result.setStatus(true);
+            result.setCode(MsgCode.SUCCESS);
+            result.setMsg("操作成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 }

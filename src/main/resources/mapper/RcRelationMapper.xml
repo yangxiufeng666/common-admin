@@ -93,4 +93,7 @@
   <select id="getByRoleId" parameterType="integer" resultMap="BaseResultMap">
     SELECT * FROM  rc_relation WHERE roleid=#{roleId}
   </select>
+  <delete id="deleteByRoleId" parameterType="integer">
+    DELETE FROM rc_relation WHERE roleid=#{roleId}
+  </delete>
 </mapper>

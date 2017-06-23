@@ -20,4 +20,6 @@ public interface RcRelationMapper {
     int updateByPrimaryKey(RcRelation record);
 
     List<RcRelation> getByRoleId(Integer roleId);
+
+    int deleteByRoleId(Integer roleId);
 }

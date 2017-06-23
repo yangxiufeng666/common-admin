@@ -74,6 +74,24 @@ public class RoleMgrController extends BaseController{
         modelAndView.setViewName("/system/admin/role/edit");
         return modelAndView;
     }
+    @RequestMapping(value = "update")
+    public @ResponseBody Result update(RcRole role,String permission){
+        role = roleService.selectById(role.getId()).getData();
+        List<Integer> permissionList = Convert.toIntegerList(permission,",");
+        role.setUpdateTime(new Date());
+        Result<Integer> result = roleService.update(role);
+        if (result.isStatus()){
+
+        }
+        return result;
+    }
+    @RequestMapping(value = "view/{id}",method = RequestMethod.GET)
+    public ModelAndView view(@PathVariable Integer id,ModelAndView modelAndView){
+        Result<RcRole> result = roleService.selectById(id);
+        modelAndView.addObject("role",result.getData());
+        modelAndView.setViewName("/system/admin/role/view");
+        return modelAndView;
+    }
 
     private List<RcPermission> getRcPermissions() {
         PageInfo pageInfo = permissionService.listForPage(null,null);
