@@ -2,7 +2,6 @@
 <html>
 <head>
   <#include "../macro/base.ftl"/>
-  <base href="${ctx}/">
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>大数据可视化后台</title>

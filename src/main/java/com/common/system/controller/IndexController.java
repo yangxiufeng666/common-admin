@@ -16,7 +16,7 @@ public class IndexController {
     @RequestMapping(value = {"/"},method = RequestMethod.GET)
     public ModelAndView index(ModelAndView modelAndView){
         modelAndView.setViewName("/system/admin/index");
-        modelAndView.addObject("ctx","adminlte");
+//        modelAndView.addObject("ctx","adminlte");
         return modelAndView;
     }
 }

@@ -1,6 +1,7 @@
 package com.common.system.controller;
 
 import com.common.system.shiro.ShiroKit;
+import com.common.system.shiro.ShiroUser;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpSession;
 
 /**
  * Created by Mr.Yangxiufeng on 2017/6/15.
@@ -27,11 +30,14 @@ public class LoginController extends BaseController{
         return modelAndView;
     }
     @RequestMapping(value = {"/postLogin"}, method = RequestMethod.POST)
-    public String postLogin(@RequestParam(required = true) String username,@RequestParam(required = true) String password){
+    public String postLogin(@RequestParam(required = true) String username, @RequestParam(required = true) String password, ModelAndView modelAndView, HttpSession session){
         Subject subject = ShiroKit.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(username,password.toCharArray());
         try {
             subject.login(token);
+            ShiroUser user = (ShiroUser) subject.getPrincipal();
+            modelAndView.addObject("user",user);
+            session.setAttribute("user",user);
         } catch (AuthenticationException e) {
             e.printStackTrace();
         }

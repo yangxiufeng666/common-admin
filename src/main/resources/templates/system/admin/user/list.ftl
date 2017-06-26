@@ -68,7 +68,7 @@ $(function() {
 		"searching":false,
 		"serverSide":true, //启用服务器端分页
 		"bInfo":false,
-		"language":{"url":"plugins/datatables/language.json"},
+		"language":{"url":"adminlte/plugins/datatables/language.json"},
 		"ajax" : {"url":"/user/page","type":"post"},
 		"columns":[ 
 		    {"data":null}, 
