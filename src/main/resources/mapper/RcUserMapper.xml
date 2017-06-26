@@ -16,11 +16,84 @@
     <result column="deptid" jdbcType="INTEGER" property="deptid" />
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="updatetime" jdbcType="TIMESTAMP" property="updatetime" />
   </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
   <sql id="Base_Column_List">
     id, avatar, username, password, salt, name, birthday, sex, email, phone, roleid, 
-    deptid, status, createtime
+    deptid, status, createtime, updatetime
   </sql>
+  <select id="selectByExample" parameterType="com.common.system.entity.RcUserExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from rc_user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -31,17 +104,25 @@
     delete from rc_user
     where id = #{id,jdbcType=INTEGER}
   </delete>
+  <delete id="deleteByExample" parameterType="com.common.system.entity.RcUserExample">
+    delete from rc_user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
   <insert id="insert" parameterType="com.common.system.entity.RcUser">
     insert into rc_user (id, avatar, username, 
       password, salt, name, 
       birthday, sex, email, 
       phone, roleid, deptid, 
-      status, createtime)
+      status, createtime, updatetime
+      )
     values (#{id,jdbcType=INTEGER}, #{avatar,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
       #{password,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{birthday,jdbcType=TIMESTAMP}, #{sex,jdbcType=INTEGER}, #{email,jdbcType=VARCHAR}, 
       #{phone,jdbcType=VARCHAR}, #{roleid,jdbcType=INTEGER}, #{deptid,jdbcType=INTEGER}, 
-      #{status,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP})
+      #{status,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.common.system.entity.RcUser">
     insert into rc_user
@@ -88,6 +169,9 @@
       <if test="createtime != null">
         createtime,
       </if>
+      <if test="updatetime != null">
+        updatetime,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -132,8 +216,85 @@
       <if test="createtime != null">
         #{createtime,jdbcType=TIMESTAMP},
       </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
     </trim>
   </insert>
+  <update id="updateByExampleSelective" parameterType="map">
+    update rc_user
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.avatar != null">
+        avatar = #{record.avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="record.username != null">
+        username = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null">
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.salt != null">
+        salt = #{record.salt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.birthday != null">
+        birthday = #{record.birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.sex != null">
+        sex = #{record.sex,jdbcType=INTEGER},
+      </if>
+      <if test="record.email != null">
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null">
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roleid != null">
+        roleid = #{record.roleid,jdbcType=INTEGER},
+      </if>
+      <if test="record.deptid != null">
+        deptid = #{record.deptid,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.createtime != null">
+        createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatetime != null">
+        updatetime = #{record.updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update rc_user
+    set id = #{record.id,jdbcType=INTEGER},
+      avatar = #{record.avatar,jdbcType=VARCHAR},
+      username = #{record.username,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
+      salt = #{record.salt,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      birthday = #{record.birthday,jdbcType=TIMESTAMP},
+      sex = #{record.sex,jdbcType=INTEGER},
+      email = #{record.email,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      roleid = #{record.roleid,jdbcType=INTEGER},
+      deptid = #{record.deptid,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      updatetime = #{record.updatetime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.common.system.entity.RcUser">
     update rc_user
     <set>
@@ -176,6 +337,9 @@
       <if test="createtime != null">
         createtime = #{createtime,jdbcType=TIMESTAMP},
       </if>
+      <if test="updatetime != null">
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -193,7 +357,8 @@
       roleid = #{roleid,jdbcType=INTEGER},
       deptid = #{deptid,jdbcType=INTEGER},
       status = #{status,jdbcType=INTEGER},
-      createtime = #{createtime,jdbcType=TIMESTAMP}
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      updatetime = #{updatetime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="getUserByName" parameterType="string" resultMap="BaseResultMap">

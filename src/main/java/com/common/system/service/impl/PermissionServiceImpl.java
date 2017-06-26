@@ -14,6 +14,7 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -30,6 +31,9 @@ public class PermissionServiceImpl implements PermissionService {
 
     @Override
     public List<RcPermission> getPermissions(List<Integer> idList) {
+        if (idList == null || idList.size()==0){
+            return new ArrayList<>();
+        }
         RcPermissionExample example = new RcPermissionExample();
         RcPermissionExample.Criteria criteria = example.createCriteria();
         criteria.andIdIn(idList);

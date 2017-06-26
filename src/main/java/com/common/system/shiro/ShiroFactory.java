@@ -46,13 +46,18 @@ public class ShiroFactory {
         shiroUser.setUsername(user.getUsername());// 账号
         shiroUser.setDeptId(user.getDeptid());    // 部门id
         RcDept dept = deptMapper.selectByPrimaryKey(user.getDeptid());
-        shiroUser.setDeptName(dept.getSimplename());
+        if (dept != null){
+            shiroUser.setDeptName(dept.getSimplename());
+        }
         shiroUser.setName(user.getName());        // 用户名称
         shiroUser.setRoleId(user.getRoleid());
         //角色名称
         RcRole rcRole = roleMapper.selectByPrimaryKey(user.getRoleid());
-        shiroUser.setRoleName(rcRole.getName());
-        shiroUser.setRoleValue(rcRole.getValue());
+        if (rcRole != null){
+            shiroUser.setRoleName(rcRole.getName());
+            shiroUser.setRoleValue(rcRole.getValue());
+        }
+        shiroUser.setCreateTime(user.getCreatetime());
         return shiroUser;
     }
     public SimpleAuthenticationInfo buildAuthenticationInfo(ShiroUser shiroUser, RcUser user, String realmName) {

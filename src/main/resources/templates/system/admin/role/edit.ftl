@@ -69,7 +69,7 @@
                 var json = JSON.parse(data);
                 if (json.status){
                     $("#lgModal").modal('hide');
-                    alertMsg("添加成功","success");
+                    alertMsg("更新成功","success");
                     reloadTable(list_ajax,"#roleTime","#rolePremise");
                 }else{
                     alertMsg("更新失败:"+json.msg,"success");

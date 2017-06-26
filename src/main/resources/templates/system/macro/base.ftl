@@ -26,7 +26,7 @@
                     <i class="fa fa-folder"></i> <span>数据字典管理</span> </i>
                 </a>
             </li>
-            <@shiro.hasRole name="super">
+            <@shiro.hasAnyRoles name ="super,admin">
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-envelope"></i>
@@ -54,7 +54,7 @@
                         </li>
                     </ul>
                 </li>
-            </@shiro.hasRole>
+            </@shiro.hasAnyRoles>
         </ul>
     </section>
 </aside>

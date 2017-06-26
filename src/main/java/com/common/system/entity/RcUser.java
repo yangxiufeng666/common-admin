@@ -1,8 +1,12 @@
 package com.common.system.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.io.Serializable;
 import java.util.Date;
 
-public class RcUser {
+public class RcUser implements Serializable{
+    private static final long serialVersionUID = -5421592441701715834L;
     private Integer id;
 
     private String avatar;
@@ -28,8 +32,12 @@ public class RcUser {
     private Integer deptid;
 
     private Integer status;
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createtime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date updatetime;
+
+    private RcRole role;
 
     public Integer getId() {
         return id;
@@ -141,5 +149,21 @@ public class RcUser {
 
     public void setCreatetime(Date createtime) {
         this.createtime = createtime;
+    }
+
+    public Date getUpdatetime() {
+        return updatetime;
+    }
+
+    public void setUpdatetime(Date updatetime) {
+        this.updatetime = updatetime;
+    }
+
+    public RcRole getRole() {
+        return role;
+    }
+
+    public void setRole(RcRole role) {
+        this.role = role;
     }
 }

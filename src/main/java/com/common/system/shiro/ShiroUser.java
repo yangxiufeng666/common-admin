@@ -1,6 +1,9 @@
 package com.common.system.shiro;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,6 +24,8 @@ public class ShiroUser implements Serializable{
 //    public List<String> roleNames; // 角色名称集
     private String roleName;
     private String roleValue;//角色值
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date createTime;
 
     public Integer getId() {
         return id;
@@ -84,5 +89,13 @@ public class ShiroUser implements Serializable{
 
     public void setRoleValue(String roleValue) {
         this.roleValue = roleValue;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 }

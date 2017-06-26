@@ -4,7 +4,7 @@
 			<div class="modal-body">
 				<div class="form-group">
 					<label id="userNoLabel">账号</label>
-					<input type="text" class="form-control" name="userNo" id="userNo" placeholder="输入账号...">
+					<input type="text" class="form-control" name="username" id="username" placeholder="输入账号...">
 				</div>
 				<div class="form-group">
 					<label id="passwordLabel">密码</label>
@@ -12,7 +12,7 @@
 				</div>
 				<div class="form-group">
 					<label id="nickNameLabel">昵称</label>
-					<input type="text" class="form-control" name="nickName" id="nickName" placeholder="输入昵称...">
+					<input type="text" class="form-control" name="name" id="name" placeholder="输入昵称...">
 				</div>
 				<div class="form-group">
 					<label>性别</label> 
@@ -23,20 +23,20 @@
 				</div>
 				<div class="form-group">
 					<label>角色：</label>
-					<label>
-						<input type="checkbox" id="allCheckbox" class="flat-red" onClick="onClickCheckbox('allCheckbox','role')">全选
-					</label>
+					<#--<label>-->
+						<#--<input type="checkbox" id="allCheckbox" class="flat-red" onClick="onClickCheckbox('allCheckbox','role')">全选-->
+					<#--</label>-->
 					<br/>
 					<#list roles as role>
-						<#if role.roleValue == 'superAdmin'>
+						<#if role.value == 'superAdmin'>
 							<@shiro.hasPermission name="super:update">
 							<label>
-			                  <input type="checkbox" name="role" class="flat-red" value="${role.id}"> ${role.roleName}
+			                  <input type="radio" name="roleId" class="flat-red" value="${role.id}"> ${role.name}
 			                </label>
 			                </@shiro.hasPermission>
 		                <#else>
 			                <label>
-			                  <input type="checkbox" name="role" class="flat-red" value="${role.id}"> ${role.roleName}
+			                  <input type="radio" name="roleId" class="flat-red" value="${role.id}"> ${role.name}
 			                </label>
 		                </#if>
 					</#list>
@@ -56,26 +56,31 @@ function securitySave(){
 	$("span").remove(".errorClass");
 	$("br").remove(".errorClass");
 	var status = 1;
-	if($("#userNo").val()==""){
-		$("#userNoLabel").prepend('<span class="errorClass" style="color:red">*角色名不能为空</span><br class="errorClass"/>');
+	if($("#username").val()==""){
+		$("#userNoLabel").prepend('<span class="errorClass" style="color:red">*账号不能为空</span><br class="errorClass"/>');
 		status = 0;
 	}
 	if($("#password").val()==""){
-		$("#passwordLabel").prepend('<span class="errorClass" style="color:red">*角色值不能为空</span><br class="errorClass"/>');
+		$("#passwordLabel").prepend('<span class="errorClass" style="color:red">*密码不能为空</span><br class="errorClass"/>');
 		status = 0;
 	}
 	if(status == 0){
 		return false;
 	}else{
 		$.ajax({
-			url: '${ctx}/admin/security/save',
+			url: '/user/save',
 	        type: 'post',
 	        dataType: 'text',
 	        data: $("#securityAddForm").serialize(),
 	        success: function (data) {
-	        	$("#lgModal").modal('hide');
-	        	alertMsg("添加成功","success");
-	        	reloadTable(list_ajax,"#securityTime","#securityPremise");
+                var json = JSON.parse(data);
+                if (json.status){
+                    $("#lgModal").modal('hide');
+                    alertMsg("添加成功","success");
+                    reloadTable(list_ajax,"#roleTime","#rolePremise");
+                }else{
+                    alertMsg("添加失败:"+json.msg,"success");
+                }
 	        }
 		});
 	}

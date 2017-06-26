@@ -5,7 +5,7 @@
 				<h3 class="box-title">用户管理</h3>
 				<div class="box-tools pull-right">
 					<@shiro.hasPermission name="admin:insert">
-						<a onclick="securityToListAjax();" class="btn btn-sm btn-primary" target="modal" modal="lg" href="/admin/security/add">添加</a>
+						<a onclick="securityToListAjax();" class="btn btn-sm btn-primary" target="modal" modal="lg" href="/user/add">添加</a>
 					</@shiro.hasPermission>
 				</div>
 			</div>
@@ -69,14 +69,14 @@ $(function() {
 		"serverSide":true, //启用服务器端分页
 		"bInfo":false,
 		"language":{"url":"plugins/datatables/language.json"},
-		"ajax" : {"url":"/admin/security/page","type":"post"},
+		"ajax" : {"url":"/user/page","type":"post"},
 		"columns":[ 
 		    {"data":null}, 
-			{"data":"userNo"},
-			{"data":"nickName"},
+			{"data":"username"},
+			{"data":"name"},
 			{"data":null},
 			{"data":null},
-			{"data":"createTime"},
+			{"data":"createtime"},
 			{"data":null} 
 			],
 		"columnDefs":[
@@ -88,15 +88,21 @@ $(function() {
 			        return No;
 			    }
 			},
+            {
+                targets: 3,
+                data: null,
+                render: function (data) {
+                    var name = data.name;
+                    return name;
+                }
+            },
 			{
 			    targets: 3,
 			    data: null,
 			    render: function (data) {
 			    	var  listStr = "";
-			    	var list = data.roleList;
-			    	for(var i=0;i<list.length;i++){
-			    		listStr = listStr+(i+1)+"."+list[i].roleName;
-			    	}
+			    	var list = data.role;
+					listStr = list.name;
 			    	return listStr;
 			    }
 			},
@@ -104,10 +110,10 @@ $(function() {
 			    targets: 4,
 			    data: null,
 			    render: function (data) {
-			    	if(data.statusId == "0"){
+			    	if(data.status == 0){
 			    		return "不可用";
 			    	}
-			    	if(data.statusId == "1"){
+			    	if(data.status == 1){
 			    		return "可用";
 			    	}
 			    	return "未知状态";
@@ -117,16 +123,17 @@ $(function() {
 				"targets" : -1,
 				"data" : null,
 				"render" : function(data) {
+//					debugger;
 					var btn = "";
-							if(data.userNo != 'super'){
-								btn = '<a class="btn btn-xs btn-primary" target="modal" modal="lg" href="/admin/security/view?id='+ data.id+ '">查看</a> &nbsp;'
-								+'<@shiro.hasPermission name="admin:update">'
-								+'<a class="btn btn-xs btn-info" onclick="securityToListAjax();" target="modal" modal="lg" href="/admin/security/edit?id='+ data.id+ '">修改</a> &nbsp;'
-								+'</@shiro.hasPermission>'
-								+'<@shiro.hasPermission name="admin:delete">'
-								+'<a class="btn btn-xs btn-default" callback="securityReload();" data-body="确认要删除吗？" target="ajaxTodo" href="/admin/security/delete?id='+ data.id + '">删除</a>'
-								+'</@shiro.hasPermission>';
-							}
+					btn = '<a class="btn btn-xs btn-primary" target="modal" modal="lg" href="/user/view/'+ data.id+ '">查看</a> &nbsp;';
+					if(isNull(data.role) ||  'super' != data.role.value){
+                        btn +='<@shiro.hasPermission name="admin:update">'
+                        +'<a class="btn btn-xs btn-info" onclick="securityToListAjax();" target="modal" modal="lg" href="/user/edit/'+ data.id+ '">修改</a> &nbsp;'
+                        +'</@shiro.hasPermission>'
+                        +'<@shiro.hasPermission name="admin:delete">'
+                        +'<a class="btn btn-xs btn-default" callback="securityReload();" data-body="确认要删除吗？" target="ajaxTodo" href="/user/delete/'+ data.id + '">删除</a>'
+                        +'</@shiro.hasPermission>';
+					}
 					return btn;
 			}
 		} ]
@@ -146,5 +153,8 @@ function securityReload(){
 function securityToListAjax(){
 	list_ajax = security_tab;
 	console.log(list_ajax);
+}
+function isNull(data){
+    return (data == "" || data == undefined || data == null) ? true : false;
 }
 </script>

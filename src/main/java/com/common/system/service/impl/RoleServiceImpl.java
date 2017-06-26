@@ -100,6 +100,8 @@ public class RoleServiceImpl implements RoleService {
             return result;
         }
         result.setData(role);
+        result.setStatus(true);
+        result.setCode(MsgCode.SUCCESS);
         List<RcRelation> relationList = relationService.getByRoleId(id);
         if (relationList == null || relationList.size()==0){
             result.setStatus(true);
