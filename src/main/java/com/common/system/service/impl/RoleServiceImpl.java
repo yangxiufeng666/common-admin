@@ -129,14 +129,6 @@ public class RoleServiceImpl implements RoleService {
             result.setMsg("角色值不能为空");
             return result;
         }
-        if (selectByRoleName(role.getName()) != null){
-            result.setMsg("角色名已存在");
-            return result;
-        }
-        if (selectByRoleValue(role.getValue()) != null){
-            result.setMsg("角色值已存在");
-            return result;
-        }
         try {
             roleMapper.updateByPrimaryKeySelective(role);
             result.setStatus(true);
@@ -144,6 +136,9 @@ public class RoleServiceImpl implements RoleService {
             result.setMsg("操作成功");
         } catch (Exception e) {
             e.printStackTrace();
+            result.setStatus(false);
+            result.setCode(MsgCode.FAILED);
+            result.setMsg("操作失败："+e.getLocalizedMessage());
         }
         return result;
     }

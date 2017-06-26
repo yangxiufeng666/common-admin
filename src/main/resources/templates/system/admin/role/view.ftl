@@ -26,7 +26,9 @@
                 </tr>
                 <tr>
                 	<td>更新时间：</td>
-                	<td>${role.updateTime???string('yyyy-MM-dd HH:mm:ss',"")}</td>
+					<#if role.updateTime??>
+                        <td>${role.updateTime?string('yyyy-MM-dd HH:mm:ss')}</td>
+					</#if>
                 </tr>
          	</table>
          	<div class="box-footer">

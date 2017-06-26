@@ -72,7 +72,7 @@
                     alertMsg("添加成功","success");
                     reloadTable(list_ajax,"#roleTime","#rolePremise");
                 }else{
-                    alertMsg("添加失败:"+json.msg,"success");
+                    alertMsg("更新失败:"+json.msg,"success");
                 }
 	        }
 		};

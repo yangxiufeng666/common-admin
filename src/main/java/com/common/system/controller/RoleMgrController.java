@@ -3,6 +3,7 @@ package com.common.system.controller;
 import com.common.system.entity.RcPermission;
 import com.common.system.entity.RcRole;
 import com.common.system.service.PermissionService;
+import com.common.system.service.RelationService;
 import com.common.system.service.RoleService;
 import com.common.system.util.Convert;
 import com.common.system.util.PageBean;
@@ -10,7 +11,6 @@ import com.common.system.util.Result;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -30,6 +30,8 @@ public class RoleMgrController extends BaseController{
     private RoleService roleService;
     @Autowired
     private PermissionService permissionService;
+    @Autowired
+    private RelationService relationService;
 
     @RequestMapping(value = "list",method = RequestMethod.GET)
     public ModelAndView list(ModelAndView modelAndView){
@@ -81,7 +83,7 @@ public class RoleMgrController extends BaseController{
         role.setUpdateTime(new Date());
         Result<Integer> result = roleService.update(role);
         if (result.isStatus()){
-
+            result = relationService.update(role.getId(),permissionList);
         }
         return result;
     }
