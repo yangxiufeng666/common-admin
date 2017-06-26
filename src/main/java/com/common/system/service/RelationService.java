@@ -17,4 +17,7 @@ public interface RelationService {
     Result<Integer> save(Integer roleId, List<Integer> permissionIds);
 
     Result<Integer> update(Integer roleId, List<Integer> permissionList);
+
+    int deleteByRoleId(Integer roleId);
+    int deleteByPermissionId(Integer permissionId);
 }

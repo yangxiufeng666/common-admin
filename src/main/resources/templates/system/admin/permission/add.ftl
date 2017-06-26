@@ -37,14 +37,19 @@ function permissionSave(){
 		return false;
 	}else{
 		$.ajax({
-			url: '${ctx}/admin/permission/save',
+			url: '/permission/save',
 	        type: 'post',
 	        dataType: 'text',
 	        data: $("#permissionAddForm").serialize(),
 	        success: function (data) {
-	        	$("#lgModal").modal('hide');
-	        	alertMsg("添加成功","success");
-	        	reloadTable(list_ajax,"#permissionTime","#permissionPremise");
+                var json = JSON.parse(data);
+                if (json.status){
+                    $("#lgModal").modal('hide');
+                    alertMsg("添加成功","success");
+                    reloadTable(list_ajax,"#roleTime","#rolePremise");
+                }else{
+                    alertMsg("添加失败:"+json.msg,"success");
+                }
 	        }
 		});
 	}

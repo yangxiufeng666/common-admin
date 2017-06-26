@@ -10,19 +10,19 @@ import java.io.Serializable;
 public class Result<T> implements Serializable {
     private static final long serialVersionUID = -2342172746518830094L;
     /**
-     * 状态，默认是失败=false
+     * 状态，默认是失败
      */
     private boolean status = false;
 
     /**
-     * 错误码，默认是失败=99，成功=0
+     * 状态码，默认是失败
      */
-    private int code = 99;
+    private int code = MsgCode.FAILED;
 
     /**
-     * 错误信息
+     * 信息
      */
-    private String msg = "";
+    private String msg = "操作失败";
 
     /**
      * 返回结果实体

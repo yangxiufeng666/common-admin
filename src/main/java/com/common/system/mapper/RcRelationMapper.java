@@ -22,4 +22,6 @@ public interface RcRelationMapper {
     List<RcRelation> getByRoleId(Integer roleId);
 
     int deleteByRoleId(Integer roleId);
+
+    int deleteByPermissionId(Integer pId);
 }

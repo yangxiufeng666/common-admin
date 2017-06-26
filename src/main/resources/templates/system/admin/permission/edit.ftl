@@ -38,14 +38,19 @@
 			return false;
 		}else{
 			$.ajax({
-				url: "${ctx}/admin/permission/update",
+				url: "/permission/update",
 		        type: "post",
 		        dataType: "text",
 		        data: $("#permissionEditForm").serialize(),
 		        success: function (data) {
-		        	$("#lgModal").modal('hide');
-		        	alertMsg("更新成功","success");
-		        	reloadTable(list_ajax,"#permissionTime","#permissionPremise");
+                    var json = JSON.parse(data);
+                    if (json.status){
+                        $("#lgModal").modal('hide');
+                        alertMsg("更新成功","success");
+                        reloadTable(list_ajax,"#roleTime","#rolePremise");
+                    }else{
+                        alertMsg("更新失败:"+json.msg,"success");
+                    }
 		        }
 			});
 		}

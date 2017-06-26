@@ -3,7 +3,7 @@
 <mapper namespace="com.common.system.mapper.RcPermissionMapper">
   <resultMap id="BaseResultMap" type="com.common.system.entity.RcPermission">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="status_id" jdbcType="CHAR" property="statusId" />
+    <result column="status_id" jdbcType="INTEGER" property="statusId" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="permissions_name" jdbcType="VARCHAR" property="permissionsName" />
@@ -69,7 +69,7 @@
     insert into rc_permission (id, status_id, create_time, 
       update_time, permissions_name, permissions_value
       )
-    values (#{id,jdbcType=INTEGER}, #{statusId,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+    values (#{id,jdbcType=INTEGER}, #{statusId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
       #{updateTime,jdbcType=TIMESTAMP}, #{permissionsName,jdbcType=VARCHAR}, #{permissionsValue,jdbcType=VARCHAR}
       )
   </insert>
@@ -100,7 +100,7 @@
         #{id,jdbcType=INTEGER},
       </if>
       <if test="statusId != null">
-        #{statusId,jdbcType=CHAR},
+        #{statusId,jdbcType=INTEGER},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
@@ -120,7 +120,7 @@
     update rc_permission
     <set>
       <if test="statusId != null">
-        status_id = #{statusId,jdbcType=CHAR},
+        status_id = #{statusId,jdbcType=INTEGER},
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -139,7 +139,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.common.system.entity.RcPermission">
     update rc_permission
-    set status_id = #{statusId,jdbcType=CHAR},
+    set status_id = #{statusId,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       permissions_name = #{permissionsName,jdbcType=VARCHAR},

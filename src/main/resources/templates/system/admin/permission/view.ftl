@@ -12,8 +12,8 @@
 			<tr>
 				<td>用户状态：</td>
 				<td>
-					<#if bean.statusId == '0'>不可用</#if>
-					<#if bean.statusId == '1'>可用</#if>
+					<#if bean.statusId == 0>不可用</#if>
+					<#if bean.statusId == 1>可用</#if>
 				</td>
 			</tr>
 			<tr>
@@ -22,7 +22,9 @@
 			</tr>
 			<tr>
 				<td>更新时间：</td>
-				<td>${bean.updateTime?string('yyyy-MM-dd HH:mm:ss')}</td>
+				<#if bean.updateTime??>
+                    <td>${bean.updateTime?string('yyyy-MM-dd HH:mm:ss')}</td>
+				</#if>
 			</tr>
 		</table>
 		<div class="box-footer">

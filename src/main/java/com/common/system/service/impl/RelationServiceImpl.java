@@ -65,4 +65,14 @@ public class RelationServiceImpl implements RelationService {
         relationMapper.deleteByRoleId(roleId);
         return save(roleId,permissionList);
     }
+
+    @Override
+    public int deleteByRoleId(Integer roleId) {
+        return relationMapper.deleteByRoleId(roleId);
+    }
+
+    @Override
+    public int deleteByPermissionId(Integer permissionId) {
+        return relationMapper.deleteByRoleId(permissionId);
+    }
 }

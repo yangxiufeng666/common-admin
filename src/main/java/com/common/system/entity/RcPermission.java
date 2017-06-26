@@ -9,7 +9,7 @@ public class RcPermission implements Serializable{
     private static final long serialVersionUID = -379530890431437353L;
     private Integer id;
 
-    private String statusId;
+    private Integer statusId;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -27,12 +27,12 @@ public class RcPermission implements Serializable{
         this.id = id;
     }
 
-    public String getStatusId() {
+    public Integer getStatusId() {
         return statusId;
     }
 
-    public void setStatusId(String statusId) {
-        this.statusId = statusId == null ? null : statusId.trim();
+    public void setStatusId(Integer statusId) {
+        this.statusId = statusId;
     }
 
     public Date getCreateTime() {

@@ -96,4 +96,7 @@
   <delete id="deleteByRoleId" parameterType="integer">
     DELETE FROM rc_relation WHERE roleid=#{roleId}
   </delete>
+  <delete id="deleteByPermissionId" parameterType="integer">
+    DELETE FROM rc_relation WHERE permissionid=#{pId}
+  </delete>
 </mapper>
