@@ -54,14 +54,14 @@
                         </li>
                         <@shiro.hasRole name="super">
                             <li>
-                                <a target="navTab" href="/doc.html">
+                                <a target="_blank" href="/doc.html">
                                     <i class="fa fa-inbox"></i>
                                     <span>API文档</span>
                                 </a>
                             </li>
                         </@shiro.hasRole>
                         <li>
-                            <a target="navTab" href="/druid">
+                            <a target="_blank" href="/druid">
                                 <i class="fa fa-inbox"></i>
                                 <span>数据库日志</span>
                             </a>
