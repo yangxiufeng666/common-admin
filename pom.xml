@@ -24,7 +24,7 @@
 		<java.version>1.8</java.version>
 		<org.apache.shiro.version>1.4.0</org.apache.shiro.version>
 		<mybatis.springboot.starter>1.3.0</mybatis.springboot.starter>
-		<druid.version>1.0.28</druid.version>
+		<druid.version>1.1.0</druid.version>
 		<mybatis.generator.version>1.3.5</mybatis.generator.version>
 		<pagehelper.version>1.1.1</pagehelper.version>
 		<swagger.ui.version>2.7.0</swagger.ui.version>
@@ -104,9 +104,10 @@
 		</dependency>
 		<!--shiro-freemarker-tags end-->
 		<!--数据库连接池-->
+		<!--数据库连接池-->
 		<dependency>
 			<groupId>com.alibaba</groupId>
-			<artifactId>druid</artifactId>
+			<artifactId>druid-spring-boot-starter</artifactId>
 			<version>${druid.version}</version>
 		</dependency>
 		<!--分页插件-->
