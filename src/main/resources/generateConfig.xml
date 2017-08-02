@@ -49,7 +49,7 @@
             <!-- enableSubPackages:是否让schema作为包的后缀 -->
             <property name="enableSubPackages" value="false"/>
         </javaClientGenerator>
-        <table tableName="rc_user"
+        <table tableName="rc_menu"
                enableCountByExample="false"
                enableDeleteByExample="true"
                enableSelectByExample="true"

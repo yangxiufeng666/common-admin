@@ -52,6 +52,12 @@
                                 <span>权限管理</span>
                             </a>
                         </li>
+                        <li>
+                            <a target="navTab" href="/menu/list">
+                                <i class="fa fa-inbox"></i>
+                                <span>菜单管理</span>
+                            </a>
+                        </li>
                         <@shiro.hasRole name="super">
                             <li>
                                 <a target="_blank" href="/doc.html">
