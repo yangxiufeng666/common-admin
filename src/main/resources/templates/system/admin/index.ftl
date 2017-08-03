@@ -4,7 +4,7 @@
   <#include "../macro/base.ftl"/>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>大数据可视化后台</title>
+  <title>Rock后台</title>
   <@style/>
 </head>
 <body class="sidebar-mini ajax-template skin-blue fixed">
@@ -35,7 +35,7 @@
 		<!-- Main content -->
 		<section class="content" id="content">
 			<div class="tabs-panel">
-				<h1>欢迎使用大数据可视化管理后台</h1>
+				<h1>欢迎使用Rock管理后台</h1>
 			</div>
 		</section>
 		</div>

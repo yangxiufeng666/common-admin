@@ -4,12 +4,14 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class RcMenu implements Serializable{
-    private static final long serialVersionUID = 5127761798611389506L;
+    private static final long serialVersionUID = 4419340793159328904L;
     private String id;
 
     private String code;
 
     private String pCode;
+
+    private String pId;
 
     private String name;
 
@@ -51,6 +53,14 @@ public class RcMenu implements Serializable{
 
     public void setpCode(String pCode) {
         this.pCode = pCode == null ? null : pCode.trim();
+    }
+
+    public String getpId() {
+        return pId;
+    }
+
+    public void setpId(String pId) {
+        this.pId = pId == null ? null : pId.trim();
     }
 
     public String getName() {

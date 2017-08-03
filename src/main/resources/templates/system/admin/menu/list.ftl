@@ -2,7 +2,7 @@
 	<div class="col-xs-12">
 		<div class="box">
 			<div class="box-header">
-				<h3 class="box-title">用户管理</h3>
+				<h3 class="box-title">菜单管理</h3>
 				<div class="box-tools pull-right">
 					<#--<@shiro.hasPermission name="admin:insert">-->
 						<a onclick="securityToListAjax();" class="btn btn-sm btn-primary" target="modal" modal="lg" href="/menu/add">添加</a>
@@ -37,11 +37,13 @@
 								<th>菜单名称</th>
 								<th>菜单编号</th>
 								<th>父菜单编号</th>
+								<th>父菜单ID</th>
 								<th>请求地址</th>
 								<th>排序</th>
 								<th>层级</th>
 								<th>是否是菜单</th>
 								<th>状态</th>
+                                <th>操作</th>
 							</tr>
 						</tr>
 					</thead>
@@ -77,9 +79,11 @@ $(function() {
             {"data":"name"},
             {"data":"code"},
             {"data":"pCode"},
+            {"data":"pId"},
             {"data":"url"},
             {"data":"sort"},
-            {"data":"level"}
+            {"data":"level"},
+			{"data":null}
 			],
 		"columnDefs":[
 			{
@@ -89,6 +93,17 @@ $(function() {
 			    	No=No+1;
 			        return No;
 			    }
+			},{
+                targets: 8,
+                data: null,
+                render: function (data) {
+                    if (data.isMenu == 1){
+						return '是';
+					}else {
+						return '否';
+					}
+                    return No;
+                }
 			} ]
 	}).on('preXhr.dt', function ( e, settings, data ) {
 		No=0;

@@ -83,8 +83,8 @@
 <#macro header>
 <header class="main-header">
     <a href="index2.html" class="logo">
-        <span class="logo-mini"><b>C</b><b>A</b></span>
-        <span class="logo-lg"><b>大数据可视化 </b>LTE</span>
+        <span class="logo-mini"><b>Rock</b></span>
+        <span class="logo-lg"><b>Rock</b></span>
     </a>
     <nav class="navbar navbar-static-top">
         <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
@@ -96,7 +96,7 @@
                 <li class="dropdown user user-menu">
                     <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
                         <img src="adminlte/dist/img/user2-160x160.jpg" class="user-image" alt="User Image"> <span
-                            class="hidden-xs">大数据可视化</span>
+                            class="hidden-xs">Rock管理后台</span>
                     </a>
                     <ul class="dropdown-menu">
                         <li class="user-header">
@@ -133,7 +133,7 @@
     <div class="pull-right hidden-xs">
         <b>Version</b> 2.3.6
     </div>
-    <strong>Copyright &copy; 2014-2016 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.
+    <strong>Copyright &copy; 2017-2026 <a href="https://github.com/babylikebird/common-admin">Yang</a>.
     </strong> All rights reserved.
 </footer>
 </#macro>

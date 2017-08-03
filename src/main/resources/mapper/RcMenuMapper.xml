@@ -5,6 +5,7 @@
     <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="code" jdbcType="VARCHAR" property="code" />
     <result column="p_code" jdbcType="VARCHAR" property="pCode" />
+    <result column="p_id" jdbcType="VARCHAR" property="pId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="url" jdbcType="VARCHAR" property="url" />
     <result column="is_menu" jdbcType="INTEGER" property="isMenu" />
@@ -74,7 +75,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, code, p_code, name, url, is_menu, level, sort, status, icon, create_time, update_time
+    id, code, p_code, p_id, name, url, is_menu, level, sort, status, icon, create_time, 
+    update_time
   </sql>
   <select id="selectByExample" parameterType="com.common.system.entity.RcMenuExample" resultMap="BaseResultMap">
     select
@@ -108,12 +110,12 @@
   </delete>
   <insert id="insert" parameterType="com.common.system.entity.RcMenu">
     insert into rc_menu (id, code, p_code, 
-      name, url, is_menu, 
+      p_id, name, url, is_menu, 
       level, sort, status, 
       icon, create_time, update_time
       )
     values (#{id,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{pCode,jdbcType=VARCHAR}, 
-      #{name,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{isMenu,jdbcType=INTEGER}, 
+      #{pId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{isMenu,jdbcType=INTEGER}, 
       #{level,jdbcType=INTEGER}, #{sort,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
       #{icon,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
       )
@@ -129,6 +131,9 @@
       </if>
       <if test="pCode != null">
         p_code,
+      </if>
+      <if test="pId != null">
+        p_id,
       </if>
       <if test="name != null">
         name,
@@ -167,6 +172,9 @@
       </if>
       <if test="pCode != null">
         #{pCode,jdbcType=VARCHAR},
+      </if>
+      <if test="pId != null">
+        #{pId,jdbcType=VARCHAR},
       </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
@@ -209,6 +217,9 @@
       <if test="record.pCode != null">
         p_code = #{record.pCode,jdbcType=VARCHAR},
       </if>
+      <if test="record.pId != null">
+        p_id = #{record.pId,jdbcType=VARCHAR},
+      </if>
       <if test="record.name != null">
         name = #{record.name,jdbcType=VARCHAR},
       </if>
@@ -246,6 +257,7 @@
     set id = #{record.id,jdbcType=VARCHAR},
       code = #{record.code,jdbcType=VARCHAR},
       p_code = #{record.pCode,jdbcType=VARCHAR},
+      p_id = #{record.pId,jdbcType=VARCHAR},
       name = #{record.name,jdbcType=VARCHAR},
       url = #{record.url,jdbcType=VARCHAR},
       is_menu = #{record.isMenu,jdbcType=INTEGER},
@@ -267,6 +279,9 @@
       </if>
       <if test="pCode != null">
         p_code = #{pCode,jdbcType=VARCHAR},
+      </if>
+      <if test="pId != null">
+        p_id = #{pId,jdbcType=VARCHAR},
       </if>
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
@@ -302,6 +317,7 @@
     update rc_menu
     set code = #{code,jdbcType=VARCHAR},
       p_code = #{pCode,jdbcType=VARCHAR},
+      p_id = #{pId,jdbcType=VARCHAR},
       name = #{name,jdbcType=VARCHAR},
       url = #{url,jdbcType=VARCHAR},
       is_menu = #{isMenu,jdbcType=INTEGER},
