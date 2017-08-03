@@ -1,6 +1,7 @@
 package com.common.system.service;
 
 import com.common.system.entity.RcMenu;
+import com.github.pagehelper.PageInfo;
 
 /**
  * Created by Mr.Yangxiufeng on 2017/8/2.
@@ -16,4 +17,6 @@ public interface MenuService {
     RcMenu selectByPrimaryKey(String id);
 
     int update(RcMenu record);
+
+    PageInfo<RcMenu> listForPage(Integer pageNum, Integer pageSize);
 }

@@ -53,100 +53,51 @@
 
 <script type="text/javascript">
 var security_tab;
-<#--$(function() {-->
-	<#--//初始化时间选择器-->
-	<#--$('#securityTime').datepicker({-->
-		<#--language: 'zh-CN',-->
-		<#--format: 'yyyy-mm-dd',-->
-		<#--autoclose: true,-->
-		<#--todayHighlight: true-->
-	<#--});-->
-	<#--//初始化表格-->
-	<#---->
-	<#--var No=0;-->
-	<#--security_tab=$('#security_tab').DataTable({-->
-		<#--"dom":'itflp',-->
-		<#--"processing":true,-->
-		<#--"searching":false,-->
-		<#--"serverSide":true, //启用服务器端分页-->
-		<#--"bInfo":false,-->
-		<#--"language":{"url":"adminlte/plugins/datatables/language.json"},-->
-		<#--"ajax" : {"url":"/user/page","type":"post"},-->
-		<#--"columns":[ -->
-		    <#--{"data":null}, -->
-			<#--{"data":"username"},-->
-			<#--{"data":"name"},-->
-			<#--{"data":null},-->
-			<#--{"data":null},-->
-			<#--{"data":"createtime"},-->
-			<#--{"data":null} -->
-			<#--],-->
-		<#--"columnDefs":[-->
-			<#--{-->
-			    <#--targets: 0,-->
-			    <#--data: null,-->
-			    <#--render: function (data) {-->
-			    	<#--No=No+1;-->
-			        <#--return No;-->
-			    <#--}-->
-			<#--},-->
-            <#--{-->
-                <#--targets: 3,-->
-                <#--data: null,-->
-                <#--render: function (data) {-->
-                    <#--var name = data.name;-->
-                    <#--return name;-->
-                <#--}-->
-            <#--},-->
-			<#--{-->
-			    <#--targets: 3,-->
-			    <#--data: null,-->
-			    <#--render: function (data) {-->
-			    	<#--var  listStr = "";-->
-			    	<#--var list = data.role;-->
-					<#--listStr = list.name;-->
-			    	<#--return listStr;-->
-			    <#--}-->
-			<#--},-->
-			<#--{-->
-			    <#--targets: 4,-->
-			    <#--data: null,-->
-			    <#--render: function (data) {-->
-			    	<#--if(data.status == 0){-->
-			    		<#--return "不可用";-->
-			    	<#--}-->
-			    	<#--if(data.status == 1){-->
-			    		<#--return "可用";-->
-			    	<#--}-->
-			    	<#--return "未知状态";-->
-			    <#--}-->
-			<#--},-->
-            <#--{-->
-				<#--"targets" : -1,-->
-				<#--"data" : null,-->
-				<#--"render" : function(data) {-->
-<#--//					debugger;-->
-					<#--var btn = "";-->
-					<#--btn = '<a class="btn btn-xs btn-primary" target="modal" modal="lg" href="/user/view/'+ data.id+ '">查看</a> &nbsp;';-->
-					<#--if(isNull(data.role) ||  'super' != data.role.value){-->
-                        <#--btn +='<@shiro.hasPermission name="admin:update">'-->
-                        <#--+'<a class="btn btn-xs btn-info" onclick="securityToListAjax();" target="modal" modal="lg" href="/user/edit/'+ data.id+ '">修改</a> &nbsp;'-->
-                        <#--+'</@shiro.hasPermission>'-->
-                        <#--+'<@shiro.hasPermission name="admin:delete">'-->
-                        <#--+'<a class="btn btn-xs btn-default" callback="securityReload();" data-body="确认要删除吗？" target="ajaxTodo" href="/user/delete/'+ data.id + '">删除</a>'-->
-                        <#--+'</@shiro.hasPermission>';-->
-					<#--}-->
-					<#--return btn;-->
-			<#--}-->
-		<#--} ]-->
-	<#--}).on('preXhr.dt', function ( e, settings, data ) {-->
-		<#--No=0;-->
-    <#--} );-->
-	
-//	$("#securitySeek").on("click",function(){
-// 		reloadTable(security_tab,"#securityTime","#securityPremise");
-//	});
-//});
+$(function() {
+	//初始化时间选择器
+	$('#securityTime').datepicker({
+		language: 'zh-CN',
+		format: 'yyyy-mm-dd',
+		autoclose: true,
+		todayHighlight: true
+	});
+	//初始化表格
+
+	var No=0;
+	security_tab=$('#security_tab').DataTable({
+		"dom":'itflp',
+		"processing":true,
+		"searching":false,
+		"serverSide":true, //启用服务器端分页
+		"bInfo":false,
+		"language":{"url":"adminlte/plugins/datatables/language.json"},
+		"ajax" : {"url":"/menu/page","type":"post"},
+		"columns":[
+		    {"data":null},
+            {"data":"name"},
+            {"data":"code"},
+            {"data":"pCode"},
+            {"data":"url"},
+            {"data":"sort"},
+            {"data":"level"}
+			],
+		"columnDefs":[
+			{
+			    targets: 0,
+			    data: null,
+			    render: function (data) {
+			    	No=No+1;
+			        return No;
+			    }
+			} ]
+	}).on('preXhr.dt', function ( e, settings, data ) {
+		No=0;
+    } );
+
+	$("#securitySeek").on("click",function(){
+ 		reloadTable(security_tab,"#securityTime","#securityPremise");
+	});
+});
 
 function securityReload(){
 	reloadTable(security_tab,"#securityTime","#securityPremise");

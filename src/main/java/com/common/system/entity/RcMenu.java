@@ -1,8 +1,10 @@
 package com.common.system.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class RcMenu {
+public class RcMenu implements Serializable{
+    private static final long serialVersionUID = 5127761798611389506L;
     private String id;
 
     private String code;

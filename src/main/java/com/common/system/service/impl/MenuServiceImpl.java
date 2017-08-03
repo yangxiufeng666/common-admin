@@ -1,10 +1,14 @@
 package com.common.system.service.impl;
 
 import com.common.system.entity.RcMenu;
+import com.common.system.entity.RcMenuExample;
 import com.common.system.mapper.RcMenuMapper;
 import com.common.system.service.MenuService;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Created by Mr.Yangxiufeng on 2017/8/2.
@@ -34,5 +38,12 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public int update(RcMenu record) {
         return menuMapper.updateByPrimaryKeySelective(record);
+    }
+
+    @Override
+    public PageInfo<RcMenu> listForPage(Integer pageNum, Integer pageSize) {
+        List<RcMenu> list = menuMapper.selectByExample(new RcMenuExample());
+        PageInfo<RcMenu> pageInfo = new PageInfo<>(list);
+        return pageInfo;
     }
 }
