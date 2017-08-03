@@ -3,6 +3,8 @@ package com.common.system.service;
 import com.common.system.entity.RcMenu;
 import com.github.pagehelper.PageInfo;
 
+import java.util.List;
+
 /**
  * Created by Mr.Yangxiufeng on 2017/8/2.
  * Time:13:59
@@ -19,4 +21,6 @@ public interface MenuService {
     int update(RcMenu record);
 
     PageInfo<RcMenu> listForPage(Integer pageNum, Integer pageSize);
+
+    List<RcMenu> getMenu();
 }

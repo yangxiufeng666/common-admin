@@ -35,6 +35,7 @@
 							<tr>
 								<th>序号</th>
 								<th>菜单名称</th>
+								<th>菜单ID</th>
 								<th>菜单编号</th>
 								<th>父菜单编号</th>
 								<th>父菜单ID</th>
@@ -77,6 +78,7 @@ $(function() {
 		"columns":[
 		    {"data":null},
             {"data":"name"},
+            {"data":"id"},
             {"data":"code"},
             {"data":"pCode"},
             {"data":"pId"},
@@ -94,7 +96,7 @@ $(function() {
 			        return No;
 			    }
 			},{
-                targets: 8,
+                targets: 9,
                 data: null,
                 render: function (data) {
                     if (data.isMenu == 1){

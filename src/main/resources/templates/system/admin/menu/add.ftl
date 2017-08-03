@@ -1,18 +1,29 @@
+<style>
+    ul.ztree {
+        margin-top: 10px;
+        border: 1px solid #617775;
+        background: #f0f6e4;
+        width: 220px;
+        height: 360px;
+        overflow-y: scroll;
+        overflow-x: auto;
+    }
+</style>
 <div class="row">
     <div class="col-md-12">
         <form id="securityAddForm">
             <div class="modal-body">
                 <div class="form-group">
                     <label class="" id="nameLabel">菜单名称</label>
-                    <input type="text" class="form-control" name="name" id="name" placeholder="输入菜单名称...">
+                    <input type="text" value="${rcMenu}" class="form-control" name="name" id="name" placeholder="输入菜单名称...">
                 </div>
                 <div class="form-group">
                     <label class="" id="urlLabel">请求地址</label>
-                    <input type="text" class="form-control" name="url" id="url" placeholder="输入请求地址...">
+                    <input type="text"  class="form-control" name="url" id="url" placeholder="输入请求地址...">
                 </div>
                 <div class="form-group">
                     <label id="nickNameLabel">菜单编号</label>
-                    <input type="text" class="form-control" name="code" id="code" placeholder="输入菜单编号...">
+                    <input type="text" class="form-control"  name="code" id="code" placeholder="输入菜单编号...">
                 </div>
                 <div class="form-group">
                     <label id="nickNameLabel">排序</label>
@@ -20,7 +31,8 @@
                 </div>
                 <div class="form-group">
                     <label id="nickNameLabel">父级菜单</label>
-                    <input type="text" class="form-control" name="pCode" id="pCode" placeholder="输入父级菜单...">
+                    <input type="text" readonly class="form-control" name="pCode" id="pCode" placeholder="输入父级菜单..."
+                           onclick="showMenu()"/>
                 </div>
                 <div class="form-group">
                     <label id="nickNameLabel">图标</label>
@@ -36,6 +48,9 @@
             </div>
         </form>
     </div>
+    <div id="menuContent" class="menuContent" style="display:none; position: absolute;">
+        <ul id="treeDemo" class="ztree" style="margin-top:0; width:180px; height: 300px;"></ul>
+    </div>
 </div>
 <div class="modal-footer">
     <div class="pull-right">
@@ -44,9 +59,10 @@
         </button>
     </div>
 </div>
-</form>
-</div>
-</div>
+<script type="text/javascript" src="other/zTree/js/jquery.ztree.core.js"></script>
+<script type="text/javascript" src="other/zTree/js/jquery.ztree.excheck.js"></script>
+<#--<link rel="stylesheet" type="text/css" href="other/zTree/css/demo.css"/>-->
+<link rel="stylesheet" type="text/css" href="other/zTree/css/zTreeStyle/zTreeStyle.css"/>
 <script type="text/javascript">
     function securitySave() {
         $("span").remove(".errorClass");
@@ -81,4 +97,67 @@
             });
         }
     }
+    var setting = {
+        check: {
+            enable: true,
+            chkStyle: "radio",
+            radioType: "all"
+        },
+        view: {
+            dblClickExpand: false
+        },
+        data: {
+            simpleData: {
+                enable: true
+            }
+        },
+        callback: {
+            onClick: onClick,
+            onCheck: onCheck
+        }
+    };
+    var zNodes = ${rcMenu};
+    function onClick(e, treeId, treeNode) {
+        var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+        zTree.checkNode(treeNode, !treeNode.checked, null, true);
+        hideMenu();
+        return false;
+    }
+
+    function onCheck(e, treeId, treeNode) {
+        var zTree = $.fn.zTree.getZTreeObj("treeDemo"),
+                nodes = zTree.getCheckedNodes(true);
+        v = "";
+        for (var i = 0, l = nodes.length; i < l; i++) {
+            v += nodes[i].name + ",";
+        }
+        if (v.length > 0) v = v.substring(0, v.length - 1);
+        var cityObj = $("#pCode");
+        cityObj.attr("value", v);
+        hideMenu();
+    }
+
+    function showMenu() {
+        var cityObj = $("#pCode");
+        var cityOffset = $("#pCode").offset();
+        $("#menuContent").css({
+            left: cityOffset.left + "px",
+            top: cityOffset.top  + "px"
+        }).slideDown("fast");
+
+        $("body").bind("mousedown", onBodyDown);
+    }
+    function hideMenu() {
+        $("#menuContent").fadeOut("fast");
+        $("body").unbind("mousedown", onBodyDown);
+    }
+    function onBodyDown(event) {
+        if (!(event.target.id == "menuBtn" || event.target.id == "pCode" || event.target.id == "menuContent" || $(event.target).parents("#menuContent").length > 0)) {
+            hideMenu();
+        }
+    }
+
+//    $(document).ready(function () {
+        $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+//    });
 </script>

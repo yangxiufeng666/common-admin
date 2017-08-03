@@ -1,5 +1,7 @@
 package com.common.system.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -26,9 +28,9 @@ public class RcMenu implements Serializable{
     private Integer status;
 
     private String icon;
-
+    @JsonIgnore
     private Date createTime;
-
+    @JsonIgnore
     private Date updateTime;
 
     public String getId() {
