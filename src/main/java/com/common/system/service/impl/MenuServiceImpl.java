@@ -42,7 +42,9 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public PageInfo<RcMenu> listForPage(Integer pageNum, Integer pageSize) {
-        List<RcMenu> list = menuMapper.selectByExample(new RcMenuExample());
+        RcMenuExample example = new RcMenuExample();
+        example.setOrderByClause("p_id");
+        List<RcMenu> list = menuMapper.selectByExample(example);
         PageInfo<RcMenu> pageInfo = new PageInfo<>(list);
         return pageInfo;
     }

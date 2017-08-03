@@ -53,6 +53,7 @@ public class MenuController {
             node.setId(menu.getId());
             node.setName(menu.getName());
             node.setpId(menu.getpId());
+            node.setCode(menu.getCode());
             zTreeNodeList.add(node);
         }
         ObjectMapper objectMapper = new ObjectMapper();

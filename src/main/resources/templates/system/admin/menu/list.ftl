@@ -35,10 +35,8 @@
 							<tr>
 								<th>序号</th>
 								<th>菜单名称</th>
-								<th>菜单ID</th>
 								<th>菜单编号</th>
 								<th>父菜单编号</th>
-								<th>父菜单ID</th>
 								<th>请求地址</th>
 								<th>排序</th>
 								<th>层级</th>
@@ -78,10 +76,8 @@ $(function() {
 		"columns":[
 		    {"data":null},
             {"data":"name"},
-            {"data":"id"},
             {"data":"code"},
             {"data":"pCode"},
-            {"data":"pId"},
             {"data":"url"},
             {"data":"sort"},
             {"data":"level"},
@@ -96,7 +92,7 @@ $(function() {
 			        return No;
 			    }
 			},{
-                targets: 9,
+                targets: 7,
                 data: null,
                 render: function (data) {
                     if (data.isMenu == 1){

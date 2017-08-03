@@ -13,9 +13,11 @@ public class ZTreeNode implements Serializable{
     private String id;
     private String pId;
     private String name;
-    private boolean open;//是否打开节点
+    private boolean open = true;//是否打开节点
 
     private boolean checked;//是否被选中
+
+    private String code;
 
     public String getId() {
         return id;
@@ -55,5 +57,13 @@ public class ZTreeNode implements Serializable{
 
     public void setChecked(boolean checked) {
         this.checked = checked;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }
