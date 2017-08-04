@@ -148,6 +148,7 @@
     }
 
     function showMenu() {
+        initZTree();
         var cityObj = $("#pName");
         var cityOffset = $("#pName").offset();
         $("#menuContent").css({
@@ -166,8 +167,10 @@
             hideMenu();
         }
     }
-    debugger;
-    var zNodes = ${rcMenu};
-    alert("node=" + zNodes);
-    $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+    function initZTree(){
+//        debugger;
+        var zNodes = ${rcMenu};
+//        alert("node=" + zNodes);
+        $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+    };
 </script>
