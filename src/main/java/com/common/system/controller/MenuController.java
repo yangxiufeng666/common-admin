@@ -73,6 +73,7 @@ public class MenuController {
         Result<Integer> result = new Result<>();
         menu.setId(sequenceService.getSequenceId());
         menu.setCreateTime(new Date());
+        menu.setStatus(1);
         menuService.insert(menu);
         result.setStatus(true);
         result.setMsg("OK");
