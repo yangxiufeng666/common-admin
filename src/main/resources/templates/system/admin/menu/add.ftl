@@ -32,7 +32,7 @@
                 <div class="form-group">
                     <label id="nickNameLabel">父级菜单</label>
                     <input type="text" readonly class="form-control" name="pName" id="pName" placeholder="输入父级菜单..."
-                           onclick="showMenu()"/>
+                           onclick='showMenu(${rcMenu})'/>
                     <input type="text" hidden id="pId" name="pId">
                     <input type="text" hidden id="pCode" name="pCode">
                 </div>
@@ -147,8 +147,10 @@
         hideMenu();
     }
 
-    function showMenu() {
-        initZTree();
+    function showMenu(node) {
+//        alert(node);
+        <#--node = ${rcMenu};-->
+        initZTree(node);
         var cityObj = $("#pName");
         var cityOffset = $("#pName").offset();
         $("#menuContent").css({
@@ -167,9 +169,7 @@
             hideMenu();
         }
     }
-    function initZTree(){
-//        debugger;
-        var zNodes = ${rcMenu};
+    function initZTree(zNodes){
 //        alert("node=" + zNodes);
         $.fn.zTree.init($("#treeDemo"), setting, zNodes);
     };
