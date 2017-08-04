@@ -19,6 +19,8 @@ public class ZTreeNode implements Serializable{
 
     private String code;
 
+    private Integer level;
+
     public String getId() {
         return id;
     }
@@ -65,5 +67,13 @@ public class ZTreeNode implements Serializable{
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
     }
 }

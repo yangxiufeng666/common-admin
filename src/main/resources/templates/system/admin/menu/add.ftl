@@ -35,6 +35,7 @@
                            onclick='showMenu(${rcMenu})'/>
                     <input type="text" hidden id="pId" name="pId">
                     <input type="text" hidden id="pCode" name="pCode">
+                    <input type="text" hidden id="level" name="level">
                 </div>
                 <div class="form-group">
                     <label id="nickNameLabel">图标</label>
@@ -132,18 +133,22 @@
         v = "";
         var id = '';
         var code = '';
+        var lev=0;
         for (var i = 0, l = nodes.length; i < l; i++) {
             v += nodes[i].name + ",";
             id = nodes[i].id;
             code = nodes[i].code;
+            lev = nodes[i].level;
         }
         if (v.length > 0) v = v.substring(0, v.length - 1);
         var pName = $("#pName");
         pName.attr("value", v);
         var pId = $("#pId");
         var pCode = $("#pCode");
+        var level = $("#level");
         pId.attr("value", id);
         pCode.attr("value", code);
+        level.attr("value", lev+1);
         hideMenu();
     }
 
