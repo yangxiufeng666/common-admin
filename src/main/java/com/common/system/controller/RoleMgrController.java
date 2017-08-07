@@ -1,12 +1,10 @@
 package com.common.system.controller;
 
 import com.common.system.entity.RcPermission;
+import com.common.system.entity.RcPrivilege;
 import com.common.system.entity.RcRole;
 import com.common.system.entity.ZTreeNode;
-import com.common.system.service.PermissionService;
-import com.common.system.service.RelationService;
-import com.common.system.service.RoleService;
-import com.common.system.service.ZTreeService;
+import com.common.system.service.*;
 import com.common.system.util.Convert;
 import com.common.system.util.PageBean;
 import com.common.system.util.Result;
@@ -36,6 +34,8 @@ public class RoleMgrController extends BaseController{
     private RelationService relationService;
     @Autowired
     private ZTreeService treeService;
+    @Autowired
+    private PrivilegeService privilegeService;
 
     @RequestMapping(value = "list",method = RequestMethod.GET)
     public ModelAndView list(ModelAndView modelAndView){
@@ -109,6 +109,16 @@ public class RoleMgrController extends BaseController{
             }
         }
         treeNodes.remove(node);
+        List<RcPrivilege> privilegeList = privilegeService.getByRoleId(id);
+        if (privilegeList != null){
+            for (RcPrivilege p:privilegeList)
+                for (ZTreeNode n:treeNodes){
+                    if (p.getMenuId().equals(n.getId())){
+                        n.setChecked(true);
+                        break;
+                    }
+                }
+        }
         String treeStr = treeService.buildZTree(treeNodes);
         modelAndView.addObject("zNodes",treeStr);
         modelAndView.addObject("roleId",id);
