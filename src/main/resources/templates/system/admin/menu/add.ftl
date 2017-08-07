@@ -30,7 +30,7 @@
                     <input type="text" class="form-control" name="sort" id="sort" placeholder="输入排序...">
                 </div>
                 <div class="form-group">
-                    <label id="nickNameLabel">父级菜单</label>
+                    <label id="pNameLabel">父级菜单</label>
                     <input type="text" readonly class="form-control" name="pName" id="pName" placeholder="输入父级菜单..."
                            onclick='showMenu(${rcMenu})'/>
                     <input type="text" hidden id="pId" name="pId">
@@ -77,6 +77,10 @@
         }
         if ($("#url").val() == "") {
             $("#urlLabel").prepend('<span class="errorClass" style="color:red">*请求地址不能为空</span><br class="errorClass"/>');
+            status = 0;
+        }
+        if($("#pName").val() == ""){
+            $("#pNameLabel").prepend('<span class="errorClass" style="color:red">*父菜单不能为空</span><br class="errorClass"/>');
             status = 0;
         }
         if (status == 0) {

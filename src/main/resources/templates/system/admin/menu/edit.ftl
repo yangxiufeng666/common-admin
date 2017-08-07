@@ -16,19 +16,19 @@
             <div class="modal-body">
                 <div class="form-group">
                     <label class="" id="nameLabel">菜单名称</label>
-                    <input type="text" class="form-control" name="name" id="name" value="${menu.name}" placeholder="输入菜单名称...">
+                    <input type="text" class="form-control" name="name" id="name" value="${menu.name!}" placeholder="输入菜单名称...">
                 </div>
                 <div class="form-group">
                     <label class="" id="urlLabel">请求地址</label>
-                    <input type="text" class="form-control" name="url" id="url" value="${menu.url}" placeholder="输入请求地址...">
+                    <input type="text" class="form-control" name="url" id="url" value="${menu.url!}" placeholder="输入请求地址...">
                 </div>
                 <div class="form-group">
                     <label id="nickNameLabel">菜单编号</label>
-                    <input type="text" class="form-control" name="code" id="code" value="${menu.code}" placeholder="输入菜单编号...">
+                    <input type="text" class="form-control" name="code" id="code" value="${menu.code!}" placeholder="输入菜单编号...">
                 </div>
                 <div class="form-group">
                     <label id="nickNameLabel">排序</label>
-                    <input type="text" class="form-control" name="sort" id="sort" value="${menu.sort}" placeholder="输入排序...">
+                    <input type="text" class="form-control" name="sort" id="sort" value="${menu.sort!}" placeholder="输入排序...">
                 </div>
                 <div class="form-group">
                     <label id="nickNameLabel">父级菜单</label>
