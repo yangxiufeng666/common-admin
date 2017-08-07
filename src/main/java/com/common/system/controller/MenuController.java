@@ -122,4 +122,14 @@ public class MenuController {
         result.setCode(MsgCode.SUCCESS);
         return result;
     }
+    @RequestMapping(value = "delete/{id}")
+    public @ResponseBody
+    Result delete(@PathVariable String id){
+        Result<Integer> result = new Result<>();
+        menuService.deleteByPrimaryKey(id);
+        result.setStatus(true);
+        result.setMsg("OK");
+        result.setCode(MsgCode.SUCCESS);
+        return result;
+    }
 }
