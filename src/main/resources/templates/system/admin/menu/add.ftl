@@ -22,11 +22,11 @@
                     <input type="text" class="form-control" name="url" id="url" placeholder="输入请求地址...">
                 </div>
                 <div class="form-group">
-                    <label id="nickNameLabel">菜单编号</label>
+                    <label id="codeLabel">菜单编号</label>
                     <input type="text" class="form-control" name="code" id="code" placeholder="输入菜单编号...">
                 </div>
                 <div class="form-group">
-                    <label id="nickNameLabel">排序</label>
+                    <label id="sortNameLabel">排序</label>
                     <input type="text" class="form-control" name="sort" id="sort" placeholder="输入排序...">
                 </div>
                 <div class="form-group">
@@ -81,6 +81,10 @@
         }
         if($("#pName").val() == ""){
             $("#pNameLabel").prepend('<span class="errorClass" style="color:red">*父菜单不能为空</span><br class="errorClass"/>');
+            status = 0;
+        }
+        if($("#code").val() == ""){
+            $("#codeLabel").prepend('<span class="errorClass" style="color:red">*菜单编号不能为空</span><br class="errorClass"/>');
             status = 0;
         }
         if (status == 0) {

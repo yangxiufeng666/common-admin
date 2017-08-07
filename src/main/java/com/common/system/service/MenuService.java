@@ -14,9 +14,11 @@ public interface MenuService {
 
     int deleteByPrimaryKey(String id);
 
-    int insert(RcMenu record);
+    int insert(RcMenu record) throws Exception;
 
     RcMenu selectByPrimaryKey(String id);
+
+    RcMenu selectCode(String code);
 
     int update(RcMenu record);
 

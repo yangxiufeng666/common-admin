@@ -11,6 +11,7 @@ import com.common.system.util.Result;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -53,10 +54,23 @@ public class MenuController {
         menu.setId(sequenceService.getSequenceId());
         menu.setCreateTime(new Date());
         menu.setStatus(1);
-        menuService.insert(menu);
-        result.setStatus(true);
-        result.setMsg("OK");
-        result.setCode(MsgCode.SUCCESS);
+        if (menu.getSort() == null){
+            menu.setSort(1);
+        }
+        if (StringUtils.isEmpty(menu.getCode())){
+            result.setMsg("菜单编号不能为空");
+            return result;
+        }
+        try {
+            menuService.insert(menu);
+            result.setStatus(true);
+            result.setMsg("OK");
+            result.setCode(MsgCode.SUCCESS);
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.setMsg("菜单编码必须唯一");
+        }
+
         return result;
     }
     @ResponseBody
@@ -87,6 +101,14 @@ public class MenuController {
     Result update(RcMenu menu){
         Result<Integer> result = new Result<>();
         menu.setUpdateTime(new Date());
+        if (StringUtils.isEmpty(menu.getCode())){
+            result.setMsg("菜单编号不能为空");
+            return result;
+        }
+        if (menuService.selectCode(menu.getCode()) != null){
+            result.setMsg("菜单编号必须唯一");
+            return result;
+        }
         menuService.update(menu);
         result.setStatus(true);
         result.setMsg("OK");

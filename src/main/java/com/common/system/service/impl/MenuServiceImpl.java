@@ -26,7 +26,7 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public int insert(RcMenu record) {
+    public int insert(RcMenu record) throws Exception{
         return menuMapper.insert(record);
     }
 
@@ -53,5 +53,17 @@ public class MenuServiceImpl implements MenuService {
     public List<RcMenu> getMenu() {
         List<RcMenu> list = menuMapper.selectByExample(new RcMenuExample());
         return list;
+    }
+
+    @Override
+    public RcMenu selectCode(String code) {
+        RcMenuExample example = new RcMenuExample();
+        RcMenuExample.Criteria criteria = example.createCriteria();
+        criteria.andCodeEqualTo(code);
+        List<RcMenu> menus = menuMapper.selectByExample(example);
+        if (menus != null && menus.size() > 0){
+            return menus.get(0);
+        }
+        return null;
     }
 }
