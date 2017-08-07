@@ -2,9 +2,11 @@ package com.common.system.controller;
 
 import com.common.system.entity.RcPermission;
 import com.common.system.entity.RcRole;
+import com.common.system.entity.ZTreeNode;
 import com.common.system.service.PermissionService;
 import com.common.system.service.RelationService;
 import com.common.system.service.RoleService;
+import com.common.system.service.ZTreeService;
 import com.common.system.util.Convert;
 import com.common.system.util.PageBean;
 import com.common.system.util.Result;
@@ -32,6 +34,8 @@ public class RoleMgrController extends BaseController{
     private PermissionService permissionService;
     @Autowired
     private RelationService relationService;
+    @Autowired
+    private ZTreeService treeService;
 
     @RequestMapping(value = "list",method = RequestMethod.GET)
     public ModelAndView list(ModelAndView modelAndView){
@@ -94,6 +98,24 @@ public class RoleMgrController extends BaseController{
         modelAndView.setViewName("/system/admin/role/view");
         return modelAndView;
     }
+    @RequestMapping(value = "permission/{id}",method = RequestMethod.GET)
+    public ModelAndView dispatchPermission(@PathVariable Integer id,ModelAndView modelAndView){
+        List<ZTreeNode> treeNodes = treeService.getZTreeNodes();
+        ZTreeNode node=null;
+        for (ZTreeNode n:treeNodes) {
+            if (n.getpId().equals("0")){
+                node = n;
+                break;
+            }
+        }
+        treeNodes.remove(node);
+        String treeStr = treeService.buildZTree(treeNodes);
+        modelAndView.addObject("zNodes",treeStr);
+        modelAndView.addObject("roleId",id);
+        modelAndView.setViewName("/system/admin/role/privilege");
+        return modelAndView;
+    }
+
 
     private List<RcPermission> getRcPermissions() {
         PageInfo pageInfo = permissionService.listForPage(null,null);

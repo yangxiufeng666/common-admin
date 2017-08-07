@@ -46,12 +46,12 @@
                                 <span>角色管理</span>
                             </a>
                         </li>
-                        <li>
-                            <a target="navTab" href="/permission/list">
-                                <i class="fa fa-inbox"></i>
-                                <span>权限管理</span>
-                            </a>
-                        </li>
+                        <#--<li>-->
+                            <#--<a target="navTab" href="/permission/list">-->
+                                <#--<i class="fa fa-inbox"></i>-->
+                                <#--<span>权限管理</span>-->
+                            <#--</a>-->
+                        <#--</li>-->
                         <li>
                             <a target="navTab" href="/menu/list">
                                 <i class="fa fa-inbox"></i>

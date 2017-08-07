@@ -40,4 +40,12 @@ public class PrivilegeServiceImpl implements PrivilegeService {
         criteria.andRoleIdEqualTo(roleId);
         return privilegeMapper.selectByExample(example);
     }
+
+    @Override
+    public int deleteByRoleId(Integer roleId) {
+        RcPrivilegeExample example = new RcPrivilegeExample();
+        RcPrivilegeExample.Criteria criteria = example.createCriteria();
+        criteria.andRoleIdEqualTo(roleId);
+        return privilegeMapper.deleteByExample(example);
+    }
 }

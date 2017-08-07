@@ -1,22 +1,19 @@
 package com.common.system.controller;
 
 import com.common.system.entity.RcMenu;
-import com.common.system.entity.RcUser;
 import com.common.system.entity.ZTreeNode;
 import com.common.system.service.MenuService;
 import com.common.system.service.SequenceService;
+import com.common.system.service.ZTreeService;
 import com.common.system.util.MsgCode;
 import com.common.system.util.PageBean;
 import com.common.system.util.Result;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -32,6 +29,8 @@ public class MenuController {
     private MenuService menuService;
     @Autowired
     private SequenceService sequenceService;
+    @Autowired
+    private ZTreeService treeService;
 
     @RequestMapping(value = "list",method = RequestMethod.GET)
     public ModelAndView list(ModelAndView modelAndView){
@@ -41,38 +40,10 @@ public class MenuController {
     @RequestMapping(value = "add",method = RequestMethod.GET)
     public ModelAndView add(ModelAndView modelAndView){
         modelAndView.setViewName("/system/admin/menu/add");
-        List<ZTreeNode> zTreeNodeList = getzTreeNodes();
-        String treeStr = buildZTree(zTreeNodeList);
+        List<ZTreeNode> zTreeNodeList = treeService.getZTreeNodes();
+        String treeStr = treeService.buildZTree(zTreeNodeList);
         modelAndView.addObject("rcMenu",treeStr);
         return modelAndView;
-    }
-
-    private String buildZTree( List<ZTreeNode> zTreeNodeList) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        String str = null;
-        try {
-            str = objectMapper.writeValueAsString(zTreeNodeList);
-            System.out.println(str);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        return str;
-    }
-
-    private List<ZTreeNode> getzTreeNodes() {
-        List<RcMenu> list = menuService.getMenu();
-        List<ZTreeNode> zTreeNodeList = new ArrayList();
-        for (RcMenu menu:list
-             ) {
-            ZTreeNode node = new ZTreeNode();
-            node.setId(menu.getId());
-            node.setName(menu.getName());
-            node.setpId(menu.getpId());
-            node.setCode(menu.getCode());
-            node.setLevel(menu.getLevel());
-            zTreeNodeList.add(node);
-        }
-        return zTreeNodeList;
     }
 
     @RequestMapping(value = "save",method = RequestMethod.POST)
@@ -98,7 +69,7 @@ public class MenuController {
     public ModelAndView edit(@PathVariable String id, ModelAndView modelAndView){
         RcMenu menu = menuService.selectByPrimaryKey(id);
         modelAndView.addObject("menu",menu);
-        List<ZTreeNode> zTreeNodeList = getzTreeNodes();
+        List<ZTreeNode> zTreeNodeList = treeService.getZTreeNodes();
         for (ZTreeNode node:zTreeNodeList
              ) {
             if (node.getCode().equals(menu.getpCode())){
@@ -106,7 +77,7 @@ public class MenuController {
                 node.setChecked(true);
             }
         }
-        String tree = buildZTree(zTreeNodeList);
+        String tree = treeService.buildZTree(zTreeNodeList);
         modelAndView.addObject("zTree",tree);
         modelAndView.setViewName("/system/admin/menu/edit");
         return modelAndView;
