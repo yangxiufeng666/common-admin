@@ -1,9 +1,9 @@
 package com.common.system.shiro;
 
-import com.common.system.entity.RcPermission;
-import com.common.system.entity.RcRelation;
-import com.common.system.entity.RcUser;
+import com.common.system.entity.*;
+import com.common.system.service.MenuService;
 import com.common.system.service.PermissionService;
+import com.common.system.service.PrivilegeService;
 import com.common.system.service.RelationService;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authc.credential.CredentialsMatcher;
@@ -33,6 +33,10 @@ public class ShiroRealm extends AuthorizingRealm{
     private PermissionService permissionService;
     @Autowired
     private RelationService relationService;
+    @Autowired
+    private PrivilegeService privilegeService;
+    @Autowired
+    private MenuService menuService;
 
     /***
      * <p>授权</p>
@@ -45,6 +49,7 @@ public class ShiroRealm extends AuthorizingRealm{
         Integer roleId = user.getRoleId();
         //得到角色权限关系
         List<RcRelation> relationList = relationService.getByRoleId(roleId);
+
 
         List<Integer> permissionIds = new ArrayList<>();
 
@@ -64,6 +69,14 @@ public class ShiroRealm extends AuthorizingRealm{
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         info.addRole(user.getRoleValue());
         info.addStringPermissions(permissionValues);
+
+        //权限2.0版本
+        List<RcPrivilege> privilegeList = privilegeService.getByRoleId(roleId);
+        List<String> ids = new ArrayList<>();
+        for (RcPrivilege p : privilegeList){
+            ids.add(p.getMenuId());
+        }
+        List<RcMenu> menuList = menuService.selectInIds(ids,null);
         return info;
     }
 

@@ -3,29 +3,27 @@
     <section class="sidebar">
         <ul class="sidebar-menu">
             <li class="header">主导航</li>
-            <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-envelope"></i> <span>邮箱</span> <span class="pull-right-container"> <i
-                        class="fa fa-angle-left pull-right"></i></span>
-                </a>
-                <ul class="treeview-menu">
-                    <li>
-                        <a target="navTab" href="/admin/emailInfo/list">
-                            <i class="fa fa-inbox"></i> <span>发件箱</span>
+            <#if menuList??>
+                <#list menuList as menu>
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-envelope"></i> <span>${menu.name}</span> <span class="pull-right-container"> <i
+                                class="fa fa-angle-left pull-right"></i></span>
                         </a>
+                        <#if menu.child??>
+                            <ul class="treeview-menu">
+                            <#list menu.child as child>
+                                <li>
+                                    <a target="navTab" href="/admin/emailInfo/list">
+                                        <i class="fa fa-inbox"></i> <span>${child.name}</span>
+                                    </a>
+                                </li>
+                            </#list>
+                            </ul>
+                        </#if>
                     </li>
-                    <li>
-                        <a target="navTab" href="/admin/emailAccountInfo/list">
-                            <i class="fa fa-circle-o"></i> 账号管理
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a target="navTab" href="/admin/dataDictionary/list">
-                    <i class="fa fa-folder"></i> <span>数据字典管理</span> </i>
-                </a>
-            </li>
+                </#list>
+            </#if>
             <@shiro.hasAnyRoles name ="super,admin">
                 <li class="treeview">
                     <a href="#">

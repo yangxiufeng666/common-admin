@@ -25,4 +25,7 @@ public interface MenuService {
     PageInfo<RcMenu> listForPage(Integer pageNum, Integer pageSize);
 
     List<RcMenu> getMenu();
+    List<RcMenu> selectInIds(List<String> ids,List<Integer> wantLevel);
+
+    List<RcMenu> getByParentId(String pId);
 }

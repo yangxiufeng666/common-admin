@@ -66,4 +66,24 @@ public class MenuServiceImpl implements MenuService {
         }
         return null;
     }
+
+    @Override
+    public List<RcMenu> selectInIds(List<String> ids,List<Integer> wantLevel) {
+        RcMenuExample example = new RcMenuExample();
+        RcMenuExample.Criteria criteria = example.createCriteria();
+        criteria.andIdIn(ids);
+        if (wantLevel != null){
+            criteria.andLevelIn(wantLevel);
+        }
+        example.setOrderByClause("sort desc");
+        return menuMapper.selectByExample(example);
+    }
+
+    @Override
+    public List<RcMenu> getByParentId(String pId) {
+        RcMenuExample example = new RcMenuExample();
+        RcMenuExample.Criteria criteria = example.createCriteria();
+        criteria.andPIdEqualTo(pId);
+        return menuMapper.selectByExample(example);
+    }
 }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class RcMenu implements Serializable{
     private static final long serialVersionUID = 4419340793159328904L;
@@ -32,6 +33,8 @@ public class RcMenu implements Serializable{
     private Date createTime;
     @JsonIgnore
     private Date updateTime;
+
+    private List<RcMenu> child;
 
     public String getId() {
         return id;
@@ -135,5 +138,13 @@ public class RcMenu implements Serializable{
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public List<RcMenu> getChild() {
+        return child;
+    }
+
+    public void setChild(List<RcMenu> child) {
+        this.child = child;
     }
 }
