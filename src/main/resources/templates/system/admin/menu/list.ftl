@@ -70,7 +70,7 @@
         security_tab = $('#security_tab').DataTable({
             "dom": 'itflp',
             "processing": true,
-            "searching": false,
+            "searching": false,\
             "serverSide": true, //启用服务器端分页
             "bInfo": false,
             "language": {"url": "adminlte/plugins/datatables/language.json"},

@@ -105,7 +105,8 @@ public class MenuController {
             result.setMsg("菜单编号不能为空");
             return result;
         }
-        if (menuService.selectCode(menu.getCode()) != null){
+        RcMenu temp = menuService.selectCode(menu.getCode());
+        if (temp != null && !temp.getId().equals(menu.getId())){
             result.setMsg("菜单编号必须唯一");
             return result;
         }
