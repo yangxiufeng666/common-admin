@@ -32,7 +32,7 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public RcMenu selectByPrimaryKey(String id) {
-        return selectByPrimaryKey(id);
+        return menuMapper.selectByPrimaryKey(id);
     }
 
     @Override
