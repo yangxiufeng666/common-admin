@@ -12,4 +12,4 @@
 <img height="480" src="https://github.com/babylikebird/common-admin/blob/master/art/5.png"/><br/>
 <img height="480" src="https://github.com/babylikebird/common-admin/blob/master/art/6.png"/><br/>
 * 角色管理
-<img height="480" src="https://github.com/NewBeeECC/common-admin/blob/master/art/7.png"/><br/>
+<img height="480" src="https://github.com/babylikebird/common-admin/blob/master/art/7.png"/><br/>
