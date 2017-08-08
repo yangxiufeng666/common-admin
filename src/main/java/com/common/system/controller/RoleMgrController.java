@@ -29,8 +29,6 @@ public class RoleMgrController extends BaseController{
     @Autowired
     private RoleService roleService;
     @Autowired
-    private PermissionService permissionService;
-    @Autowired
     private RelationService relationService;
     @Autowired
     private ZTreeService treeService;
@@ -55,8 +53,6 @@ public class RoleMgrController extends BaseController{
     }
     @RequestMapping(value = "add",method = RequestMethod.GET)
     public ModelAndView add(ModelAndView modelMap){
-        List<RcPermission> permissionList = getRcPermissions();
-        modelMap.addObject("permissions",permissionList);
         modelMap.setViewName("/system/admin/role/add");
         return modelMap;
     }
@@ -75,8 +71,6 @@ public class RoleMgrController extends BaseController{
     public ModelAndView edit(ModelAndView modelAndView,@PathVariable Integer id){
         Result<RcRole> result = roleService.selectById(id);
         modelAndView.addObject("role",result.getData());
-        List<RcPermission> permissionList = getRcPermissions();
-        modelAndView.addObject("permissions",permissionList);
         modelAndView.setViewName("/system/admin/role/edit");
         return modelAndView;
     }
@@ -126,9 +120,4 @@ public class RoleMgrController extends BaseController{
         return modelAndView;
     }
 
-
-    private List<RcPermission> getRcPermissions() {
-        PageInfo pageInfo = permissionService.listForPage(null,null);
-        return pageInfo.getList();
-    }
 }

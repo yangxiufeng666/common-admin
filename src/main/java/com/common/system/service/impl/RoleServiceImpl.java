@@ -5,7 +5,6 @@ import com.common.system.entity.RcRelation;
 import com.common.system.entity.RcRole;
 import com.common.system.entity.RcRoleExample;
 import com.common.system.mapper.RcRoleMapper;
-import com.common.system.service.PermissionService;
 import com.common.system.service.RelationService;
 import com.common.system.service.RoleService;
 import com.common.system.util.MsgCode;
@@ -31,8 +30,6 @@ public class RoleServiceImpl implements RoleService {
     private RcRoleMapper roleMapper;
     @Autowired
     private RelationService relationService;
-    @Autowired
-    private PermissionService permissionService;
 
     @Override
     public PageInfo<RcRole> listForPage(Integer pageNum, Integer pageSize) {
@@ -113,8 +110,6 @@ public class RoleServiceImpl implements RoleService {
              ) {
             permissionIds.add(r.getPermissionid());
         }
-        List<RcPermission> pList = permissionService.getPermissions(permissionIds);
-        role.setPermissionList(pList);
         return result ;
     }
 

@@ -2,17 +2,13 @@ package com.common.system.shiro;
 
 import com.common.system.entity.*;
 import com.common.system.service.MenuService;
-import com.common.system.service.PermissionService;
 import com.common.system.service.PrivilegeService;
 import com.common.system.service.RelationService;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authc.credential.CredentialsMatcher;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationInfo;
-import org.apache.shiro.authz.Permission;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
-import org.apache.shiro.authz.permission.AllPermission;
-import org.apache.shiro.authz.permission.DomainPermission;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +25,6 @@ public class ShiroRealm extends AuthorizingRealm{
 
     @Autowired
     private ShiroFactory shiroFactory;
-    @Autowired
-    private PermissionService permissionService;
     @Autowired
     private RelationService relationService;
     @Autowired

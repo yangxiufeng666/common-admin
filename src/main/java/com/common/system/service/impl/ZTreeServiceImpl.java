@@ -6,6 +6,8 @@ import com.common.system.service.MenuService;
 import com.common.system.service.ZTreeService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,9 @@ import java.util.List;
  */
 @Service
 public class ZTreeServiceImpl implements ZTreeService {
+
+    private static final Log LOG = LogFactory.getLog(ZTreeServiceImpl.class);
+
     @Autowired
     private MenuService menuService;
 
@@ -45,7 +50,7 @@ public class ZTreeServiceImpl implements ZTreeService {
         String str = null;
         try {
             str = objectMapper.writeValueAsString(zTreeNodeList);
-            System.out.println(str);
+            LOG.info(str);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
