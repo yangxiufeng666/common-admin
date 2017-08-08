@@ -10,18 +10,6 @@
 						<label id="roleValueLabel">角色值</label>
 						<input type="text" class="form-control" name="roleValue" id="roleValue" placeholder="输入角色值...">
 					</div>
-					<div id="checkbox" class="form-group">
-						<label>权限：</label>
-						<label>
-							<input type="checkbox" id="allCheckbox" class="flat-red" onClick="onClickCheckbox('allCheckbox','permission')">全选
-						</label>
-						<br/>
-						<#list permissions as permission>
-							<label>
-			                  <input type="checkbox" name="permission" class="flat-red" value="${permission.id}"> ${permission.permissionsName}
-			                </label>
-						</#list>
-					</div>
 				</div>
 				<div class="modal-footer">
 					<div class="pull-right">
