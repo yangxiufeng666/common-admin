@@ -25,6 +25,7 @@
                 <div class="form-group">
                     <label id="codeLabel">菜单编号</label>
                     <input type="text" class="form-control" name="code" id="code" value="${menu.code!}" placeholder="输入菜单编号...">
+                    <input hidden name="oldCode" id="oldCode" value="${menu.code!}">
                 </div>
                 <div class="form-group">
                     <label id="nickNameLabel">排序</label>

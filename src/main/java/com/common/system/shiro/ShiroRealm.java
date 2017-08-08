@@ -47,28 +47,8 @@ public class ShiroRealm extends AuthorizingRealm{
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         ShiroUser user = (ShiroUser)principalCollection.getPrimaryPrincipal();
         Integer roleId = user.getRoleId();
-        //得到角色权限关系
-        List<RcRelation> relationList = relationService.getByRoleId(roleId);
-
-
-        List<Integer> permissionIds = new ArrayList<>();
-
-        for (RcRelation r : relationList
-             ) {
-            permissionIds.add(r.getPermissionid());
-        }
-        //得到权限列表
-        List<RcPermission> permissionList = permissionService.getPermissions(permissionIds);
 
         List<String> permissionValues = new ArrayList<>();
-
-        for (RcPermission p:permissionList
-             ) {
-            permissionValues.add(p.getPermissionsValue());
-        }
-        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-        info.addRole(user.getRoleValue());
-        info.addStringPermissions(permissionValues);
 
         //权限2.0版本
         List<RcPrivilege> privilegeList = privilegeService.getByRoleId(roleId);
@@ -77,6 +57,14 @@ public class ShiroRealm extends AuthorizingRealm{
             ids.add(p.getMenuId());
         }
         List<RcMenu> menuList = menuService.selectInIds(ids,null);
+
+        for (RcMenu p:menuList
+             ) {
+            permissionValues.add(p.getCode());
+        }
+        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+        info.addRole(user.getRoleValue());
+        info.addStringPermissions(permissionValues);
         return info;
     }
 

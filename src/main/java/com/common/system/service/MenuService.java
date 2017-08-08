@@ -22,6 +22,8 @@ public interface MenuService {
 
     int update(RcMenu record);
 
+    int updatePcode(String oldPcode,String newPcode);
+
     PageInfo<RcMenu> listForPage(Integer pageNum, Integer pageSize);
 
     List<RcMenu> getMenu();

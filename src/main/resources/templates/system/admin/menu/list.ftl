@@ -12,25 +12,6 @@
                 </div>
             </div>
             <div class="box-body">
-                <div class="clearfix">
-                    <div class="col-md-4">
-                        <div class="input-group date ">
-                            <div class="input-group-addon">
-                                <i class="fa fa-calendar"></i>
-                            </div>
-                            <input type="text" class="form-control pull-right" id="securityTime" placeholder="选择时间...">
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-search"></i></span>
-                            <input type="text" class="form-control" id="securityPremise" placeholder="根据账号搜索...">
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <button type="submit" onclick="securityReload();" class="btn btn-primary">搜索</button>
-                    </div>
-                </div>
                 <table id="security_tab" class="table table-bordered table-striped">
                     <thead>
                     <tr>
@@ -57,20 +38,12 @@
 <script type="text/javascript">
     var security_tab;
     $(function () {
-        //初始化时间选择器
-        $('#securityTime').datepicker({
-            language: 'zh-CN',
-            format: 'yyyy-mm-dd',
-            autoclose: true,
-            todayHighlight: true
-        });
         //初始化表格
-
         var No = 0;
         security_tab = $('#security_tab').DataTable({
             "dom": 'itflp',
             "processing": true,
-            "searching": false,\
+            "searching": false,
             "serverSide": true, //启用服务器端分页
             "bInfo": false,
             "language": {"url": "adminlte/plugins/datatables/language.json"},
@@ -132,12 +105,12 @@
         });
 
         $("#securitySeek").on("click", function () {
-            reloadTable(security_tab, "#securityTime", "#securityPremise");
+            reloadTable(security_tab);
         });
     });
 
     function securityReload() {
-        reloadTable(security_tab, "#securityTime", "#securityPremise");
+        reloadTable(security_tab);
     }
 
     function securityToListAjax() {

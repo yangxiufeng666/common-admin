@@ -329,4 +329,7 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=VARCHAR}
   </update>
+  <update id="updatePcode" parameterType="hashmap">
+    UPDATE rc_menu SET  p_code = #{newPcode,jdbcType=VARCHAR} Where  p_code = #{oldPcode,jdbcType=VARCHAR}
+  </update>
 </mapper>

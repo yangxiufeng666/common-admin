@@ -39,7 +39,10 @@ public class MenuServiceImpl implements MenuService {
     public int update(RcMenu record) {
         return menuMapper.updateByPrimaryKeySelective(record);
     }
-
+    @Override
+    public int updatePcode(String oldPcode,String newPcode) {
+        return menuMapper.updatePcode(oldPcode,newPcode);
+    }
     @Override
     public PageInfo<RcMenu> listForPage(Integer pageNum, Integer pageSize) {
         RcMenuExample example = new RcMenuExample();

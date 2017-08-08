@@ -98,7 +98,7 @@ public class MenuController {
     }
     @RequestMapping(value = "update")
     public @ResponseBody
-    Result update(RcMenu menu){
+    Result update(RcMenu menu,String oldCode){
         Result<Integer> result = new Result<>();
         menu.setUpdateTime(new Date());
         if (StringUtils.isEmpty(menu.getCode())){
@@ -110,7 +110,10 @@ public class MenuController {
             result.setMsg("菜单编号必须唯一");
             return result;
         }
-        menuService.update(menu);
+        int flag = menuService.update(menu);
+        if (flag > 0){
+            menuService.updatePcode(oldCode,menu.getCode());
+        }
         result.setStatus(true);
         result.setMsg("OK");
         result.setCode(MsgCode.SUCCESS);

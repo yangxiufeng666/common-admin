@@ -27,4 +27,6 @@ public interface RcMenuMapper {
     int updateByPrimaryKeySelective(RcMenu record);
 
     int updateByPrimaryKey(RcMenu record);
+
+    int updatePcode(@Param("oldPcode") String oldPcode,@Param("newPcode") String newPcode);
 }
