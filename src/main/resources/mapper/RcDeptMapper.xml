@@ -5,14 +5,86 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="num" jdbcType="INTEGER" property="num" />
     <result column="pid" jdbcType="INTEGER" property="pid" />
-    <result column="simplename" jdbcType="VARCHAR" property="simplename" />
-    <result column="fullname" jdbcType="VARCHAR" property="fullname" />
+    <result column="simple_name" jdbcType="VARCHAR" property="simpleName" />
+    <result column="full_name" jdbcType="VARCHAR" property="fullName" />
     <result column="tips" jdbcType="VARCHAR" property="tips" />
     <result column="version" jdbcType="INTEGER" property="version" />
   </resultMap>
-  <sql id="Base_Column_List">
-    id, num, pid, simplename, fullname, tips, version
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
   </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, num, pid, simple_name, full_name, tips, version
+  </sql>
+  <select id="selectByExample" parameterType="com.common.system.entity.RcDeptExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from rc_dept
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -23,12 +95,18 @@
     delete from rc_dept
     where id = #{id,jdbcType=INTEGER}
   </delete>
+  <delete id="deleteByExample" parameterType="com.common.system.entity.RcDeptExample">
+    delete from rc_dept
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
   <insert id="insert" parameterType="com.common.system.entity.RcDept">
     insert into rc_dept (id, num, pid, 
-      simplename, fullname, tips, 
+      simple_name, full_name, tips, 
       version)
     values (#{id,jdbcType=INTEGER}, #{num,jdbcType=INTEGER}, #{pid,jdbcType=INTEGER}, 
-      #{simplename,jdbcType=VARCHAR}, #{fullname,jdbcType=VARCHAR}, #{tips,jdbcType=VARCHAR}, 
+      #{simpleName,jdbcType=VARCHAR}, #{fullName,jdbcType=VARCHAR}, #{tips,jdbcType=VARCHAR}, 
       #{version,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.common.system.entity.RcDept">
@@ -43,11 +121,11 @@
       <if test="pid != null">
         pid,
       </if>
-      <if test="simplename != null">
-        simplename,
+      <if test="simpleName != null">
+        simple_name,
       </if>
-      <if test="fullname != null">
-        fullname,
+      <if test="fullName != null">
+        full_name,
       </if>
       <if test="tips != null">
         tips,
@@ -66,11 +144,11 @@
       <if test="pid != null">
         #{pid,jdbcType=INTEGER},
       </if>
-      <if test="simplename != null">
-        #{simplename,jdbcType=VARCHAR},
+      <if test="simpleName != null">
+        #{simpleName,jdbcType=VARCHAR},
       </if>
-      <if test="fullname != null">
-        #{fullname,jdbcType=VARCHAR},
+      <if test="fullName != null">
+        #{fullName,jdbcType=VARCHAR},
       </if>
       <if test="tips != null">
         #{tips,jdbcType=VARCHAR},
@@ -80,6 +158,48 @@
       </if>
     </trim>
   </insert>
+  <update id="updateByExampleSelective" parameterType="map">
+    update rc_dept
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.num != null">
+        num = #{record.num,jdbcType=INTEGER},
+      </if>
+      <if test="record.pid != null">
+        pid = #{record.pid,jdbcType=INTEGER},
+      </if>
+      <if test="record.simpleName != null">
+        simple_name = #{record.simpleName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fullName != null">
+        full_name = #{record.fullName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tips != null">
+        tips = #{record.tips,jdbcType=VARCHAR},
+      </if>
+      <if test="record.version != null">
+        version = #{record.version,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update rc_dept
+    set id = #{record.id,jdbcType=INTEGER},
+      num = #{record.num,jdbcType=INTEGER},
+      pid = #{record.pid,jdbcType=INTEGER},
+      simple_name = #{record.simpleName,jdbcType=VARCHAR},
+      full_name = #{record.fullName,jdbcType=VARCHAR},
+      tips = #{record.tips,jdbcType=VARCHAR},
+      version = #{record.version,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.common.system.entity.RcDept">
     update rc_dept
     <set>
@@ -89,11 +209,11 @@
       <if test="pid != null">
         pid = #{pid,jdbcType=INTEGER},
       </if>
-      <if test="simplename != null">
-        simplename = #{simplename,jdbcType=VARCHAR},
+      <if test="simpleName != null">
+        simple_name = #{simpleName,jdbcType=VARCHAR},
       </if>
-      <if test="fullname != null">
-        fullname = #{fullname,jdbcType=VARCHAR},
+      <if test="fullName != null">
+        full_name = #{fullName,jdbcType=VARCHAR},
       </if>
       <if test="tips != null">
         tips = #{tips,jdbcType=VARCHAR},
@@ -108,8 +228,8 @@
     update rc_dept
     set num = #{num,jdbcType=INTEGER},
       pid = #{pid,jdbcType=INTEGER},
-      simplename = #{simplename,jdbcType=VARCHAR},
-      fullname = #{fullname,jdbcType=VARCHAR},
+      simple_name = #{simpleName,jdbcType=VARCHAR},
+      full_name = #{fullName,jdbcType=VARCHAR},
       tips = #{tips,jdbcType=VARCHAR},
       version = #{version,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}

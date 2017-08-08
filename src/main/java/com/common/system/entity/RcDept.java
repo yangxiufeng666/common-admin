@@ -7,9 +7,9 @@ public class RcDept {
 
     private Integer pid;
 
-    private String simplename;
+    private String simpleName;
 
-    private String fullname;
+    private String fullName;
 
     private String tips;
 
@@ -39,20 +39,20 @@ public class RcDept {
         this.pid = pid;
     }
 
-    public String getSimplename() {
-        return simplename;
+    public String getSimpleName() {
+        return simpleName;
     }
 
-    public void setSimplename(String simplename) {
-        this.simplename = simplename == null ? null : simplename.trim();
+    public void setSimpleName(String simpleName) {
+        this.simpleName = simpleName == null ? null : simpleName.trim();
     }
 
-    public String getFullname() {
-        return fullname;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setFullname(String fullname) {
-        this.fullname = fullname == null ? null : fullname.trim();
+    public void setFullName(String fullName) {
+        this.fullName = fullName == null ? null : fullName.trim();
     }
 
     public String getTips() {

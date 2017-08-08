@@ -47,7 +47,7 @@ public class ShiroFactory {
         shiroUser.setDeptId(user.getDeptid());    // 部门id
         RcDept dept = deptMapper.selectByPrimaryKey(user.getDeptid());
         if (dept != null){
-            shiroUser.setDeptName(dept.getSimplename());
+            shiroUser.setDeptName(dept.getSimpleName());
         }
         shiroUser.setName(user.getName());        // 用户名称
         shiroUser.setRoleId(user.getRoleId());

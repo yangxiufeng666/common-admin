@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50628
 File Encoding         : 65001
 
-Date: 2017-08-08 12:11:57
+Date: 2017-08-08 12:43:28
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -23,8 +23,8 @@ CREATE TABLE `rc_dept` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `num` int(11) DEFAULT NULL,
   `pid` int(11) DEFAULT NULL,
-  `simplename` varchar(45) DEFAULT NULL,
-  `fullname` varchar(255) DEFAULT NULL,
+  `simple_name` varchar(45) DEFAULT NULL,
+  `full_name` varchar(255) DEFAULT NULL,
   `tips` varchar(255) DEFAULT NULL,
   `version` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -71,7 +71,7 @@ INSERT INTO `rc_dict` VALUES ('38', '3', '35', '已删除', null);
 DROP TABLE IF EXISTS `rc_login_log`;
 CREATE TABLE `rc_login_log` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `logname` varchar(255) DEFAULT NULL,
+  `log_name` varchar(255) DEFAULT NULL,
   `user_id` int(65) DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
   `succeed` varchar(255) DEFAULT NULL,
@@ -139,7 +139,7 @@ CREATE TABLE `rc_notice` (
   `title` varchar(255) DEFAULT NULL COMMENT '标题',
   `type` int(11) DEFAULT NULL COMMENT '类型',
   `content` text COMMENT '内容',
-  `createtime` datetime DEFAULT NULL COMMENT '创建时间',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   `creater` int(11) DEFAULT NULL COMMENT '创建人',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
