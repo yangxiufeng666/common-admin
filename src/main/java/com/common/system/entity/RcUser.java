@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class RcUser implements Serializable{
-    private static final long serialVersionUID = -5421592441701715834L;
+    private static final long serialVersionUID = -8597875106667295283L;
     private Integer id;
 
     private String avatar;
@@ -27,15 +27,15 @@ public class RcUser implements Serializable{
 
     private String phone;
 
-    private Integer roleid;
+    private Integer roleId;
 
     private Integer deptid;
 
     private Integer status;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date createtime;
+    private Date createTime;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date updatetime;
+    private Date updateTime;
 
     private RcRole role;
 
@@ -119,12 +119,12 @@ public class RcUser implements Serializable{
         this.phone = phone == null ? null : phone.trim();
     }
 
-    public Integer getRoleid() {
-        return roleid;
+    public Integer getRoleId() {
+        return roleId;
     }
 
-    public void setRoleid(Integer roleid) {
-        this.roleid = roleid;
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
     }
 
     public Integer getDeptid() {
@@ -143,20 +143,20 @@ public class RcUser implements Serializable{
         this.status = status;
     }
 
-    public Date getCreatetime() {
-        return createtime;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setCreatetime(Date createtime) {
-        this.createtime = createtime;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
-    public Date getUpdatetime() {
-        return updatetime;
+    public Date getUpdateTime() {
+        return updateTime;
     }
 
-    public void setUpdatetime(Date updatetime) {
-        this.updatetime = updatetime;
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 
     public RcRole getRole() {

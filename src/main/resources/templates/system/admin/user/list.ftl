@@ -76,7 +76,7 @@ $(function() {
 			{"data":"name"},
 			{"data":null},
 			{"data":null},
-			{"data":"createtime"},
+			{"data":"createTime"},
 			{"data":null} 
 			],
 		"columnDefs":[

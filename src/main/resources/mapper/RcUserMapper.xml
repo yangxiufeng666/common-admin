@@ -12,11 +12,11 @@
     <result column="sex" jdbcType="INTEGER" property="sex" />
     <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="phone" jdbcType="VARCHAR" property="phone" />
-    <result column="roleid" jdbcType="INTEGER" property="roleid" />
+    <result column="role_id" jdbcType="INTEGER" property="roleId" />
     <result column="deptid" jdbcType="INTEGER" property="deptid" />
     <result column="status" jdbcType="INTEGER" property="status" />
-    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
-    <result column="updatetime" jdbcType="TIMESTAMP" property="updatetime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -77,8 +77,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, avatar, username, password, salt, name, birthday, sex, email, phone, roleid, 
-    deptid, status, createtime, updatetime
+    id, avatar, username, password, salt, name, birthday, sex, email, phone, role_id, 
+    deptid, status, create_time, update_time
   </sql>
   <select id="selectByExample" parameterType="com.common.system.entity.RcUserExample" resultMap="BaseResultMap">
     select
@@ -114,14 +114,14 @@
     insert into rc_user (id, avatar, username, 
       password, salt, name, 
       birthday, sex, email, 
-      phone, roleid, deptid, 
-      status, createtime, updatetime
+      phone, role_id, deptid, 
+      status, create_time, update_time
       )
     values (#{id,jdbcType=INTEGER}, #{avatar,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
       #{password,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{birthday,jdbcType=TIMESTAMP}, #{sex,jdbcType=INTEGER}, #{email,jdbcType=VARCHAR}, 
-      #{phone,jdbcType=VARCHAR}, #{roleid,jdbcType=INTEGER}, #{deptid,jdbcType=INTEGER}, 
-      #{status,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}
+      #{phone,jdbcType=VARCHAR}, #{roleId,jdbcType=INTEGER}, #{deptid,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.common.system.entity.RcUser">
@@ -157,8 +157,8 @@
       <if test="phone != null">
         phone,
       </if>
-      <if test="roleid != null">
-        roleid,
+      <if test="roleId != null">
+        role_id,
       </if>
       <if test="deptid != null">
         deptid,
@@ -166,11 +166,11 @@
       <if test="status != null">
         status,
       </if>
-      <if test="createtime != null">
-        createtime,
+      <if test="createTime != null">
+        create_time,
       </if>
-      <if test="updatetime != null">
-        updatetime,
+      <if test="updateTime != null">
+        update_time,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -204,8 +204,8 @@
       <if test="phone != null">
         #{phone,jdbcType=VARCHAR},
       </if>
-      <if test="roleid != null">
-        #{roleid,jdbcType=INTEGER},
+      <if test="roleId != null">
+        #{roleId,jdbcType=INTEGER},
       </if>
       <if test="deptid != null">
         #{deptid,jdbcType=INTEGER},
@@ -213,11 +213,11 @@
       <if test="status != null">
         #{status,jdbcType=INTEGER},
       </if>
-      <if test="createtime != null">
-        #{createtime,jdbcType=TIMESTAMP},
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="updatetime != null">
-        #{updatetime,jdbcType=TIMESTAMP},
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -254,8 +254,8 @@
       <if test="record.phone != null">
         phone = #{record.phone,jdbcType=VARCHAR},
       </if>
-      <if test="record.roleid != null">
-        roleid = #{record.roleid,jdbcType=INTEGER},
+      <if test="record.roleId != null">
+        role_id = #{record.roleId,jdbcType=INTEGER},
       </if>
       <if test="record.deptid != null">
         deptid = #{record.deptid,jdbcType=INTEGER},
@@ -263,11 +263,11 @@
       <if test="record.status != null">
         status = #{record.status,jdbcType=INTEGER},
       </if>
-      <if test="record.createtime != null">
-        createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.updatetime != null">
-        updatetime = #{record.updatetime,jdbcType=TIMESTAMP},
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     <if test="_parameter != null">
@@ -286,11 +286,11 @@
       sex = #{record.sex,jdbcType=INTEGER},
       email = #{record.email,jdbcType=VARCHAR},
       phone = #{record.phone,jdbcType=VARCHAR},
-      roleid = #{record.roleid,jdbcType=INTEGER},
+      role_id = #{record.roleId,jdbcType=INTEGER},
       deptid = #{record.deptid,jdbcType=INTEGER},
       status = #{record.status,jdbcType=INTEGER},
-      createtime = #{record.createtime,jdbcType=TIMESTAMP},
-      updatetime = #{record.updatetime,jdbcType=TIMESTAMP}
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -325,8 +325,8 @@
       <if test="phone != null">
         phone = #{phone,jdbcType=VARCHAR},
       </if>
-      <if test="roleid != null">
-        roleid = #{roleid,jdbcType=INTEGER},
+      <if test="roleId != null">
+        role_id = #{roleId,jdbcType=INTEGER},
       </if>
       <if test="deptid != null">
         deptid = #{deptid,jdbcType=INTEGER},
@@ -334,11 +334,11 @@
       <if test="status != null">
         status = #{status,jdbcType=INTEGER},
       </if>
-      <if test="createtime != null">
-        createtime = #{createtime,jdbcType=TIMESTAMP},
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="updatetime != null">
-        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -354,11 +354,11 @@
       sex = #{sex,jdbcType=INTEGER},
       email = #{email,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
-      roleid = #{roleid,jdbcType=INTEGER},
+      role_id = #{roleId,jdbcType=INTEGER},
       deptid = #{deptid,jdbcType=INTEGER},
       status = #{status,jdbcType=INTEGER},
-      createtime = #{createtime,jdbcType=TIMESTAMP},
-      updatetime = #{updatetime,jdbcType=TIMESTAMP}
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="getUserByName" parameterType="string" resultMap="BaseResultMap">

@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
     public Result<RcUser> getById(Integer userId) {
         Result<RcUser> result = new Result<>();
         RcUser user = userMapper.selectByPrimaryKey(userId);
-        Result<RcRole> role = roleService.selectById(user.getRoleid());
+        Result<RcRole> role = roleService.selectById(user.getRoleId());
         if (role.isStatus()){
             user.setRole(role.getData());
         }
@@ -115,7 +115,7 @@ public class UserServiceImpl implements UserService {
         List<RcUser> roleList = userMapper.selectByExample(new RcUserExample());
         for (RcUser u: roleList
              ) {
-            Result<RcRole> result = roleService.selectById(u.getRoleid());
+            Result<RcRole> result = roleService.selectById(u.getRoleId());
             if (result.isStatus()){
                 u.setRole(result.getData());
             }

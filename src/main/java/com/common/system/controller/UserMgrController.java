@@ -83,20 +83,20 @@ public class UserMgrController extends BaseController{
             RcUser user = userResult.getData();
             user.setName(name);
             user.setSex(sex);
-            user.setRoleid(roleId);
+            user.setRoleId(roleId);
             result = userService.update(user);
         }
         return result;
     }
     @RequestMapping(value = "save")
     public @ResponseBody Result save(RcUser rcUser, @RequestParam(value = "role", required = false) Integer roleId){
-        rcUser.setCreatetime(new Date());
+        rcUser.setCreateTime(new Date());
         rcUser.setStatus(1);
         String salt = ShiroKit.getRandomSalt(5);
         rcUser.setSalt(salt);
         String saltPwd = ShiroKit.md5(rcUser.getPassword(),salt);
         rcUser.setPassword(saltPwd);
-        rcUser.setRoleid(roleId);
+        rcUser.setRoleId(roleId);
         Result<Integer> result = userService.save(rcUser);
         return result;
     }

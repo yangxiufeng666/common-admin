@@ -24,12 +24,12 @@
 			</tr>
 			<tr>
 				<td>创建时间：</td>
-				<td>${bean.createtime?string('yyyy-MM-dd HH:mm:ss')}</td>
+				<td>${bean.createTime?string('yyyy-MM-dd HH:mm:ss')}</td>
 			</tr>
 			<tr>
 				<td>更新时间：</td>
 				<#if bean.updateTime??>
-                    <td>${bean.updatetime?string('yyyy-MM-dd HH:mm:ss')}</td>
+                    <td>${bean.updateTime?string('yyyy-MM-dd HH:mm:ss')}</td>
 				</#if>
 			</tr>
 		</table>
