@@ -10,68 +10,10 @@ Target Server Type    : MYSQL
 Target Server Version : 50628
 File Encoding         : 65001
 
-Date: 2017-06-27 17:58:24
+Date: 2017-08-08 12:11:57
 */
 
 SET FOREIGN_KEY_CHECKS=0;
-
--- ----------------------------
--- Table structure for login_log
--- ----------------------------
-DROP TABLE IF EXISTS `login_log`;
-CREATE TABLE `login_log` (
-  `id` int(65) NOT NULL AUTO_INCREMENT,
-  `logname` varchar(255) DEFAULT NULL,
-  `userid` int(65) DEFAULT NULL,
-  `createtime` datetime DEFAULT NULL,
-  `succeed` varchar(255) DEFAULT NULL,
-  `message` text,
-  `ip` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=150 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of login_log
--- ----------------------------
-
--- ----------------------------
--- Table structure for notice
--- ----------------------------
-DROP TABLE IF EXISTS `notice`;
-CREATE TABLE `notice` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '序列',
-  `title` varchar(255) DEFAULT NULL COMMENT '标题',
-  `type` int(11) DEFAULT NULL COMMENT '类型',
-  `content` text COMMENT '内容',
-  `createtime` datetime DEFAULT NULL COMMENT '创建时间',
-  `creater` int(11) DEFAULT NULL COMMENT '创建人',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of notice
--- ----------------------------
-
--- ----------------------------
--- Table structure for operation_log
--- ----------------------------
-DROP TABLE IF EXISTS `operation_log`;
-CREATE TABLE `operation_log` (
-  `id` int(65) NOT NULL AUTO_INCREMENT,
-  `logtype` varchar(255) DEFAULT NULL,
-  `logname` varchar(255) DEFAULT NULL,
-  `userid` int(65) DEFAULT NULL,
-  `classname` varchar(255) DEFAULT NULL,
-  `method` text,
-  `createtime` datetime DEFAULT NULL,
-  `succeed` varchar(255) DEFAULT NULL,
-  `message` text,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=494 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of operation_log
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for rc_dept
@@ -124,36 +66,172 @@ INSERT INTO `rc_dict` VALUES ('37', '2', '35', '冻结', null);
 INSERT INTO `rc_dict` VALUES ('38', '3', '35', '已删除', null);
 
 -- ----------------------------
--- Table structure for rc_permission
+-- Table structure for rc_login_log
 -- ----------------------------
-DROP TABLE IF EXISTS `rc_permission`;
-CREATE TABLE `rc_permission` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `status_id` int(11) NOT NULL DEFAULT '1' COMMENT '状态',
-  `create_time` datetime NOT NULL COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
-  `permissions_name` varchar(20) NOT NULL COMMENT '权限名',
-  `permissions_value` varchar(20) NOT NULL COMMENT '权限值',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `unique_permission_name` (`permissions_name`),
-  UNIQUE KEY `unique_permission_value` (`permissions_value`)
-) ENGINE=InnoDB AUTO_INCREMENT=82 DEFAULT CHARSET=utf8;
+DROP TABLE IF EXISTS `rc_login_log`;
+CREATE TABLE `rc_login_log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `logname` varchar(255) DEFAULT NULL,
+  `user_id` int(65) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  `succeed` varchar(255) DEFAULT NULL,
+  `message` text,
+  `ip` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of rc_permission
+-- Records of rc_login_log
 -- ----------------------------
-INSERT INTO `rc_permission` VALUES ('1', '1', '2017-06-22 16:34:28', '2017-06-26 12:39:46', '管理员查看', 'admin:read');
-INSERT INTO `rc_permission` VALUES ('2', '1', '2017-06-22 16:35:47', null, '管理员添加', 'admin:insert');
-INSERT INTO `rc_permission` VALUES ('3', '1', '2017-06-22 16:36:23', null, '管理员删除', 'admin:delete');
-INSERT INTO `rc_permission` VALUES ('4', '1', '2017-06-22 16:36:55', null, '管理员修改', 'admin:update');
-INSERT INTO `rc_permission` VALUES ('5', '1', '2017-06-22 16:37:54', null, '用户修改', 'user:update');
-INSERT INTO `rc_permission` VALUES ('6', '1', '2017-06-22 16:38:22', null, '用户查看', 'user:read');
-INSERT INTO `rc_permission` VALUES ('7', '1', '2017-06-22 16:38:45', null, '用户添加', 'user:insert');
-INSERT INTO `rc_permission` VALUES ('8', '1', '2017-06-22 16:39:25', null, '用户删除', 'user:delete');
-INSERT INTO `rc_permission` VALUES ('10', '1', '2017-06-22 16:07:53', null, '超级管理员删除', 'super:delete');
-INSERT INTO `rc_permission` VALUES ('11', '1', '2017-06-22 16:08:16', null, '超级管理员查看', 'super:read');
-INSERT INTO `rc_permission` VALUES ('12', '1', '2017-06-22 16:08:47', null, '超级管理员修改', 'super:update');
-INSERT INTO `rc_permission` VALUES ('13', '1', '2017-06-22 16:09:14', null, '超级管理员添加', 'super:insert');
+
+-- ----------------------------
+-- Table structure for rc_menu
+-- ----------------------------
+DROP TABLE IF EXISTS `rc_menu`;
+CREATE TABLE `rc_menu` (
+  `id` varchar(64) NOT NULL,
+  `code` varchar(255) DEFAULT NULL COMMENT '菜单编码',
+  `p_code` varchar(255) DEFAULT NULL COMMENT '菜单父编码',
+  `p_id` varchar(255) DEFAULT NULL COMMENT '父菜单ID',
+  `name` varchar(255) DEFAULT NULL COMMENT '名称',
+  `url` varchar(255) DEFAULT NULL COMMENT '请求地址',
+  `is_menu` int(11) DEFAULT NULL COMMENT '是否是菜单',
+  `level` int(11) DEFAULT NULL COMMENT '菜单层级',
+  `sort` int(11) DEFAULT NULL COMMENT '菜单排序',
+  `status` int(11) DEFAULT NULL,
+  `icon` varchar(255) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `FK_CODE` (`code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of rc_menu
+-- ----------------------------
+INSERT INTO `rc_menu` VALUES ('000000000000000000', 'root', '0', '0', '系统根目录', '', '1', '0', '1', '1', null, '2017-08-03 18:31:54', null);
+INSERT INTO `rc_menu` VALUES ('893287144657780736', 'system', 'root', '000000000000000000', '系统设置', 'system', '1', '1', '10', '1', '', '2017-08-04 09:47:06', null);
+INSERT INTO `rc_menu` VALUES ('893288715881807872', 'userList', 'system', '893287144657780736', '用户管理', 'user/list', '1', '2', '1', '1', '', '2017-08-04 09:53:21', '2017-08-07 18:18:39');
+INSERT INTO `rc_menu` VALUES ('893304960282787840', 'user/add', 'userList', '893288715881807872', '用户添加', 'user/add', '0', '3', '1', '1', '', '2017-08-04 10:57:54', '2017-08-08 11:02:55');
+INSERT INTO `rc_menu` VALUES ('894396523532517376', 'user/edit', 'userList', '893288715881807872', '用户修改', 'user/edit', '0', '3', '1', '1', '', '2017-08-07 11:15:23', '2017-08-07 16:57:52');
+INSERT INTO `rc_menu` VALUES ('894473486712438784', 'user/view', 'userList', '893288715881807872', '用户查看', 'user/View', '0', '3', '2', '1', '', '2017-08-07 16:21:12', null);
+INSERT INTO `rc_menu` VALUES ('894473651837992960', 'user/delete', 'userList', '893288715881807872', '用户删除', 'user/delete', '0', '3', '4', '1', '', '2017-08-07 16:21:52', null);
+INSERT INTO `rc_menu` VALUES ('894475142061621248', 'roleList', 'system', '893287144657780736', '角色管理', 'role/list', '1', '2', '2', '1', '', '2017-08-07 16:27:47', '2017-08-08 10:34:56');
+INSERT INTO `rc_menu` VALUES ('894475827880656896', 'role/add', 'roleList', '894475142061621248', '角色添加', 'role/add', '0', '3', '1', '1', '', '2017-08-07 16:30:31', null);
+INSERT INTO `rc_menu` VALUES ('894475985452269568', 'role/edit', 'roleList', '894475142061621248', '角色编辑', 'role/edit', '0', '3', '2', '1', '', '2017-08-07 16:31:08', null);
+INSERT INTO `rc_menu` VALUES ('894476118730473472', 'role/delete', 'roleList', '894475142061621248', '角色删除', 'role/delete', '0', '3', '2', '1', '', '2017-08-07 16:31:40', '2017-08-07 16:37:24');
+INSERT INTO `rc_menu` VALUES ('894476276402749440', 'role/permission', 'roleList', '894475142061621248', '角色配权', 'role/permission', '0', '3', '3', '1', '', '2017-08-07 16:32:18', null);
+INSERT INTO `rc_menu` VALUES ('894476950951690240', 'menu/list', 'system', '893287144657780736', '菜单管理', 'menu/list', '1', '2', '2', '1', '', '2017-08-07 16:34:58', null);
+INSERT INTO `rc_menu` VALUES ('894477107919323136', 'menu/add', 'menu/list', '894476950951690240', '菜单添加', 'menu/add', '0', '3', '1', '1', '', '2017-08-07 16:35:36', null);
+INSERT INTO `rc_menu` VALUES ('894477244926263296', 'menu/edit', 'menu/list', '894476950951690240', '菜单编辑', 'menu/edit', '0', '3', '2', '1', '', '2017-08-07 16:36:08', null);
+INSERT INTO `rc_menu` VALUES ('894477420512411648', 'menu/delete', 'menu/list', '894476950951690240', '菜单删除', 'menu/delete', '0', '3', '2', '1', '', '2017-08-07 16:36:50', null);
+INSERT INTO `rc_menu` VALUES ('894477851082883072', 'apidoc', 'system', '893287144657780736', 'Api文档', 'doc.html', '1', '2', '9', '1', '', '2017-08-07 16:38:33', '2017-08-08 09:56:57');
+INSERT INTO `rc_menu` VALUES ('894477995903811584', 'database/log', 'system', '893287144657780736', '数据库日志', 'druid', '1', '2', '10', '1', '', '2017-08-07 16:39:07', '2017-08-08 09:56:29');
+INSERT INTO `rc_menu` VALUES ('894752734459199488', 'companyList', 'root', '000000000000000000', '公司管理', 'companyList', '1', '1', '1', '1', '', '2017-08-08 10:50:50', null);
+INSERT INTO `rc_menu` VALUES ('894769217763540992', 'department/list', 'root', '000000000000000000', '部门管理', 'department/list', '1', '1', '3', '1', '', '2017-08-08 11:56:20', null);
+
+-- ----------------------------
+-- Table structure for rc_notice
+-- ----------------------------
+DROP TABLE IF EXISTS `rc_notice`;
+CREATE TABLE `rc_notice` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '序列',
+  `title` varchar(255) DEFAULT NULL COMMENT '标题',
+  `type` int(11) DEFAULT NULL COMMENT '类型',
+  `content` text COMMENT '内容',
+  `createtime` datetime DEFAULT NULL COMMENT '创建时间',
+  `creater` int(11) DEFAULT NULL COMMENT '创建人',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of rc_notice
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for rc_operation_log
+-- ----------------------------
+DROP TABLE IF EXISTS `rc_operation_log`;
+CREATE TABLE `rc_operation_log` (
+  `id` int(65) NOT NULL AUTO_INCREMENT,
+  `log_type` varchar(255) DEFAULT NULL,
+  `log_name` varchar(255) DEFAULT NULL,
+  `user_id` int(65) DEFAULT NULL,
+  `class_name` varchar(255) DEFAULT NULL,
+  `method` text,
+  `create_time` datetime DEFAULT NULL,
+  `succeed` varchar(255) DEFAULT NULL,
+  `message` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of rc_operation_log
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for rc_privilege
+-- ----------------------------
+DROP TABLE IF EXISTS `rc_privilege`;
+CREATE TABLE `rc_privilege` (
+  `role_id` int(11) DEFAULT NULL,
+  `menu_id` varchar(255) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of rc_privilege
+-- ----------------------------
+INSERT INTO `rc_privilege` VALUES ('17', '894752734459199488', '2017-08-08 11:31:08');
+INSERT INTO `rc_privilege` VALUES ('6', '893287144657780736', '2017-08-08 11:31:39');
+INSERT INTO `rc_privilege` VALUES ('6', '893288715881807872', '2017-08-08 11:31:39');
+INSERT INTO `rc_privilege` VALUES ('6', '894396523532517376', '2017-08-08 11:31:39');
+INSERT INTO `rc_privilege` VALUES ('6', '894477851082883072', '2017-08-08 11:31:39');
+INSERT INTO `rc_privilege` VALUES ('6', '893287144657780736', '2017-08-08 11:31:39');
+INSERT INTO `rc_privilege` VALUES ('6', '893288715881807872', '2017-08-08 11:31:39');
+INSERT INTO `rc_privilege` VALUES ('6', '894396523532517376', '2017-08-08 11:31:39');
+INSERT INTO `rc_privilege` VALUES ('6', '894477851082883072', '2017-08-08 11:31:39');
+INSERT INTO `rc_privilege` VALUES ('6', '894477995903811584', '2017-08-08 11:31:39');
+INSERT INTO `rc_privilege` VALUES ('6', '893287144657780736', '2017-08-08 11:31:39');
+INSERT INTO `rc_privilege` VALUES ('6', '893288715881807872', '2017-08-08 11:31:39');
+INSERT INTO `rc_privilege` VALUES ('6', '894396523532517376', '2017-08-08 11:31:39');
+INSERT INTO `rc_privilege` VALUES ('6', '894473486712438784', '2017-08-08 11:31:39');
+INSERT INTO `rc_privilege` VALUES ('6', '894477851082883072', '2017-08-08 11:31:39');
+INSERT INTO `rc_privilege` VALUES ('6', '894477995903811584', '2017-08-08 11:31:39');
+INSERT INTO `rc_privilege` VALUES ('6', '893287144657780736', '2017-08-08 11:31:39');
+INSERT INTO `rc_privilege` VALUES ('6', '893288715881807872', '2017-08-08 11:31:39');
+INSERT INTO `rc_privilege` VALUES ('6', '894396523532517376', '2017-08-08 11:31:39');
+INSERT INTO `rc_privilege` VALUES ('6', '894473486712438784', '2017-08-08 11:31:39');
+INSERT INTO `rc_privilege` VALUES ('6', '894473651837992960', '2017-08-08 11:31:39');
+INSERT INTO `rc_privilege` VALUES ('6', '894477851082883072', '2017-08-08 11:31:39');
+INSERT INTO `rc_privilege` VALUES ('6', '894477995903811584', '2017-08-08 11:31:39');
+INSERT INTO `rc_privilege` VALUES ('6', '893287144657780736', '2017-08-08 11:31:39');
+INSERT INTO `rc_privilege` VALUES ('6', '893288715881807872', '2017-08-08 11:31:39');
+INSERT INTO `rc_privilege` VALUES ('6', '893304960282787840', '2017-08-08 11:31:39');
+INSERT INTO `rc_privilege` VALUES ('6', '894396523532517376', '2017-08-08 11:31:39');
+INSERT INTO `rc_privilege` VALUES ('6', '894473486712438784', '2017-08-08 11:31:39');
+INSERT INTO `rc_privilege` VALUES ('6', '894473651837992960', '2017-08-08 11:31:39');
+INSERT INTO `rc_privilege` VALUES ('6', '894477851082883072', '2017-08-08 11:31:39');
+INSERT INTO `rc_privilege` VALUES ('6', '894477995903811584', '2017-08-08 11:31:39');
+INSERT INTO `rc_privilege` VALUES ('8', '893287144657780736', '2017-08-08 11:56:44');
+INSERT INTO `rc_privilege` VALUES ('8', '893288715881807872', '2017-08-08 11:56:44');
+INSERT INTO `rc_privilege` VALUES ('8', '893304960282787840', '2017-08-08 11:56:44');
+INSERT INTO `rc_privilege` VALUES ('8', '894396523532517376', '2017-08-08 11:56:44');
+INSERT INTO `rc_privilege` VALUES ('8', '894473486712438784', '2017-08-08 11:56:44');
+INSERT INTO `rc_privilege` VALUES ('8', '894473651837992960', '2017-08-08 11:56:44');
+INSERT INTO `rc_privilege` VALUES ('8', '894475142061621248', '2017-08-08 11:56:44');
+INSERT INTO `rc_privilege` VALUES ('8', '894475827880656896', '2017-08-08 11:56:44');
+INSERT INTO `rc_privilege` VALUES ('8', '894475985452269568', '2017-08-08 11:56:44');
+INSERT INTO `rc_privilege` VALUES ('8', '894476118730473472', '2017-08-08 11:56:45');
+INSERT INTO `rc_privilege` VALUES ('8', '894476276402749440', '2017-08-08 11:56:45');
+INSERT INTO `rc_privilege` VALUES ('8', '894476950951690240', '2017-08-08 11:56:45');
+INSERT INTO `rc_privilege` VALUES ('8', '894477107919323136', '2017-08-08 11:56:45');
+INSERT INTO `rc_privilege` VALUES ('8', '894477244926263296', '2017-08-08 11:56:45');
+INSERT INTO `rc_privilege` VALUES ('8', '894477420512411648', '2017-08-08 11:56:45');
+INSERT INTO `rc_privilege` VALUES ('8', '894477851082883072', '2017-08-08 11:56:45');
+INSERT INTO `rc_privilege` VALUES ('8', '894477995903811584', '2017-08-08 11:56:45');
+INSERT INTO `rc_privilege` VALUES ('8', '894752734459199488', '2017-08-08 11:56:45');
+INSERT INTO `rc_privilege` VALUES ('8', '894769217763540992', '2017-08-08 11:56:45');
 
 -- ----------------------------
 -- Table structure for rc_relation
@@ -166,7 +244,7 @@ CREATE TABLE `rc_relation` (
   `create_time` datetime DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3713 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3723 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of rc_relation
@@ -183,7 +261,6 @@ INSERT INTO `rc_relation` VALUES ('3687', '10', '8', '2017-06-22 10:41:40', null
 INSERT INTO `rc_relation` VALUES ('3688', '11', '8', '2017-06-22 10:41:50', null);
 INSERT INTO `rc_relation` VALUES ('3689', '12', '8', '2017-06-22 10:41:58', null);
 INSERT INTO `rc_relation` VALUES ('3690', '13', '8', '2017-06-22 10:42:06', null);
-INSERT INTO `rc_relation` VALUES ('3691', '6', '15', '2017-06-23 10:03:57', null);
 INSERT INTO `rc_relation` VALUES ('3704', '1', '6', '2017-06-26 12:46:09', null);
 INSERT INTO `rc_relation` VALUES ('3705', '2', '6', '2017-06-26 12:46:09', null);
 INSERT INTO `rc_relation` VALUES ('3706', '3', '6', '2017-06-26 12:46:09', null);
@@ -193,6 +270,10 @@ INSERT INTO `rc_relation` VALUES ('3709', '6', '6', '2017-06-26 12:46:09', null)
 INSERT INTO `rc_relation` VALUES ('3710', '7', '6', '2017-06-26 12:46:09', null);
 INSERT INTO `rc_relation` VALUES ('3711', '8', '6', '2017-06-26 12:46:09', null);
 INSERT INTO `rc_relation` VALUES ('3712', '81', '6', '2017-06-26 12:46:09', null);
+INSERT INTO `rc_relation` VALUES ('3719', '5', '17', '2017-07-21 09:41:28', null);
+INSERT INTO `rc_relation` VALUES ('3720', '6', '17', '2017-07-21 09:41:28', null);
+INSERT INTO `rc_relation` VALUES ('3721', '7', '17', '2017-07-21 09:41:28', null);
+INSERT INTO `rc_relation` VALUES ('3722', '8', '17', '2017-07-21 09:41:28', null);
 
 -- ----------------------------
 -- Table structure for rc_role
@@ -209,14 +290,14 @@ CREATE TABLE `rc_role` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique_role_name` (`name`),
   UNIQUE KEY `unique_role_value` (`value`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of rc_role
 -- ----------------------------
 INSERT INTO `rc_role` VALUES ('6', '管理员', 'admin', null, '2017-06-20 15:07:13', '2017-06-26 12:46:09', '1');
 INSERT INTO `rc_role` VALUES ('8', '超级管理员', 'super', null, '2017-06-20 15:08:45', null, '1');
-INSERT INTO `rc_role` VALUES ('15', '用户', 'user', null, '2017-06-23 10:03:57', null, '1');
+INSERT INTO `rc_role` VALUES ('17', '用户', 'user', null, '2017-06-28 18:50:39', '2017-07-21 09:41:28', '1');
 
 -- ----------------------------
 -- Table structure for rc_user
@@ -233,19 +314,17 @@ CREATE TABLE `rc_user` (
   `sex` int(11) DEFAULT NULL,
   `email` varchar(45) DEFAULT NULL,
   `phone` varchar(45) DEFAULT NULL,
-  `roleid` int(11) DEFAULT NULL,
+  `role_id` int(11) DEFAULT NULL,
   `deptid` int(11) DEFAULT NULL,
   `status` int(11) DEFAULT NULL,
-  `createtime` datetime DEFAULT NULL,
-  `updatetime` datetime DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique_user_username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of rc_user
 -- ----------------------------
 INSERT INTO `rc_user` VALUES ('46', null, 'super', '5844591dff62349ce65f98c60baa669e', 'e8z0i', '超级管理员', '2017-06-22 14:26:09', '1', null, null, '8', '34', '1', '2017-06-20 15:12:16', null);
-INSERT INTO `rc_user` VALUES ('47', null, 'test', 'a387925ac992274f2099389df1d68b16', 'o2p9n', '', null, '1', null, null, '15', null, '1', '2017-06-26 17:23:22', null);
 INSERT INTO `rc_user` VALUES ('48', null, 'admin', '439b9b33eb18d644f3b57e182f45b86a', 'bycca', '管理员', null, '1', null, null, '6', null, '1', '2017-06-26 17:31:41', null);
-INSERT INTO `rc_user` VALUES ('49', null, 'test2', '8e16dd198cee5158b05301081bea900e', 'f15nh', '王五', null, '1', null, null, null, null, '1', '2017-06-26 17:43:19', null);
