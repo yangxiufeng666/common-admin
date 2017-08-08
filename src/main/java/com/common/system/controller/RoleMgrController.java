@@ -75,14 +75,10 @@ public class RoleMgrController extends BaseController{
         return modelAndView;
     }
     @RequestMapping(value = "update")
-    public @ResponseBody Result update(RcRole role,String permission){
+    public @ResponseBody Result update(RcRole role){
         role = roleService.selectById(role.getId()).getData();
-        List<Integer> permissionList = Convert.toIntegerList(permission,",");
         role.setUpdateTime(new Date());
         Result<Integer> result = roleService.update(role);
-        if (result.isStatus()){
-            result = relationService.update(role.getId(),permissionList);
-        }
         return result;
     }
     @RequestMapping(value = "view/{id}",method = RequestMethod.GET)

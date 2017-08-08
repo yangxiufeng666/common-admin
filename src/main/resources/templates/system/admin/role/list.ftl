@@ -4,31 +4,12 @@
 			<div class="box-header">
 				<h3 class="box-title">角色管理</h3>
 				<div class="box-tools pull-right">
-					<@shiro.hasPermission name="super:insert">
+					<@shiro.hasPermission name="role/add">
 						<a onclick="roleToListAjax();" class="btn btn-sm btn-primary" target="modal" modal="lg" href="/role/add">添加</a>
 					</@shiro.hasPermission>
 				</div>
 			</div>
 			<div class="box-body">
-				<div class="clearfix">
-					<div class="col-md-4">
-						<div class="input-group date ">
-							<div class="input-group-addon">
-								<i class="fa fa-calendar"></i>
-							</div>
-							<input type="text" class="form-control pull-right" id="roleTime" placeholder="选择时间...">
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="input-group">
-							<span class="input-group-addon"><i class="fa fa-search"></i></span>
-							<input type="text" class="form-control" id="rolePremise" placeholder="根据账号搜索...">
-						</div>
-					</div>
-					<div class="col-md-4">
-						<button type="button" onclick="roleReload();" class="btn btn-primary">搜索</button>
-					</div>
-				</div>
 				<table id="role_tab" class="table table-bordered table-striped">
 					<thead>
 						<tr>
@@ -51,15 +32,8 @@
 <script type="text/javascript">
 var role_tab;
 $(function() {
-	//初始化时间选择器
-	$('#roleTime').datepicker({
-		language: 'zh-CN',
-		format: 'yyyy-mm-dd',
-		autoclose: true,
-		todayHighlight: true
-	});
+
 	//初始化表格
-	
 	var No=0;
 	role_tab = $('#role_tab').DataTable({
 		"dom":'itflp',
@@ -105,13 +79,15 @@ $(function() {
 				"render" : function(data) {
 					var btn = '<a class="btn btn-xs btn-primary" target="modal" modal="lg" href="/role/view/'+ data.id+ '">查看</a> &nbsp;';
 						if(data.roleValue != 'super'){
-							btn = btn+'<@shiro.hasPermission name="super:update">'
+							btn = btn+'<@shiro.hasPermission name="role/edit">'
 							+'<a class="btn btn-xs btn-info" onclick="roleToListAjax();" target="modal" modal="lg" href="/role/edit/'+ data.id+'">修改</a> &nbsp;'
 							+'</@shiro.hasPermission>'
-							+'<@shiro.hasPermission name="super:delete">'
+							+'<@shiro.hasPermission name="role/delete">'
 							+'<a class="btn btn-xs btn-default" callback="roleReload();" data-body="确认要删除吗？" target="ajaxTodo" href="/role/delete/'+ data.id + '">删除</a>  &nbsp;'
 							+'</@shiro.hasPermission>'
+							+'<@shiro.hasPermission name="role/permission">'
 							+'<a class="btn btn-xs btn-info" onclick="roleToListAjax();" target="modal" modal="lg" href="/role/permission/'+ data.id+'">权限配置</a>';
+								+'</@shiro.hasPermission>'
 						}
 				return btn;
 			}

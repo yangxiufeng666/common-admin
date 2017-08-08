@@ -11,24 +11,6 @@
 					<label id="roleValueLabel">角色值</label>
 					<input type="text" class="form-control" name="value" id="value" value=${role.value} placeholder="角色值...">
 				</div>
-				<div class="form-group">
-					<label>权限：</label>
-					<label>
-						<input type="checkbox" id="allCheckbox" class="flat-red" onClick="onClickCheckbox('allCheckbox','permission')">全选
-					</label>
-					<br/>
-					<#list permissions as permission>
-						<#if role.permissionList??>
-							<label>
-			                  <input type="checkbox" name="permission" class="flat-red" value="${permission.id}"<#list role.permissionList as beanPermission> <#if beanPermission.permissionsValue == permission.permissionsValue>checked</#if></#list>> ${permission.permissionsName}
-			                </label>
-						<#else>
-							<label>
-			                  <input type="checkbox" name="permission" class="flat-red" value="${permission.id}"> ${permission.permissionsName}
-			                </label>
-						</#if>
-					</#list>
-				</div>
              </div>
 			<div class="box-footer">
 				<div class="pull-right">

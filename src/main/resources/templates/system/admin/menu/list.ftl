@@ -12,7 +12,7 @@
                 </div>
             </div>
             <div class="box-body">
-                <table id="security_tab" class="table table-bordered table-striped">
+                <table id="menu_tab" class="table table-bordered table-striped">
                     <thead>
                     <tr>
                     <tr>
@@ -36,11 +36,11 @@
 </div>
 
 <script type="text/javascript">
-    var security_tab;
+    var menu_tab;
     $(function () {
         //初始化表格
         var No = 0;
-        security_tab = $('#security_tab').DataTable({
+        menu_tab = $('#menu_tab').DataTable({
             "dom": 'itflp',
             "processing": true,
             "searching": false,
@@ -105,16 +105,16 @@
         });
 
         $("#securitySeek").on("click", function () {
-            reloadTable(security_tab);
+            reloadTable(menu_tab);
         });
     });
 
     function securityReload() {
-        reloadTable(security_tab);
+        reloadTable(menu_tab);
     }
 
     function securityToListAjax() {
-        list_ajax = security_tab;
+        list_ajax = menu_tab;
         console.log(list_ajax);
     }
     function isNull(data) {
