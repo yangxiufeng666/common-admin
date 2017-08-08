@@ -23,17 +23,14 @@
 				</div>
 				<div class="form-group">
 					<label>角色：</label>
-					<#--<label>-->
-						<#--<input type="checkbox" id="allCheckbox" class="flat-red" onClick="onClickCheckbox('allCheckbox','role')">全选-->
-					<#--</label>-->
 					<br/>
 					<#list roles as role>
-						<#if role.value == 'superAdmin'>
-							<@shiro.hasPermission name="super:update">
+						<#if role.value == 'super'>
+							<@shiro.hasRole name="super">
 							<label>
 			                  <input type="radio" name="roleId" class="flat-red" value="${role.id}"> ${role.name}
 			                </label>
-			                </@shiro.hasPermission>
+			                </@shiro.hasRole>
 		                <#else>
 			                <label>
 			                  <input type="radio" name="roleId" class="flat-red" value="${role.id}"> ${role.name}

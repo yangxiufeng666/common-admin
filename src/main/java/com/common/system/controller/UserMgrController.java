@@ -5,11 +5,13 @@ import com.common.system.entity.RcUser;
 import com.common.system.service.RoleService;
 import com.common.system.service.UserService;
 import com.common.system.shiro.ShiroKit;
+import com.common.system.shiro.ShiroUser;
 import com.common.system.util.Convert;
 import com.common.system.util.PageBean;
 import com.common.system.util.Result;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Role;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -53,7 +55,8 @@ public class UserMgrController extends BaseController{
     public ModelAndView add(ModelAndView modelAndView){
         modelAndView.setViewName("/system/admin/user/add");
         PageInfo<RcRole> pageInfo = roleService.listForPage(null,null);
-        modelAndView.addObject("roles",pageInfo.getList());
+        List<RcRole> roleList = pageInfo.getList();
+        modelAndView.addObject("roles",roleList);
         return modelAndView;
     }
     @RequestMapping(value = "edit/{id}",method = RequestMethod.GET)

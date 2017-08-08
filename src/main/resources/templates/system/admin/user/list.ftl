@@ -4,7 +4,7 @@
 			<div class="box-header">
 				<h3 class="box-title">用户管理</h3>
 				<div class="box-tools pull-right">
-					<@shiro.hasPermission name="admin:insert">
+					<@shiro.hasPermission name="user/add">
 						<a onclick="securityToListAjax();" class="btn btn-sm btn-primary" target="modal" modal="lg" href="/user/add">添加</a>
 					</@shiro.hasPermission>
 				</div>
@@ -127,10 +127,10 @@ $(function() {
 					var btn = "";
 					btn = '<a class="btn btn-xs btn-primary" target="modal" modal="lg" href="/user/view/'+ data.id+ '">查看</a> &nbsp;';
 					if(isNull(data.role) ||  'super' != data.role.value){
-                        btn +='<@shiro.hasPermission name="admin:update">'
+                        btn +='<@shiro.hasPermission name="user/edit">'
                         +'<a class="btn btn-xs btn-info" onclick="securityToListAjax();" target="modal" modal="lg" href="/user/edit/'+ data.id+ '">修改</a> &nbsp;'
                         +'</@shiro.hasPermission>'
-                        +'<@shiro.hasPermission name="admin:delete">'
+                        +'<@shiro.hasPermission name="user/delete">'
                         +'<a class="btn btn-xs btn-default" callback="securityReload();" data-body="确认要删除吗？" target="ajaxTodo" href="/user/delete/'+ data.id + '">删除</a>'
                         +'</@shiro.hasPermission>';
 					}

@@ -59,6 +59,7 @@ public class IndexController {
                     childList.sort(new MenuComparator());
                     menu.setChild(childList);
                 }
+                menuList.sort(new MenuComparator());
                 modelAndView.addObject("menuList",menuList);
             }
         }

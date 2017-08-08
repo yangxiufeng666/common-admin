@@ -49,6 +49,8 @@ public class RoleMgrController extends BaseController{
     @RequestMapping(value = "delete/{id}",method = RequestMethod.GET)
     public @ResponseBody String delete(@PathVariable Integer id){
         roleService.deleteById(id);
+        //删除角色与权限的关系
+        privilegeService.deleteByRoleId(id);
         return REDIRECT+"/system/admin/role/list";
     }
     @RequestMapping(value = "add",method = RequestMethod.GET)
