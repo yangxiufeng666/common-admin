@@ -14,7 +14,7 @@
                             <ul class="treeview-menu">
                             <#list menu.child as child>
                                 <li>
-                                    <a target="navTab" href="${child.url}">
+                                    <a target="navTab" <#if child.url="druid" || child.url="doc.html"||child.url="swagger-ui.html"> target_type="iframe" fresh="false" </#if>href="${child.url}">
                                         <i class="fa fa-inbox"></i> <span>${child.name}</span>
                                     </a>
                                 </li>
@@ -24,49 +24,6 @@
                     </li>
                 </#list>
             </#if>
-            <#--<@shiro.hasAnyRoles name ="super,admin">-->
-                <#--<li class="treeview">-->
-                    <#--<a href="#">-->
-                        <#--<i class="fa fa-envelope"></i>-->
-                        <#--<span>系统设置</span>-->
-                        <#--<span class="pull-right-container"> <i class="fa fa-angle-left pull-right"></i></span>-->
-                    <#--</a>-->
-                    <#--<ul class="treeview-menu">-->
-                        <#--<li>-->
-                            <#--<a target="navTab" href="/user/list">-->
-                                <#--<i class="fa fa-inbox"></i>-->
-                                <#--<span>用户管理</span>-->
-                            <#--</a>-->
-                        <#--</li>-->
-                        <#--<li>-->
-                            <#--<a target="navTab" href="/role/list">-->
-                                <#--<i class="fa fa-inbox"></i>-->
-                                <#--<span>角色管理</span>-->
-                            <#--</a>-->
-                        <#--</li>-->
-                        <#--<li>-->
-                            <#--<a target="navTab" href="/menu/list">-->
-                                <#--<i class="fa fa-inbox"></i>-->
-                                <#--<span>菜单管理</span>-->
-                            <#--</a>-->
-                        <#--</li>-->
-                        <#--<@shiro.hasRole name="super">-->
-                            <#--<li>-->
-                                <#--<a target="_blank" href="/doc.html">-->
-                                    <#--<i class="fa fa-inbox"></i>-->
-                                    <#--<span>API文档</span>-->
-                                <#--</a>-->
-                            <#--</li>-->
-                        <#--</@shiro.hasRole>-->
-                        <#--<li>-->
-                            <#--<a target="_blank" href="/druid">-->
-                                <#--<i class="fa fa-inbox"></i>-->
-                                <#--<span>数据库日志</span>-->
-                            <#--</a>-->
-                        <#--</li>-->
-                    <#--</ul>-->
-                <#--</li>-->
-            <#--</@shiro.hasAnyRoles>-->
         </ul>
     </section>
 </aside>

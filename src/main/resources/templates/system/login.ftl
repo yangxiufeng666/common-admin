@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
-    <title>大数据可视化后台管理系统</title>
-
+    <title>Rock后台管理系统</title>
+    <link rel="shortcut icon" type="image/x-icon" href="adminlte/dist/img/favicon.ico">
     <link rel="stylesheet" href="/adminlte/dist/css/login2.css">
     <!--[if IE]>
 	<script src="http://libs.useso.com/js/html5shiv/3.7/html5shiv.min.js"></script>

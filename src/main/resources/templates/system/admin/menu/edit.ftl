@@ -33,7 +33,7 @@
                 </div>
                 <div class="form-group">
                     <label id="nickNameLabel">父级菜单</label>
-                    <input type="text" readonly class="form-control" name="pName" id="pName" value="${pName}" placeholder="输入父级菜单..."
+                    <input type="text" readonly class="form-control" name="pName" id="pName" value="${pName!}" placeholder="输入父级菜单..."
                            onclick='showMenu(${zTree})'/>
                     <input type="text" hidden id="pId" name="pId" value="${menu.pId!}">
                     <input type="text" hidden id="pCode" name="pCode" value="${menu.pCode!}">

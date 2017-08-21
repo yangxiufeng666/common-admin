@@ -5318,3 +5318,162 @@ table.text-center th {
     white-space: normal !important;
   }
 }
+.content-wrapper .content-tabs {
+  position: relative;
+  height: 41px;
+  line-height: 39.5px;
+  background: #fafafa;
+  border-bottom: solid 2px #222d32;
+  font-size: 12px;
+}
+
+.content-wrapper .content-tabs,.main-footer{
+  margin-left: 230px;
+}
+
+.sidebar-collapse  .content-wrapper .content-tabs{
+  margin-left:0;
+}
+
+.mainContent{
+  /*margin-left:230px;*/
+  width: calc(100% - 230px);
+  height: calc(100% - 143px);
+  position: absolute;
+  padding: 0 !important;
+}
+
+.sidebar-collapse .mainContent{
+  margin-left:0px;
+  width: calc(100% - 51px);
+  height: calc(100% - 143px);
+  position: absolute;
+}
+
+@media (max-width: 767px) {
+  .content-wrapper .content-tabs  {
+    margin-left: 0;
+    width:100%;
+  }
+  .mainContent{
+    margin-left:0;
+    width:100%;
+  }
+}
+
+.content-wrapper .content-tabs .roll-nav,.page-tabs-list {
+  position: absolute;
+  width: 40px;
+  height: 39.5px;
+  text-align: center;
+  color: #475059;
+  z-index: 2;
+  top: 0
+}
+
+.content-wrapper .content-tabs .roll-left {
+  left: 0;
+  border-right: solid 1px #ddd
+}
+
+.content-wrapper .content-tabs .roll-right {
+  right: 0;
+  border-left: solid 1px #ddd
+}
+
+.content-wrapper .content-tabs button {
+  background: #fff;
+  border: 0;
+  height: 39px;
+  line-height: 39px;
+  width: 40px;
+  outline: 0
+}
+
+.content-wrapper .content-tabs button:hover {
+  background: #fafafa
+}
+
+.content-wrapper .content-tabs button i {
+  color: #999;
+}
+
+.content-wrapper .content-tabs nav.page-tabs {
+  margin-left: 40px;
+  width: 100000px;
+  height: 40px;
+  overflow: hidden
+}
+
+.content-wrapper .content-tabs nav.page-tabs .page-tabs-content {
+  float: left
+}
+
+.content-wrapper .content-tabs .page-tabs a {
+  display: block;
+  float: left;
+  border-right: solid 0px #ddd;
+  padding: 0 15px;
+  padding-right: 8px;
+  text-decoration: none;
+  color: #475059;
+}
+
+.content-wrapper .content-tabs .page-tabs a:first-child {
+  padding-right: 15px;
+}
+
+.content-wrapper .content-tabs .page-tabs a.active {
+  background: #222d32;
+  color: #fff;
+  border-right: solid 1px #2c3e50;
+}
+
+.content-wrapper .content-tabs .page-tabs a i {
+  margin-top: -10px;
+  right: 0px;
+  position: relative;
+  color: #999;
+}
+
+.content-wrapper .content-tabs .page-tabs a i:hover {
+  color: #c00 !important;
+}
+
+.content-wrapper .content-tabs .page-tabs a.active i:hover {
+  color: #fff !important;
+}
+
+.content-wrapper .content-tabs .roll-right.tabRight {
+  right: 120px
+}
+
+.content-wrapper .content-tabs .roll-right.btn-group {
+  right: 40px;
+  width: 80px;
+  padding: 0
+}
+
+.content-wrapper .content-tabs .roll-right.btn-group button {
+  width: 80px
+}
+
+.content-wrapper .content-tabs .roll-right.tabExit {
+  background: #fff;
+  height: 39px;
+  width: 40px;
+  outline: 0
+}
+
+.content-wrapper .content-tabs .dropdown-menu {
+  border: solid 1px #ccc;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  right: -1px;
+}
+.mainContent iframe{
+  height: 100%;
+  width: 100%;
+}
+
+.content>.tabs-panel{padding: 15px;}

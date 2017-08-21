@@ -92,11 +92,14 @@
                     "data": null,
                     "render": function (data) {
                         var btn = "";
-                        btn =
-                                '<a class="btn btn-xs btn-info" callback="securityToListAjax();" target="modal" modal="lg" href="/menu/edit/' + data.id + '">编辑</a>'
-                                + " &nbsp;"
-                                +'<a class="btn btn-xs btn-default" callback="securityReload();" data-body="确认要删除吗？" target="ajaxTodo" href="/menu/delete/' + data.id + '">删除</a>'
+                        var pCode=data.pCode;
+                        if ('0' != pCode){
+                            btn =
+                                    '<a class="btn btn-xs btn-info" callback="securityToListAjax();" target="modal" modal="lg" href="/menu/edit/' + data.id + '">编辑</a>'
+                                    + " &nbsp;"
+                                    +'<a class="btn btn-xs btn-default" callback="securityReload();" data-body="确认要删除吗？" target="ajaxTodo" href="/menu/delete/' + data.id + '">删除</a>'
 
+                        }
                         return btn;
                     }
                 }]

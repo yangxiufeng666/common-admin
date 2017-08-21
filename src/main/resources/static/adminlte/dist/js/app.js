@@ -1138,7 +1138,12 @@ function _init() {
     var _text = that.text();
     var _href = that.attr("href");
     if (!$("#navTabs li[url='"+_href+"']").length) {
-
+      //iframe支持
+      if(that.attr('target_type') == 'iframe'){
+        $("#navTabs").append('<li url="'+_href+'"><span>'+_text+'</span><a href="javascript:void(0);" class="fa fa-close"></a></li>');
+        $("#content").append('<div class="tabs-panel mainContent"><iframe class="LRADMS_iframe" name="iframe0" width="100%" height="100%" src="'+_href+'" frameborder="0"></iframe></div>');
+        showTab($("#navTabs li[url='"+_href+"']"));
+      }else{
         $("#loading").show();
         $.ajax({
           url:_href,
@@ -1156,13 +1161,14 @@ function _init() {
             // })
             $("#navTabs").append('<li url="'+_href+'"><span>'+_text+'</span><a href="javascript:void(0);" class="fa fa-close"></a></li>');
             $("#content").append('<div class="tabs-panel">'+result+'</div>');
-            showTab($("#navTabs li[url='"+_href+"']"));   
+            showTab($("#navTabs li[url='"+_href+"']"));
           },
           error:function(err){
             $("#loading").hide();
             console.log(err)
           }
         })
+      }
     }else{
       showTab($("#navTabs li[url='"+_href+"']"));      
     }
