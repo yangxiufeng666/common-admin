@@ -5,14 +5,15 @@ import com.common.system.entity.RcUser;
 import com.common.system.service.RoleService;
 import com.common.system.service.UserService;
 import com.common.system.shiro.ShiroKit;
-import com.common.system.shiro.ShiroUser;
-import com.common.system.util.Convert;
+import com.common.system.util.MsgCode;
 import com.common.system.util.PageBean;
 import com.common.system.util.Result;
 import com.github.pagehelper.PageInfo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Role;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -27,6 +28,8 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "user")
 public class UserMgrController extends BaseController{
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserMgrController.class);
 
     @Autowired
     private UserService userService;
@@ -98,6 +101,44 @@ public class UserMgrController extends BaseController{
         rcUser.setPassword(saltPwd);
         rcUser.setRoleId(roleId);
         Result<Integer> result = userService.save(rcUser);
+        return result;
+    }
+
+    /**
+     * <p>修改密码</p>
+     * @param id
+     * @param oldPwd
+     * @param newPwd
+     * @return
+     */
+    @RequestMapping(value = "modifyPwd",method = RequestMethod.POST)
+    public @ResponseBody Result update(Integer id,String oldPwd,String newPwd){
+        Result result = new Result();
+        if (StringUtils.isEmpty(newPwd)){
+            result.setMsg("新密码不能为空");
+            return result;
+        }
+        Result<RcUser> rcUserResult = userService.getById(id);
+        RcUser user = rcUserResult.getData();
+        String md5pwd = ShiroKit.md5(oldPwd,user.getSalt());
+        if (!user.getPassword().equals(md5pwd)){
+            result.setCode(MsgCode.FAILED);
+            result.setStatus(false);
+            result.setMsg("密码不正确");
+            return result;
+        }
+        String salt = ShiroKit.getRandomSalt(5);
+        String saltPwd = ShiroKit.md5(newPwd,salt);
+        user.setPassword(saltPwd);
+        user.setSalt(salt);
+        try {
+            userService.modifyPwd(user);
+            result.setStatus(true);
+            result.setCode(MsgCode.SUCCESS);
+            result.setMsg("操作成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return result;
     }
 }

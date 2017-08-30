@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -121,5 +122,11 @@ public class UserServiceImpl implements UserService {
             }
         }
         return new PageInfo<>(roleList);
+    }
+
+    @Override
+    public int modifyPwd(RcUser user) {
+        user.setUpdateTime(new Date());
+        return userMapper.updateByPrimaryKeySelective(user);
     }
 }

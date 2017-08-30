@@ -16,4 +16,7 @@ public interface UserService {
     Result<Integer> save(RcUser user);
     Result<RcUser> getByUserName(String username);
     PageInfo<RcUser> listForPage(Integer pageNum, Integer pageSize);
+
+    int modifyPwd(RcUser user);
+
 }
