@@ -28,7 +28,7 @@ public class ZTreeServiceImpl implements ZTreeService {
     private MenuService menuService;
 
     @Override
-    public List<ZTreeNode> getZTreeNodes() {
+    public List<ZTreeNode> getMenuZTreeNodes() {
         List<RcMenu> list = menuService.getMenu();
         List<ZTreeNode> zTreeNodeList = new ArrayList();
         for (RcMenu menu:list
@@ -39,6 +39,9 @@ public class ZTreeServiceImpl implements ZTreeService {
             node.setpId(menu.getpId());
             node.setCode(menu.getCode());
             node.setLevel(menu.getLevel());
+            if (menu.getLevel()==2){
+                node.setOpen(false);
+            }
             zTreeNodeList.add(node);
         }
         return zTreeNodeList;

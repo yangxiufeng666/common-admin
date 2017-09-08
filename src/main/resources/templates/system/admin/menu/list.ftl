@@ -1,15 +1,28 @@
+<style>
+    ul.ztree {
+        margin-top: 10px;
+        border: 1px solid #617775;
+        background: #f0f6e4;
+        width: 220px;
+        height: 360px;
+        overflow-y: scroll;
+        overflow-x: auto;
+    }
+</style>
 <div class="row">
     <div class="col-xs-12">
         <div class="box">
             <div class="box-header">
                 <h3 class="box-title">菜单管理</h3>
-
-                <div class="box-tools pull-right">
-                <#--<@shiro.hasPermission name="admin:insert">-->
-                    <a onclick="securityToListAjax();" class="btn btn-sm btn-primary" target="modal" modal="lg"
-                       href="/menu/add">添加</a>
-                <#--</@shiro.hasPermission>-->
+            </div>
+            <div class="box-body">
+                <div class="table table-bordered">
+                    <ul id="menuTree" class="ztree" style="width: 100%"></ul>
                 </div>
+            </div>
+            <div class="box-tools">
+                <a onclick="securityToListAjax();" class="btn btn-sm btn-primary" target="modal" modal="lg"
+                   href="/menu/add">添加</a>
             </div>
             <div class="box-body">
                 <table id="menu_tab" class="table table-bordered table-striped">
@@ -34,8 +47,52 @@
         </div>
     </div>
 </div>
-
+<script type="text/javascript" src="other/zTree/js/jquery.ztree.core.js"></script>
+<script type="text/javascript" src="other/zTree/js/jquery.ztree.excheck.js"></script>
+<link rel="stylesheet" type="text/css" href="other/zTree/css/zTreeStyle/zTreeStyle.css"/>
 <script type="text/javascript">
+
+    var listSetting = {
+        check: {
+            enable: true,
+            chkStyle: "radio",
+            radioType: "all"
+        },
+        view: {
+            dblClickExpand: false
+        },
+        data: {
+            simpleData: {
+                enable: true
+            }
+        },
+        callback: {
+            onClick: onClickList,
+            onCheck: onCheckList
+        }
+    };
+
+    function onClickList(e, treeId, treeNode) {
+        var zTree = $.fn.zTree.getZTreeObj("menuTree");
+        zTree.checkNode(treeNode, !treeNode.checked, null, true);
+        return false;
+    }
+
+    function onCheckList(e, treeId, treeNode) {
+        var zTree = $.fn.zTree.getZTreeObj("menuTree"),
+                nodes = zTree.getCheckedNodes(true);
+        var id = '';
+        for (var i = 0, l = nodes.length; i < l; i++) {
+            id = nodes[i].id;
+        }
+        menuId = id;
+    }
+    var ListzNodes = ${ListzTree};
+    $(document).ready(function () {
+        $.fn.zTree.init($("#menuTree"), listSetting, ListzNodes);
+    });
+</script>
+<script>
     var menu_tab;
     $(function () {
         //初始化表格

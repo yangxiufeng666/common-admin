@@ -92,7 +92,7 @@ public class RoleMgrController extends BaseController{
     }
     @RequestMapping(value = "permission/{id}",method = RequestMethod.GET)
     public ModelAndView dispatchPermission(@PathVariable Integer id,ModelAndView modelAndView){
-        List<ZTreeNode> treeNodes = treeService.getZTreeNodes();
+        List<ZTreeNode> treeNodes = treeService.getMenuZTreeNodes();
         ZTreeNode node=null;
         for (ZTreeNode n:treeNodes) {
             if (n.getpId().equals("0")){

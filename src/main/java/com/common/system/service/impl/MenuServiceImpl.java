@@ -2,12 +2,15 @@ package com.common.system.service.impl;
 
 import com.common.system.entity.RcMenu;
 import com.common.system.entity.RcMenuExample;
+import com.common.system.entity.RcPermissionExample;
 import com.common.system.mapper.RcMenuMapper;
 import com.common.system.service.MenuService;
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -45,9 +48,22 @@ public class MenuServiceImpl implements MenuService {
     }
     @Override
     public PageInfo<RcMenu> listForPage(Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum,pageSize);
         RcMenuExample example = new RcMenuExample();
-        example.setOrderByClause("p_id");
+        RcMenuExample.Criteria criteria = example.createCriteria();
+//        criteria.andPIdEqualTo("000000000000000000");
+//        example.setOrderByClause("p_id");
         List<RcMenu> list = menuMapper.selectByExample(example);
+//        List<RcMenu> finalList = new ArrayList<>();
+//        if (list !=null && list.size()>0){
+//            for (RcMenu m:list
+//                 ) {
+//                List<RcMenu> childs = getByParentId(m.getId());
+//                finalList.add(m);
+//                finalList.addAll(childs);
+//                m.setChild(childs);
+//            }
+//        }
         PageInfo<RcMenu> pageInfo = new PageInfo<>(list);
         return pageInfo;
     }

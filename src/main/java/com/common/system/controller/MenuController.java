@@ -35,13 +35,16 @@ public class MenuController {
 
     @RequestMapping(value = "list",method = RequestMethod.GET)
     public ModelAndView list(ModelAndView modelAndView){
+        List<ZTreeNode> zTreeNodeList = treeService.getMenuZTreeNodes();
+        String tree = treeService.buildZTree(zTreeNodeList);
+        modelAndView.addObject("ListzTree",tree);
         modelAndView.setViewName("/system/admin/menu/list");
         return modelAndView;
     }
     @RequestMapping(value = "add",method = RequestMethod.GET)
     public ModelAndView add(ModelAndView modelAndView){
         modelAndView.setViewName("/system/admin/menu/add");
-        List<ZTreeNode> zTreeNodeList = treeService.getZTreeNodes();
+        List<ZTreeNode> zTreeNodeList = treeService.getMenuZTreeNodes();
         String treeStr = treeService.buildZTree(zTreeNodeList);
         modelAndView.addObject("rcMenu",treeStr);
         return modelAndView;
@@ -83,7 +86,7 @@ public class MenuController {
     public ModelAndView edit(@PathVariable String id, ModelAndView modelAndView){
         RcMenu menu = menuService.selectByPrimaryKey(id);
         modelAndView.addObject("menu",menu);
-        List<ZTreeNode> zTreeNodeList = treeService.getZTreeNodes();
+        List<ZTreeNode> zTreeNodeList = treeService.getMenuZTreeNodes();
         for (ZTreeNode node:zTreeNodeList
              ) {
             if (node.getCode().equals(menu.getpCode())){

@@ -10,6 +10,6 @@ import java.util.List;
  * ProjectName:Common-admin
  */
 public interface ZTreeService {
-    List<ZTreeNode> getZTreeNodes();
+    List<ZTreeNode> getMenuZTreeNodes();
     String buildZTree( List<ZTreeNode> zTreeNodeList);
 }
