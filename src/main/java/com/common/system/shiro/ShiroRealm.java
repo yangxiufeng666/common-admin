@@ -3,7 +3,6 @@ package com.common.system.shiro;
 import com.common.system.entity.*;
 import com.common.system.service.MenuService;
 import com.common.system.service.PrivilegeService;
-import com.common.system.service.RelationService;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authc.credential.CredentialsMatcher;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
@@ -25,8 +24,6 @@ public class ShiroRealm extends AuthorizingRealm{
 
     @Autowired
     private ShiroFactory shiroFactory;
-    @Autowired
-    private RelationService relationService;
     @Autowired
     private PrivilegeService privilegeService;
     @Autowired

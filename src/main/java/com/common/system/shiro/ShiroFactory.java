@@ -1,22 +1,17 @@
 package com.common.system.shiro;
 
 import com.common.system.entity.RcDept;
-import com.common.system.entity.RcRelation;
 import com.common.system.entity.RcRole;
 import com.common.system.entity.RcUser;
 import com.common.system.mapper.RcDeptMapper;
-import com.common.system.mapper.RcRelationMapper;
 import com.common.system.mapper.RcRoleMapper;
 import com.common.system.mapper.RcUserMapper;
 import org.apache.shiro.authc.CredentialsException;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.util.ByteSource;
-import org.omg.CORBA.PRIVATE_MEMBER;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * Created by Mr.Yangxiufeng on 2017/6/20.

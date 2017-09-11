@@ -1,11 +1,8 @@
 package com.common.system.service.impl;
 
-import com.common.system.entity.RcPermission;
-import com.common.system.entity.RcRelation;
 import com.common.system.entity.RcRole;
 import com.common.system.entity.RcRoleExample;
 import com.common.system.mapper.RcRoleMapper;
-import com.common.system.service.RelationService;
 import com.common.system.service.RoleService;
 import com.common.system.util.MsgCode;
 import com.common.system.util.Result;
@@ -15,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,8 +24,6 @@ public class RoleServiceImpl implements RoleService {
 
     @Autowired
     private RcRoleMapper roleMapper;
-    @Autowired
-    private RelationService relationService;
 
     @Override
     public PageInfo<RcRole> listForPage(Integer pageNum, Integer pageSize) {
@@ -82,7 +76,6 @@ public class RoleServiceImpl implements RoleService {
         }
         roleMapper.insert(role);
         role = selectByRoleName(role.getName());
-        result = relationService.save(role.getId(),permissionIds);
         return result;
     }
 
@@ -99,17 +92,6 @@ public class RoleServiceImpl implements RoleService {
         result.setData(role);
         result.setStatus(true);
         result.setCode(MsgCode.SUCCESS);
-        List<RcRelation> relationList = relationService.getByRoleId(id);
-        if (relationList == null || relationList.size()==0){
-            result.setStatus(true);
-            result.setCode(MsgCode.SUCCESS);
-            return result;
-        }
-        List<Integer> permissionIds = new ArrayList<>();
-        for (RcRelation r:relationList
-             ) {
-            permissionIds.add(r.getPermissionid());
-        }
         return result ;
     }
 

@@ -29,8 +29,6 @@ public class RoleMgrController extends BaseController{
     @Autowired
     private RoleService roleService;
     @Autowired
-    private RelationService relationService;
-    @Autowired
     private ZTreeService treeService;
     @Autowired
     private PrivilegeService privilegeService;

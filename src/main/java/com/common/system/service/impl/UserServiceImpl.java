@@ -113,15 +113,15 @@ public class UserServiceImpl implements UserService {
         if (pageNum != null && pageSize != null){
             PageHelper.startPage(pageNum,pageSize);
         }
-        List<RcUser> roleList = userMapper.selectByExample(new RcUserExample());
-        for (RcUser u: roleList
+        List<RcUser> userList = userMapper.selectByExample(new RcUserExample());
+        for (RcUser u: userList
              ) {
             Result<RcRole> result = roleService.selectById(u.getRoleId());
             if (result.isStatus()){
                 u.setRole(result.getData());
             }
         }
-        return new PageInfo<>(roleList);
+        return new PageInfo<>(userList);
     }
 
     @Override

@@ -130,7 +130,13 @@ $(function() {
                         btn +='<@shiro.hasPermission name="user/edit">'
                         +'<a class="btn btn-xs btn-info" onclick="securityToListAjax();" target="modal" modal="lg" href="/user/edit/'+ data.id+ '">修改</a> &nbsp;'
                         +'</@shiro.hasPermission>'
-                        +'<@shiro.hasPermission name="user/delete">'
+                        +'<@shiro.hasPermission name="user/edit">'
+                        +'<a class="btn btn-xs btn-info" onclick="securityToListAjax();" target="modal" modal="lg" href="/user/resetPwd/'+ data.id+ '">重置密码</a> &nbsp;'
+                        +'</@shiro.hasPermission>'
+						+'<@shiro.hasPermission name="user/edit">'
+                        +'<a class="btn btn-xs btn-info" onclick="securityToListAjax();" target="modal" modal="lg" href="/user/setRole/'+ data.id+ '">角色分配</a> &nbsp;'
+                        +'</@shiro.hasPermission>'
+						+'<@shiro.hasPermission name="user/delete">'
                         +'<a class="btn btn-xs btn-default" callback="securityReload();" data-body="确认要删除吗？" target="ajaxTodo" href="/user/delete/'+ data.id + '">删除</a>'
                         +'</@shiro.hasPermission>';
 					}
