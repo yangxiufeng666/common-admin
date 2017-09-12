@@ -104,6 +104,29 @@ public class UserMgrController extends BaseController{
         Result<Integer> result = userService.save(rcUser);
         return result;
     }
+    @RequestMapping(value = "goResetPwd/{id}",method = RequestMethod.GET)
+    public ModelAndView goResetPwd(ModelAndView modelAndView,@PathVariable Integer id){
+        modelAndView.setViewName("system/admin/user/reset_pwd");
+        RcUser user = userService.getById(id).getData();
+        modelAndView.addObject("bean",user);
+        return modelAndView;
+    }
+    @RequestMapping(value = "doResetPwd",method = RequestMethod.POST)
+    public @ResponseBody
+    Result doResetPwd(Integer id,String password){
+        Result result = new Result();
+        Result<RcUser> rcUserResult = userService.getById(id);
+        RcUser user = rcUserResult.getData();
+        String salt = ShiroKit.getRandomSalt(5);
+        String saltPwd = ShiroKit.md5(password,salt);
+        user.setPassword(saltPwd);
+        user.setSalt(salt);
+        userService.modifyPwd(user);
+        result.setStatus(true);
+        result.setCode(MsgCode.SUCCESS);
+        result.setMsg("操作成功");
+        return result;
+    }
 
     /**
      * <p>修改密码</p>

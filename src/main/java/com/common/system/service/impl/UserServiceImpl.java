@@ -3,7 +3,9 @@ package com.common.system.service.impl;
 import com.common.system.entity.RcRole;
 import com.common.system.entity.RcUser;
 import com.common.system.entity.RcUserExample;
+import com.common.system.entity.RcUserRole;
 import com.common.system.mapper.RcUserMapper;
+import com.common.system.service.RcUserRoleService;
 import com.common.system.service.RoleService;
 import com.common.system.service.UserService;
 import com.common.system.util.MsgCode;
@@ -14,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -29,6 +32,8 @@ public class UserServiceImpl implements UserService {
     private RcUserMapper userMapper;
     @Autowired
     private RoleService roleService;
+    @Autowired
+    private RcUserRoleService userRoleService;
 
     @Override
     public Result<Integer> deleteById(Integer userId) {
@@ -48,10 +53,6 @@ public class UserServiceImpl implements UserService {
     public Result<RcUser> getById(Integer userId) {
         Result<RcUser> result = new Result<>();
         RcUser user = userMapper.selectByPrimaryKey(userId);
-        Result<RcRole> role = roleService.selectById(user.getRoleId());
-        if (role.isStatus()){
-            user.setRole(role.getData());
-        }
         if (user != null){
             result.setData(user);
             result.setStatus(true);
@@ -116,9 +117,18 @@ public class UserServiceImpl implements UserService {
         List<RcUser> userList = userMapper.selectByExample(new RcUserExample());
         for (RcUser u: userList
              ) {
-            Result<RcRole> result = roleService.selectById(u.getRoleId());
-            if (result.isStatus()){
-                u.setRole(result.getData());
+            List<RcUserRole> userRoleList = userRoleService.getByUserId(u.getId());
+
+            if (userRoleList != null && userRoleList.size() > 0){
+                List<RcRole> list = new ArrayList<>();
+                for (RcUserRole ur:userRoleList
+                     ) {
+                    Result<RcRole> result = roleService.selectById(ur.getRoleId());
+                    if (result.isStatus()){
+                        list.add(result.getData());
+                    }
+                }
+                u.setRoleList(list);
             }
         }
         return new PageInfo<>(userList);

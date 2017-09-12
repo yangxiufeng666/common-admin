@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class RcUser implements Serializable{
     private static final long serialVersionUID = -8597875106667295283L;
@@ -37,7 +38,7 @@ public class RcUser implements Serializable{
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
-    private RcRole role;
+    private List<RcRole> roleList;
 
     public Integer getId() {
         return id;
@@ -159,11 +160,11 @@ public class RcUser implements Serializable{
         this.updateTime = updateTime;
     }
 
-    public RcRole getRole() {
-        return role;
+    public List<RcRole> getRoleList() {
+        return roleList;
     }
 
-    public void setRole(RcRole role) {
-        this.role = role;
+    public void setRoleList(List<RcRole> roleList) {
+        this.roleList = roleList;
     }
 }
