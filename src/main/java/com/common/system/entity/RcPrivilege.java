@@ -2,7 +2,7 @@ package com.common.system.entity;
 
 import java.util.Date;
 
-public class RcPrivilege {
+public class RcPrivilege{
     private Integer roleId;
 
     private String menuId;

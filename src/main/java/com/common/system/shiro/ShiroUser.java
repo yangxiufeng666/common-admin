@@ -1,8 +1,11 @@
 package com.common.system.shiro;
 
+import com.common.system.entity.RcPrivilege;
+import com.common.system.entity.RcRole;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -18,14 +21,17 @@ public class ShiroUser implements Serializable{
     private String username;      // 账号
     private String name;         // 姓名
     private Integer deptId;      // 部门id
-//    public List<Integer> roleList; // 角色集
-    private Integer roleId;
     private String deptName;        // 部门名称
-//    public List<String> roleNames; // 角色名称集
-    private String roleName;
-    private String roleValue;//角色值
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
+    //角色集
+    private List<RcRole> roleList;
+
+    List<RcPrivilege> privilegeList;
+    //菜单权限值
+    List<String> permissionValues = new ArrayList<>();
+    //角色值
+    List<String> roleValues = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -67,35 +73,44 @@ public class ShiroUser implements Serializable{
         this.deptName = deptName;
     }
 
-    public Integer getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(Integer roleId) {
-        this.roleId = roleId;
-    }
-
-    public String getRoleName() {
-        return roleName;
-    }
-
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
-    }
-
-    public String getRoleValue() {
-        return roleValue;
-    }
-
-    public void setRoleValue(String roleValue) {
-        this.roleValue = roleValue;
-    }
-
     public Date getCreateTime() {
         return createTime;
     }
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+
+    public List<RcRole> getRoleList() {
+        return roleList;
+    }
+
+    public void setRoleList(List<RcRole> roleList) {
+        this.roleList = roleList;
+    }
+
+    public List<RcPrivilege> getPrivilegeList() {
+        return privilegeList;
+    }
+
+    public void setPrivilegeList(List<RcPrivilege> privilegeList) {
+        this.privilegeList = privilegeList;
+    }
+
+    public List<String> getPermissionValues() {
+        return permissionValues;
+    }
+
+    public void setPermissionValues(List<String> permissionValues) {
+        this.permissionValues = permissionValues;
+    }
+
+    public List<String> getRoleValues() {
+        return roleValues;
+    }
+
+    public void setRoleValues(List<String> roleValues) {
+        this.roleValues = roleValues;
     }
 }

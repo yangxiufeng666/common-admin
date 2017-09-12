@@ -26,18 +26,18 @@ import java.util.List;
 public class IndexController {
     @Autowired
     private MenuService menuService;
-    @Autowired
-    private PrivilegeService privilegeService;
 
     @RequestMapping(value = {"/"},method = RequestMethod.GET)
     public ModelAndView index(ModelAndView modelAndView){
         ShiroUser user = (ShiroUser) ShiroKit.getSubject().getPrincipal();
         modelAndView.setViewName("/system/admin/index");
-        List<RcPrivilege> privilegeList = privilegeService.getByRoleId(user.getRoleId());
+        List<RcPrivilege> privilegeList = user.getPrivilegeList();
         if (null != privilegeList){
             List<String> ids = new ArrayList<>();
             for (RcPrivilege p : privilegeList){
-                ids.add(p.getMenuId());
+                if (!ids.contains(p.getMenuId())){
+                    ids.add(p.getMenuId());
+                }
             }
             List<Integer> wantList = new ArrayList<>();
             //得到一级菜单

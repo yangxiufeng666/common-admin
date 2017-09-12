@@ -7,6 +7,8 @@ import com.common.system.service.RcUserRoleService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务实现类
@@ -20,6 +22,16 @@ public class RcUserRoleServiceImpl extends ServiceImpl<RcUserRoleMapper, RcUserR
     @Override
     public boolean deleteByUserId(Integer userId) {
         return delete(new Wrapper<RcUserRole>() {
+            @Override
+            public String getSqlSegment() {
+                return "where user_id="+userId;
+            }
+        });
+    }
+
+    @Override
+    public List<RcUserRole> getByUserId(Integer userId) {
+        return selectList(new Wrapper<RcUserRole>() {
             @Override
             public String getSqlSegment() {
                 return "where user_id="+userId;

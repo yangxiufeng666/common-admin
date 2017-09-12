@@ -10,10 +10,13 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeSet;
 
 /**
  * Created by Mr.Yangxiufeng on 2017/6/20.
@@ -21,13 +24,9 @@ import java.util.List;
  * ProjectName:Common-admin
  */
 public class ShiroRealm extends AuthorizingRealm{
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(ShiroRealm.class);
     @Autowired
     private ShiroFactory shiroFactory;
-    @Autowired
-    private PrivilegeService privilegeService;
-    @Autowired
-    private MenuService menuService;
 
     /***
      * <p>授权</p>
@@ -36,26 +35,12 @@ public class ShiroRealm extends AuthorizingRealm{
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
+        LOGGER.info("doGetAuthorizationInfo");
         ShiroUser user = (ShiroUser)principalCollection.getPrimaryPrincipal();
-        Integer roleId = user.getRoleId();
 
-        List<String> permissionValues = new ArrayList<>();
-
-        //权限2.0版本
-        List<RcPrivilege> privilegeList = privilegeService.getByRoleId(roleId);
-        List<String> ids = new ArrayList<>();
-        for (RcPrivilege p : privilegeList){
-            ids.add(p.getMenuId());
-        }
-        List<RcMenu> menuList = menuService.selectInIds(ids,null);
-
-        for (RcMenu p:menuList
-             ) {
-            permissionValues.add(p.getCode());
-        }
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-        info.addRole(user.getRoleValue());
-        info.addStringPermissions(permissionValues);
+        info.addRoles(user.getRoleValues());
+        info.addStringPermissions(user.getPermissionValues());
         return info;
     }
 
