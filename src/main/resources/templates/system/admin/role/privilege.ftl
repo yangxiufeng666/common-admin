@@ -12,7 +12,7 @@
 <div class="row">
     <div class="col-md-12">
         <div class="zTreeDemoBackground">
-            <ul id="tree" class="ztree"></ul>
+            <ul id="privilegeTree" class="ztree"></ul>
         </div>
         <div class="modal-footer">
             <div class="pull-right">
@@ -49,7 +49,7 @@
             }
         })
     }
-    var setting = {
+    var privilegeSetting = {
         check: {
             enable: true
         },
@@ -62,11 +62,11 @@
             }
         },
         callback: {
-            onCheck: onCheck
+            onCheck: onPrivilegeCheck
         }
     };
     var zNodes = ${zNodes};
-    function onCheck() {
+    function onPrivilegeCheck() {
         console.log(".......................");
         var zTree = $.fn.zTree.getZTreeObj("tree");
         var nodes = zTree.getCheckedNodes(true);
@@ -77,6 +77,6 @@
         console.log(JSON.stringify(nodes));
     }
     $(document).ready(function(){
-        $.fn.zTree.init($("#tree"), setting, zNodes);
+        $.fn.zTree.init($("#privilegeTree"), privilegeSetting, zNodes);
     });
 </script>
