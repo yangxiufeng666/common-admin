@@ -58,7 +58,7 @@
                         </li>
                         <li class="user-footer">
                             <div class="pull-left">
-                                <a href="javascript:void(0);" class="btn btn-default btn-flat">密码修改</a>
+                                <a href="/user/goModifyPwd/${user.id}" target="modal" modal="lg"  class="btn btn-default btn-flat">密码修改</a>
                             </div>
                             <div class="pull-right">
                                 <a href="/logout" class="btn btn-default btn-flat">安全退出</a>

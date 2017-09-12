@@ -127,24 +127,28 @@ public class UserMgrController extends BaseController{
         result.setMsg("操作成功");
         return result;
     }
-
+    @RequestMapping(value = "goModifyPwd/{id}",method = RequestMethod.GET)
+    public ModelAndView goModifyPwd(ModelAndView modelAndView,@PathVariable Integer id){
+        modelAndView.setViewName("system/admin/user/modify_pwd");
+        RcUser user = userService.getById(id).getData();
+        modelAndView.addObject("bean",user);
+        return modelAndView;
+    }
     /**
      * <p>修改密码</p>
      * @param id
-     * @param oldPwd
-     * @param newPwd
      * @return
      */
     @RequestMapping(value = "modifyPwd",method = RequestMethod.POST)
-    public @ResponseBody Result update(Integer id,String oldPwd,String newPwd){
+    public @ResponseBody Result modifyPwd(Integer id,String oldPassword,String password){
         Result result = new Result();
-        if (StringUtils.isEmpty(newPwd)){
+        if (StringUtils.isEmpty(password)){
             result.setMsg("新密码不能为空");
             return result;
         }
         Result<RcUser> rcUserResult = userService.getById(id);
         RcUser user = rcUserResult.getData();
-        String md5pwd = ShiroKit.md5(oldPwd,user.getSalt());
+        String md5pwd = ShiroKit.md5(oldPassword,user.getSalt());
         if (!user.getPassword().equals(md5pwd)){
             result.setCode(MsgCode.FAILED);
             result.setStatus(false);
@@ -152,7 +156,7 @@ public class UserMgrController extends BaseController{
             return result;
         }
         String salt = ShiroKit.getRandomSalt(5);
-        String saltPwd = ShiroKit.md5(newPwd,salt);
+        String saltPwd = ShiroKit.md5(password,salt);
         user.setPassword(saltPwd);
         user.setSalt(salt);
         try {
