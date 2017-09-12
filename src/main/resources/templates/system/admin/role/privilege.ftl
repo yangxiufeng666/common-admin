@@ -68,7 +68,7 @@
     var zNodes = ${zNodes};
     function onPrivilegeCheck() {
         console.log(".......................");
-        var zTree = $.fn.zTree.getZTreeObj("tree");
+        var zTree = $.fn.zTree.getZTreeObj("privilegeTree");
         var nodes = zTree.getCheckedNodes(true);
         for (var i = 0, l = nodes.length; i < l; i++) {
             var id = nodes[i].id;
