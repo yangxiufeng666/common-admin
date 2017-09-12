@@ -1,6 +1,7 @@
 package com.common.system.service;
 
 import com.common.system.entity.RcRole;
+import com.common.system.entity.RcRoleWrapper;
 import com.common.system.util.Result;
 import com.github.pagehelper.PageInfo;
 
@@ -25,4 +26,6 @@ public interface RoleService {
 
     Result<Integer> save(RcRole role, List<Integer> permissionIds);
     Result<Integer> update(RcRole role);
+
+    List<RcRoleWrapper> getRoleWrapperList();
 }

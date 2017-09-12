@@ -36,7 +36,7 @@
 								<th>序号</th>
 								<th>账号</th>
 								<th>昵称</th>
-								<th>角色</th>
+								<#--<th>角色</th>-->
 								<th>状态</th>
 								<th>创建时间</th>
 								<th>操作</th>
@@ -75,7 +75,7 @@ $(function() {
 			{"data":"username"},
 			{"data":"name"},
 			{"data":null},
-			{"data":null},
+//			{"data":null},
 			{"data":"createTime"},
 			{"data":null} 
 			],
@@ -88,26 +88,26 @@ $(function() {
 			        return No;
 			    }
 			},
-            {
-                targets: 3,
-                data: null,
-                render: function (data) {
-                    var name = data.name;
-                    return name;
-                }
-            },
+//            {
+//                targets: 2,
+//                data: null,
+//                render: function (data) {
+//                    var name = data.name;
+//                    return name;
+//                }
+//            },
+//			{
+//			    targets: 4,
+//			    data: null,
+//			    render: function (data) {
+//			    	var  listStr = "";
+//			    	var list = data.role;
+//					listStr = list.name;
+//			    	return listStr;
+//			    }
+//			},
 			{
 			    targets: 3,
-			    data: null,
-			    render: function (data) {
-			    	var  listStr = "";
-			    	var list = data.role;
-					listStr = list.name;
-			    	return listStr;
-			    }
-			},
-			{
-			    targets: 4,
 			    data: null,
 			    render: function (data) {
 			    	if(data.status == 0){
@@ -128,13 +128,13 @@ $(function() {
 					btn = '<a class="btn btn-xs btn-primary" target="modal" modal="lg" href="/user/view/'+ data.id+ '">查看</a> &nbsp;';
 					if(isNull(data.role) ||  'super' != data.role.value){
                         btn +='<@shiro.hasPermission name="user/edit">'
-                        +'<a class="btn btn-xs btn-info" onclick="securityToListAjax();" target="modal" modal="lg" href="/user/edit/'+ data.id+ '">修改</a> &nbsp;'
+                        +'<a class="btn btn-xs btn-info" onclick="securityToListAjax();" data-title="修改" target="modal" modal="lg" href="/user/edit/'+ data.id+ '">修改</a> &nbsp;'
                         +'</@shiro.hasPermission>'
                         +'<@shiro.hasPermission name="user/edit">'
                         +'<a class="btn btn-xs btn-info" onclick="securityToListAjax();" target="modal" modal="lg" href="/user/resetPwd/'+ data.id+ '">重置密码</a> &nbsp;'
                         +'</@shiro.hasPermission>'
 						+'<@shiro.hasPermission name="user/edit">'
-                        +'<a class="btn btn-xs btn-info" onclick="securityToListAjax();" target="modal" modal="lg" href="/user/setRole/'+ data.id+ '">角色分配</a> &nbsp;'
+                        +'<a class="btn btn-xs btn-info" onclick="securityToListAjax();" target="modal" modal="lg" href="/user/goDispatcherRole/'+ data.id+ '">角色分配</a> &nbsp;'
                         +'</@shiro.hasPermission>'
 						+'<@shiro.hasPermission name="user/delete">'
                         +'<a class="btn btn-xs btn-default" callback="securityReload();" data-body="确认要删除吗？" target="ajaxTodo" href="/user/delete/'+ data.id + '">删除</a>'

@@ -21,23 +21,23 @@
 						<option value="0">女</option>
 					</select>
 				</div>
-				<div class="form-group">
-					<label>角色：</label>
-					<br/>
-					<#list roles as role>
-						<#if role.value == 'super'>
-							<@shiro.hasRole name="super">
-							<label>
-			                  <input type="radio" name="roleId" class="flat-red" value="${role.id}"> ${role.name}
-			                </label>
-			                </@shiro.hasRole>
-		                <#else>
-			                <label>
-			                  <input type="radio" name="roleId" class="flat-red" value="${role.id}"> ${role.name}
-			                </label>
-		                </#if>
-					</#list>
-				</div>
+				<#--<div class="form-group">-->
+					<#--<label>角色：</label>-->
+					<#--<br/>-->
+					<#--<#list roles as role>-->
+						<#--<#if role.value == 'super'>-->
+							<#--<@shiro.hasRole name="super">-->
+							<#--<label>-->
+			                  <#--<input type="radio" name="roleId" class="flat-red" value="${role.id}"> ${role.name}-->
+			                <#--</label>-->
+			                <#--</@shiro.hasRole>-->
+		                <#--<#else>-->
+			                <#--<label>-->
+			                  <#--<input type="radio" name="roleId" class="flat-red" value="${role.id}"> ${role.name}-->
+			                <#--</label>-->
+		                <#--</#if>-->
+					<#--</#list>-->
+				<#--</div>-->
 			</div>
 			<div class="modal-footer">
 				<div class="pull-right">

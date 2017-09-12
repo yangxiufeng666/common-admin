@@ -1,7 +1,11 @@
 package com.common.system.controller;
 
+import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.common.system.entity.RcRole;
+import com.common.system.entity.RcRoleWrapper;
 import com.common.system.entity.RcUser;
+import com.common.system.entity.RcUserRole;
+import com.common.system.service.RcUserRoleService;
 import com.common.system.service.RoleService;
 import com.common.system.service.UserService;
 import com.common.system.shiro.ShiroKit;
@@ -17,6 +21,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -35,6 +40,8 @@ public class UserMgrController extends BaseController{
     private UserService userService;
     @Autowired
     private RoleService roleService;
+    @Autowired
+    private RcUserRoleService userRoleService;
 
     @RequestMapping(value = "list",method = RequestMethod.GET)
     public ModelAndView list(ModelAndView modelAndView){
@@ -57,17 +64,12 @@ public class UserMgrController extends BaseController{
     @RequestMapping(value = "add",method = RequestMethod.GET)
     public ModelAndView add(ModelAndView modelAndView){
         modelAndView.setViewName("/system/admin/user/add");
-        PageInfo<RcRole> pageInfo = roleService.listForPage(null,null);
-        List<RcRole> roleList = pageInfo.getList();
-        modelAndView.addObject("roles",roleList);
         return modelAndView;
     }
     @RequestMapping(value = "edit/{id}",method = RequestMethod.GET)
     public ModelAndView edit(@PathVariable Integer id,ModelAndView modelAndView){
         Result<RcUser> result = userService.getById(id);
         modelAndView.addObject("bean",result.getData());
-        PageInfo<RcRole> pageInfo = roleService.listForPage(null,null);
-        modelAndView.addObject("roles",pageInfo.getList());
         modelAndView.setViewName("/system/admin/user/edit");
         return modelAndView;
     }
@@ -92,14 +94,13 @@ public class UserMgrController extends BaseController{
         return result;
     }
     @RequestMapping(value = "save")
-    public @ResponseBody Result save(RcUser rcUser, @RequestParam(value = "role", required = false) Integer roleId){
+    public @ResponseBody Result save(RcUser rcUser){
         rcUser.setCreateTime(new Date());
         rcUser.setStatus(1);
         String salt = ShiroKit.getRandomSalt(5);
         rcUser.setSalt(salt);
         String saltPwd = ShiroKit.md5(rcUser.getPassword(),salt);
         rcUser.setPassword(saltPwd);
-        rcUser.setRoleId(roleId);
         Result<Integer> result = userService.save(rcUser);
         return result;
     }
@@ -139,6 +140,62 @@ public class UserMgrController extends BaseController{
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return result;
+    }
+    @RequestMapping(value = "goDispatcherRole/{id}",method = RequestMethod.GET)
+    public ModelAndView goDispatcherRole(ModelAndView modelAndView,@PathVariable Integer id){
+        modelAndView.setViewName("/system/admin/user/dispatcher_role");
+        List<RcRoleWrapper> roleWrappers = roleService.getRoleWrapperList();
+        modelAndView.addObject("roles",roleWrappers);
+        modelAndView.addObject("userId",id);
+        RcUser user = userService.getById(id).getData();
+        modelAndView.addObject("bean",user);
+        List<RcUserRole> list = userRoleService.selectList(new Wrapper<RcUserRole>() {
+            @Override
+            public String getSqlSegment() {
+                return "where user_id="+id;
+            }
+        });
+        for (RcRoleWrapper w:roleWrappers){
+            if (list != null){
+                for (RcUserRole r:list){
+                    if (w.getId().equals(r.getRoleId())){
+                        w.setChecked(true);
+                    }
+                }
+            }
+        }
+        return modelAndView;
+    }
+    @RequestMapping(value = "doDispatcherRole",method = RequestMethod.POST)
+    public @ResponseBody
+    Result doDispatcherRole(Integer id,String roleId){
+        LOGGER.info("roleId="+roleId);
+        Result result = new Result();
+        if (StringUtils.isEmpty(roleId)){
+            if (userRoleService.deleteByUserId(id)){
+                result.setStatus(true);
+                result.setCode(MsgCode.SUCCESS);
+            }
+        }else {
+            String[] roleIds = roleId.split(",");
+            //删除旧记录
+            userRoleService.deleteByUserId(id);
+            List<RcUserRole> list = new ArrayList<>();
+            for (int i=0;i<roleIds.length;i++){
+                RcUserRole userRole = new RcUserRole();
+                userRole.setUserId(id);
+                userRole.setRoleId(Integer.valueOf(roleIds[i]));
+                userRole.setCreateTime(new Date());
+                userRole.setCreateBy(getUser().getName());
+                list.add(userRole);
+            }
+            if (userRoleService.insertBatch(list)){
+                result.setStatus(true);
+                result.setCode(MsgCode.SUCCESS);
+            }
+        }
+
         return result;
     }
 }

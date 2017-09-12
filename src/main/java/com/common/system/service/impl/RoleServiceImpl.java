@@ -2,6 +2,7 @@ package com.common.system.service.impl;
 
 import com.common.system.entity.RcRole;
 import com.common.system.entity.RcRoleExample;
+import com.common.system.entity.RcRoleWrapper;
 import com.common.system.mapper.RcRoleMapper;
 import com.common.system.service.RoleService;
 import com.common.system.util.MsgCode;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -120,5 +122,25 @@ public class RoleServiceImpl implements RoleService {
             result.setMsg("操作失败："+e.getLocalizedMessage());
         }
         return result;
+    }
+
+    @Override
+    public List<RcRoleWrapper> getRoleWrapperList() {
+        List<RcRole> roleList = roleMapper.getRoleList();
+        List<RcRoleWrapper> wraps = new ArrayList<>();
+        if (roleList != null){
+            for (RcRole role:roleList
+                    ) {
+                RcRoleWrapper wrapper = new RcRoleWrapper();
+                wrapper.setId(role.getId());
+                wrapper.setStatus(role.getStatus());
+                wrapper.setName(role.getName());
+                wrapper.setValue(role.getValue());
+                wrapper.setTips(role.getTips());
+                wrapper.setCreateTime(role.getCreateTime());
+                wraps.add(wrapper);
+            }
+        }
+        return wraps;
     }
 }
