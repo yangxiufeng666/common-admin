@@ -44,6 +44,7 @@ public class TreeGridServiceImpl implements TreeGridService {
                 treeNode.setMenuId(menu.getId());
                 treeNode.setLevel(menu.getLevel());
                 treeNode.setSort(menu.getSort());
+                treeNode.setCode(menu.getCode());
                 treeNode.setCreateDate(menu.getCreateTime());
                 treeGridNodeList.add(treeNode);
 

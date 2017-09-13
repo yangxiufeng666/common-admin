@@ -33,6 +33,8 @@ public class TreeGridNode  implements Serializable{
 
     private Integer sort;
 
+    private String code;
+
     public Long getId() {
         return id;
     }
@@ -103,5 +105,13 @@ public class TreeGridNode  implements Serializable{
 
     public void setSort(Integer sort) {
         this.sort = sort;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }

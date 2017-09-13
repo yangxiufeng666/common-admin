@@ -47,6 +47,12 @@
                         width: 80
                     },
                     {
+                        title: '菜单编码',
+                        field: 'code',
+                        align: 'center',
+                        width: 80
+                    },
+                    {
                         title: '层级',
                         field: 'level',
                         align: 'center',
