@@ -27,7 +27,7 @@
                 </div>
                 <div class="form-group">
                     <label id="sortNameLabel">排序</label>
-                    <input type="text" class="form-control" name="sort" id="sort" placeholder="输入排序...">
+                    <input type="number" class="form-control" name="sort" id="sort" placeholder="输入排序...">
                 </div>
                 <div class="form-group">
                     <label id="pNameLabel">父级菜单</label>
@@ -85,6 +85,10 @@
         }
         if($("#code").val() == ""){
             $("#codeLabel").prepend('<span class="errorClass" style="color:red">*菜单编号不能为空</span><br class="errorClass"/>');
+            status = 0;
+        }
+        if($("#sort").val() == ""){
+            $("#sortNameLabel").prepend('<span class="errorClass" style="color:red">*顺序编号不能为空</span><br class="errorClass"/>');
             status = 0;
         }
         if (status == 0) {

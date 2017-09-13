@@ -29,6 +29,10 @@ public class TreeGridNode  implements Serializable{
 
     private String menuId;
 
+    private Integer level;
+
+    private Integer sort;
+
     public Long getId() {
         return id;
     }
@@ -83,5 +87,21 @@ public class TreeGridNode  implements Serializable{
 
     public void setMenuId(String menuId) {
         this.menuId = menuId;
+    }
+
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
+    }
+
+    public Integer getSort() {
+        return sort;
+    }
+
+    public void setSort(Integer sort) {
+        this.sort = sort;
     }
 }

@@ -47,6 +47,18 @@
                         width: 80
                     },
                     {
+                        title: '层级',
+                        field: 'level',
+                        align: 'center',
+                        width: 40
+                    },
+                    {
+                        title: '顺序',
+                        field: 'sort',
+                        align: 'center',
+                        width: 40
+                    },
+                    {
                         title: '创建时间',
                         field: 'createDate',
                         align: 'center',

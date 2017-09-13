@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -23,27 +24,42 @@ public class TreeGridServiceImpl implements TreeGridService {
 
     @Autowired
     private MenuService menuService;
+
     @Override
     public List<TreeGridNode> getMenuTreeGridNodes() {
         List<RcMenu> list = menuService.getMenu();
         List<TreeGridNode> treeGridNodeList = new ArrayList<>();
-        if (list != null && list.size() > 0){
-            for (RcMenu menu:list
-                 ) {
-                    TreeGridNode treeNode = new TreeGridNode();
-                    treeNode.setId(Long.valueOf(menu.getId()));
-                    treeNode.setName(menu.getName());
-                    treeNode.setUrl(menu.getUrl());
-                    if (menu.getpId().equals("0")){
-                        treeNode.set_parentId(null);
-                    }else {
-                        treeNode.set_parentId(Long.valueOf(menu.getpId()));
-                    }
-                    treeNode.setMenuId(menu.getId());
-                    treeNode.setCreateDate(menu.getCreateTime());
-                    treeGridNodeList.add(treeNode);
+        if (list != null && list.size() > 0) {
+            for (RcMenu menu : list
+                    ) {
+                TreeGridNode treeNode = new TreeGridNode();
+                treeNode.setId(Long.valueOf(menu.getId()));
+                treeNode.setName(menu.getName());
+                treeNode.setUrl(menu.getUrl());
+                if (menu.getpId().equals("0")) {
+                    treeNode.set_parentId(null);
+                } else {
+                    treeNode.set_parentId(Long.valueOf(menu.getpId()));
+                }
+                treeNode.setMenuId(menu.getId());
+                treeNode.setLevel(menu.getLevel());
+                treeNode.setSort(menu.getSort());
+                treeNode.setCreateDate(menu.getCreateTime());
+                treeGridNodeList.add(treeNode);
 
             }
+            treeGridNodeList.sort(new Comparator<TreeGridNode>() {
+                @Override
+                public int compare(TreeGridNode o1, TreeGridNode o2) {
+                    if (o1.getSort()==o2.getSort()){
+                        return 0;
+                    }
+                    if (o1.getSort() > o2.getSort()){
+                        return 1;
+                    }
+                    return -1;
+                }
+            });
         }
         return treeGridNodeList;
     }
