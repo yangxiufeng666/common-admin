@@ -1,9 +1,12 @@
 package com.common.system.controller;
 
 import com.common.system.entity.RcMenu;
+import com.common.system.entity.TreeGridNode;
+import com.common.system.entity.TreeGridWrapper;
 import com.common.system.entity.ZTreeNode;
 import com.common.system.service.MenuService;
 import com.common.system.service.SequenceService;
+import com.common.system.service.TreeGridService;
 import com.common.system.service.ZTreeService;
 import com.common.system.util.MsgCode;
 import com.common.system.util.PageBean;
@@ -35,9 +38,9 @@ public class MenuController {
 
     @RequestMapping(value = "list",method = RequestMethod.GET)
     public ModelAndView list(ModelAndView modelAndView){
-        List<ZTreeNode> zTreeNodeList = treeService.getMenuZTreeNodes();
-        String tree = treeService.buildZTree(zTreeNodeList);
-        modelAndView.addObject("ListzTree",tree);
+//        List<ZTreeNode> zTreeNodeList = treeService.getMenuZTreeNodes();
+//        String tree = treeService.buildZTree(zTreeNodeList);
+//        modelAndView.addObject("ListzTree",tree);
         modelAndView.setViewName("/system/admin/menu/list");
         return modelAndView;
     }
@@ -82,6 +85,18 @@ public class MenuController {
         PageInfo<RcMenu> pageInfo = menuService.listForPage((start / pageSize) + 1, pageSize);
         return new PageBean<RcMenu>(pageInfo);
     }
+    @Autowired
+    private TreeGridService treeGridService;
+    @RequestMapping(value = "getTreeGridMenu",method = RequestMethod.GET)
+    public @ResponseBody
+    TreeGridWrapper getTreeGridMenu(){
+        List<TreeGridNode> list = treeGridService.getMenuTreeGridNodes();
+        TreeGridWrapper wrapper = new TreeGridWrapper();
+        wrapper.setRows(list);
+        wrapper.setTotal(list.size());
+        return wrapper;
+    }
+
     @RequestMapping(value = "edit/{id}",method = RequestMethod.GET)
     public ModelAndView edit(@PathVariable String id, ModelAndView modelAndView){
         RcMenu menu = menuService.selectByPrimaryKey(id);

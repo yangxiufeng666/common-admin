@@ -100,7 +100,7 @@
                     if (json.status) {
                         $("#lgModal").modal('hide');
                         alertMsg("添加成功", "success");
-                        reloadTable(list_ajax, "#roleTime", "#rolePremise");
+                        reloadMenuList();
                     } else {
                         alertMsg("添加失败:" + json.msg, "success");
                     }

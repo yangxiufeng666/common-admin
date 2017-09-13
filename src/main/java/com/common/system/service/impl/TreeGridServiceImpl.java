@@ -30,13 +30,19 @@ public class TreeGridServiceImpl implements TreeGridService {
         if (list != null && list.size() > 0){
             for (RcMenu menu:list
                  ) {
-                TreeGridNode treeNode = new TreeGridNode();
-                treeNode.setId(menu.getId());
-                treeNode.setName(menu.getName());
-                treeNode.setUrl(menu.getUrl());
-                treeNode.set_parentId(menu.getpId());
-                treeNode.setCreateDate(menu.getCreateTime());
-                treeGridNodeList.add(treeNode);
+                    TreeGridNode treeNode = new TreeGridNode();
+                    treeNode.setId(Long.valueOf(menu.getId()));
+                    treeNode.setName(menu.getName());
+                    treeNode.setUrl(menu.getUrl());
+                    if (menu.getpId().equals("0")){
+                        treeNode.set_parentId(null);
+                    }else {
+                        treeNode.set_parentId(Long.valueOf(menu.getpId()));
+                    }
+                    treeNode.setMenuId(menu.getId());
+                    treeNode.setCreateDate(menu.getCreateTime());
+                    treeGridNodeList.add(treeNode);
+
             }
         }
         return treeGridNodeList;

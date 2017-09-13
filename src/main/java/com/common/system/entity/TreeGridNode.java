@@ -12,22 +12,28 @@ import java.util.Date;
  */
 public class TreeGridNode  implements Serializable{
     private static final long serialVersionUID = 7333189210968942514L;
-
-    private String id;
+    /**
+     * TreeGrid id 和Parent不能是String,也是蛋疼
+     */
+    private Long id;
 
     private String name;
 
     private String url;
 
-    private String _parentId;
+    private Long _parentId;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createDate;
 
-    public String getId() {
+    private String state = "open";
+
+    private String menuId;
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -47,11 +53,11 @@ public class TreeGridNode  implements Serializable{
         this.url = url;
     }
 
-    public String get_parentId() {
+    public Long get_parentId() {
         return _parentId;
     }
 
-    public void set_parentId(String _parentId) {
+    public void set_parentId(Long _parentId) {
         this._parentId = _parentId;
     }
 
@@ -61,5 +67,21 @@ public class TreeGridNode  implements Serializable{
 
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getMenuId() {
+        return menuId;
+    }
+
+    public void setMenuId(String menuId) {
+        this.menuId = menuId;
     }
 }

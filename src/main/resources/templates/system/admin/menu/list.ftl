@@ -1,14 +1,3 @@
-<style>
-    ul.ztree {
-        margin-top: 10px;
-        border: 1px solid #617775;
-        background: #f0f6e4;
-        width: 220px;
-        height: 360px;
-        overflow-y: scroll;
-        overflow-x: auto;
-    }
-</style>
 <div class="row">
     <div class="col-xs-12">
         <div class="box">
@@ -16,168 +5,80 @@
                 <h3 class="box-title">菜单管理</h3>
             </div>
             <div class="box-body">
-                <div class="table table-bordered">
-                    <ul id="menuTree" class="ztree" style="width: 100%"></ul>
+                <div class="clearfix">
+                    <div class="col-md-4">
+                        <a class="btn btn-sm btn-primary" target="modal" modal="lg"
+                           href="/menu/add">添加</a>
+                    </div>
                 </div>
-            </div>
-            <div class="box-tools">
-                <a onclick="securityToListAjax();" class="btn btn-sm btn-primary" target="modal" modal="lg"
-                   href="/menu/add">添加</a>
-            </div>
-            <div class="box-body">
-                <table id="menu_tab" class="table table-bordered table-striped">
-                    <thead>
-                    <tr>
-                    <tr>
-                        <th>序号</th>
-                        <th>菜单名称</th>
-                        <th>菜单编号</th>
-                        <th>父菜单编号</th>
-                        <th>请求地址</th>
-                        <th>排序</th>
-                        <th>层级</th>
-                        <th>是否是菜单</th>
-                        <th>状态</th>
-                        <th>操作</th>
-                    </tr>
-                    </tr>
-                    </thead>
+                <table id="menu_tab" class="table" style="margin-top: 20px">
+
                 </table>
             </div>
         </div>
     </div>
 </div>
-<script type="text/javascript" src="other/zTree/js/jquery.ztree.core.js"></script>
-<script type="text/javascript" src="other/zTree/js/jquery.ztree.excheck.js"></script>
-<link rel="stylesheet" type="text/css" href="other/zTree/css/zTreeStyle/zTreeStyle.css"/>
+<link rel="stylesheet" type="text/css" href="/other/jquery-easyui-1.5.3/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="/other/jquery-easyui-1.5.3/themes/icon.css">
+<script type="text/javascript" src="/other/jquery-easyui-1.5.3/js/jquery.easyui.min.js"></script>
 <script type="text/javascript">
-
-    var listSetting = {
-        check: {
-            enable: true,
-            chkStyle: "radio",
-            radioType: "all"
-        },
-        view: {
-            dblClickExpand: false
-        },
-        data: {
-            simpleData: {
-                enable: true
-            }
-        },
-        callback: {
-            onClick: onClickList,
-            onCheck: onCheckList
-        }
-    };
-
-    function onClickList(e, treeId, treeNode) {
-        var zTree = $.fn.zTree.getZTreeObj("menuTree");
-        zTree.checkNode(treeNode, !treeNode.checked, null, true);
-        return false;
-    }
-
-    function onCheckList(e, treeId, treeNode) {
-        var zTree = $.fn.zTree.getZTreeObj("menuTree"),
-                nodes = zTree.getCheckedNodes(true);
-        var id = '';
-        for (var i = 0, l = nodes.length; i < l; i++) {
-            id = nodes[i].id;
-        }
-        menuId = id;
-    }
-    var ListzNodes = ${ListzTree};
-    $(document).ready(function () {
-        $.fn.zTree.init($("#menuTree"), listSetting, ListzNodes);
-    });
-</script>
-<script>
-    var menu_tab;
     $(function () {
-        //初始化表格
-        var No = 0;
-        menu_tab = $('#menu_tab').DataTable({
-            "dom": 'itflp',
-            "processing": true,
-            "searching": false,
-            "serverSide": true, //启用服务器端分页
-            "bInfo": false,
-            "language": {"url": "adminlte/plugins/datatables/language.json"},
-            "ajax": {"url": "/menu/page", "type": "post"},
-            "columns": [
-                {"data": null},
-                {"data": "name"},
-                {"data": "code"},
-                {"data": "pCode"},
-                {"data": "url"},
-                {"data": "sort"},
-                {"data": "level"},
-                {"data": null},
-                {"data": null}
-            ],
-            "columnDefs": [
-                {
-                    targets: 0,
-                    data: null,
-                    render: function (data) {
-                        No = No + 1;
-                        return No;
-                    }
-                }, {
-                    targets: 7,
-                    data: null,
-                    render: function (data) {
-                        if (data.isMenu == 1) {
-                            return '是';
-                        } else {
-                            return '否';
-                        }
-                    }
-                }, {
-                    targets: 8,
-                    data: null,
-                    render: function (data) {
-                        if (data.status == 1) {
-                            return '可用';
-                        } else {
-                            return '不可用';
-                        }
-                    }
-                }, {
-                    "targets": 9,
-                    "data": null,
-                    "render": function (data) {
-                        var btn = "";
-                        var pCode=data.pCode;
-                        if ('0' != pCode){
-                            btn =
-                                    '<a class="btn btn-xs btn-info" callback="securityToListAjax();" target="modal" modal="lg" href="/menu/edit/' + data.id + '">编辑</a>'
-                                    + " &nbsp;"
-                                    +'<a class="btn btn-xs btn-default" callback="securityReload();" data-body="确认要删除吗？" target="ajaxTodo" href="/menu/delete/' + data.id + '">删除</a>'
+        var table = $('#menu_tab').treegrid({
+            height: 700,
+            rownumbers: true,
+            animate: true,
+            collapsible: true,
+            fitColumns: true,
+            url: '/menu/getTreeGridMenu',
+            method: 'get',
+            idField: 'id',
+            treeField: 'name',
+            showFooter: true,
+            columns: [
+                [{
+                    title: '菜单名称',
+                    field: 'name',
+                    width: 80
+                },
+                    {
+                        title: '请求URL',
+                        field: 'url',
+                        align: 'center',
+                        width: 80
+                    },
+                    {
+                        title: '创建时间',
+                        field: 'createDate',
+                        align: 'center',
+                        width: 80
+                    },
+                    {
+                        title:'操作',
+                        field:'menuId',
+                        align: 'center',
+                        width: 80,
+                        formatter:function(value){
+                            console.log(value);
+                            var  content="";
+                            if (value != '000000000000000000'){
+                                content = '<a class="btn btn-xs btn-info"  target="modal" modal="lg" href="/menu/edit/' + value + '">编辑</a>'
+                                        + " &nbsp;"
+                                        +'<a class="btn btn-xs btn-default" callback="reloadMenuList()" data-body="确认要删除吗？" target="ajaxTodo" href="/menu/delete/' + value + '">删除</a>'
 
+                            }
+                            return content;
                         }
-                        return btn;
+
                     }
-                }]
-        }).on('preXhr.dt', function (e, settings, data) {
-            No = 0;
+                ]
+            ]
         });
-
-        $("#securitySeek").on("click", function () {
-            reloadTable(menu_tab);
-        });
-    });
-
-    function securityReload() {
-        reloadTable(menu_tab);
+    })
+    function reloadMenuList(){
+        $('#menu_tab').treegrid('reload');
     }
-
-    function securityToListAjax() {
-        list_ajax = menu_tab;
-        console.log(list_ajax);
-    }
-    function isNull(data) {
-        return (data == "" || data == undefined || data == null) ? true : false;
+    function doClick() {
+        var row = $('#tg').treegrid('getSelected');
+        console.log(JSON.stringify(row));
     }
 </script>

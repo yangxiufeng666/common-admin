@@ -30,4 +30,12 @@ public class TreeGridWrapper implements Serializable {
     public void setRows(List<TreeGridNode> rows) {
         this.rows = rows;
     }
+
+    @Override
+    public String toString() {
+        return "TreeGridWrapper{" +
+                "total=" + total +
+                ", rows=" + rows +
+                '}';
+    }
 }
