@@ -1,5 +1,9 @@
 package com.common.system.controller;
 
+import cn.afterturn.easypoi.entity.vo.NormalExcelConstants;
+import cn.afterturn.easypoi.excel.entity.ExportParams;
+import cn.afterturn.easypoi.excel.entity.enmus.ExcelType;
+import cn.afterturn.easypoi.view.PoiBaseView;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.common.system.entity.RcRole;
 import com.common.system.entity.RcRoleWrapper;
@@ -13,14 +17,18 @@ import com.common.system.util.MsgCode;
 import com.common.system.util.PageBean;
 import com.common.system.util.Result;
 import com.github.pagehelper.PageInfo;
+import com.xiaoleilu.hutool.date.DateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -222,7 +230,18 @@ public class UserMgrController extends BaseController{
                 result.setCode(MsgCode.SUCCESS);
             }
         }
-
         return result;
+    }
+    @RequestMapping(value = "exportExcel",method = RequestMethod.GET)
+    public void exportExcel(ModelMap modelMap,HttpServletRequest request,
+                              HttpServletResponse response){
+        PageInfo<RcUser> result = userService.listForPage(null,null);
+        ExportParams params = new ExportParams("用户信息",null, ExcelType.XSSF);
+        modelMap.put(NormalExcelConstants.DATA_LIST, result.getList());
+        modelMap.put(NormalExcelConstants.CLASS, RcUser.class);
+        modelMap.put(NormalExcelConstants.PARAMS, params);
+        String fileName = DateUtil.format(new Date(),DateUtil.NORM_DATETIME_PATTERN);
+        modelMap.put(NormalExcelConstants.FILE_NAME, "用户信息表:"+fileName);
+        PoiBaseView.render(modelMap, request, response, NormalExcelConstants.EASYPOI_EXCEL_VIEW);
     }
 }

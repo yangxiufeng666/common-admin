@@ -3,10 +3,11 @@
 		<div class="box">
 			<div class="box-header">
 				<h3 class="box-title">用户管理</h3>
-				<div class="box-tools pull-right">
+				<div class="box-tools pull-left">
 					<@shiro.hasPermission name="user/add">
 						<a onclick="securityToListAjax();" class="btn btn-sm btn-primary" target="modal" modal="lg" href="/user/add">添加</a>
 					</@shiro.hasPermission>
+                        <a class="btn btn-sm btn-primary" href="/user/exportExcel">导出</a>
 				</div>
 			</div>
 			<div class="box-body">

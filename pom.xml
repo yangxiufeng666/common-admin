@@ -196,7 +196,12 @@
 			<version>5.2.0</version>
 		</dependency>
 		<!--Excel导入导出相关END-->
-
+		<!--工具类-->
+		<dependency>
+			<groupId>com.xiaoleilu</groupId>
+			<artifactId>hutool-all</artifactId>
+			<version>3.1.1</version>
+		</dependency>
 	</dependencies>
 
 	<build>
