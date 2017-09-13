@@ -14,7 +14,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.5.4.RELEASE</version>
+		<version>1.5.6.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
@@ -31,6 +31,9 @@
 		<!--mybatis plus-->
 		<mybatisplus-spring-boot-starter.version>1.0.4</mybatisplus-spring-boot-starter.version>
 		<mybatisplus.version>2.1-gamma</mybatisplus.version>
+		<easy-poi-version>3.0.1</easy-poi-version>
+		<itextpdf-version>5.5.6</itextpdf-version>
+		<itext-asian-version>5.2.0</itext-asian-version>
 	</properties>
 
 	<dependencies>
@@ -158,11 +161,42 @@
 			<version>1.7</version>
 		</dependency>
 		<!-- mybatis-plus end -->
+		<!--Gson-->
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
 			<version>2.8.1</version>
 		</dependency>
+		<!--Gson end-->
+		<!--Excel导入导出相关START-->
+		<dependency>
+			<groupId>cn.afterturn</groupId>
+			<artifactId>easypoi-base</artifactId>
+			<version>${easy-poi-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>cn.afterturn</groupId>
+			<artifactId>easypoi-web</artifactId>
+			<version>${easy-poi-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>cn.afterturn</groupId>
+			<artifactId>easypoi-annotation</artifactId>
+			<version>${easy-poi-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.itextpdf</groupId>
+			<artifactId>itextpdf</artifactId>
+			<version>5.5.6</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.itextpdf</groupId>
+			<artifactId>itext-asian</artifactId>
+			<version>5.2.0</version>
+		</dependency>
+		<!--Excel导入导出相关END-->
+
 	</dependencies>
 
 	<build>
