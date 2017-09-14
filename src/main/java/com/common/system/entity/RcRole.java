@@ -22,8 +22,6 @@ public class RcRole implements Serializable{
 
     private Integer status;
 
-    private List<RcPermission> permissionList;
-
     public Integer getId() {
         return id;
     }
@@ -80,11 +78,5 @@ public class RcRole implements Serializable{
         this.status = status;
     }
 
-    public List<RcPermission> getPermissionList() {
-        return permissionList;
-    }
 
-    public void setPermissionList(List<RcPermission> permissionList) {
-        this.permissionList = permissionList;
-    }
 }

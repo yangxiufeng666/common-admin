@@ -1,6 +1,5 @@
 package com.common.system.controller;
 
-import com.common.system.entity.RcPermission;
 import com.common.system.entity.RcPrivilege;
 import com.common.system.entity.RcRole;
 import com.common.system.entity.ZTreeNode;
