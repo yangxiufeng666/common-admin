@@ -32,6 +32,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Mr.Yangxiufeng on 2017/6/21.
@@ -40,7 +41,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping(value = "user")
-public class UserMgrController extends BaseController{
+public class UserMgrController extends BaseController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserMgrController.class);
 
@@ -51,48 +52,61 @@ public class UserMgrController extends BaseController{
     @Autowired
     private RcUserRoleService userRoleService;
 
-    @RequestMapping(value = "list",method = RequestMethod.GET)
-    public ModelAndView list(ModelAndView modelAndView){
+    @RequestMapping(value = "list", method = RequestMethod.GET)
+    public ModelAndView list(ModelAndView modelAndView) {
         modelAndView.setViewName("/system/admin/user/list");
         return modelAndView;
     }
+
     @ResponseBody
     @RequestMapping(value = "page")
-    public PageBean<RcUser> queryForPage(@RequestParam(value = "start", defaultValue = "1") int start, @RequestParam(value = "length", defaultValue = "10") int pageSize, @RequestParam(value = "date", required = false) String date, @RequestParam(value = "search", required = false) String search) {
+    public PageBean<RcUser> queryForPage(@RequestParam(value = "start", defaultValue = "1") int start,
+                                         @RequestParam(value = "length", defaultValue = "10") int pageSize,
+                                         @RequestParam(value = "date", required = false) String date,
+                                         @RequestParam(value = "search", required = false) String search,
+                                         HttpServletRequest request) {
+        Map<String,String[]> params = request.getParameterMap();
         PageInfo<RcUser> pageInfo = userService.listForPage((start / pageSize) + 1, pageSize);
         return new PageBean<RcUser>(pageInfo);
     }
 
-    @RequestMapping(value = "delete/{id}",method = RequestMethod.GET)
-    public @ResponseBody
-    Result delete(@PathVariable Integer id){
+    @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    Result delete(@PathVariable Integer id) {
         Result<Integer> result = userService.deleteById(id);
         return result;
     }
-    @RequestMapping(value = "add",method = RequestMethod.GET)
-    public ModelAndView add(ModelAndView modelAndView){
+
+    @RequestMapping(value = "add", method = RequestMethod.GET)
+    public ModelAndView add(ModelAndView modelAndView) {
         modelAndView.setViewName("/system/admin/user/add");
         return modelAndView;
     }
-    @RequestMapping(value = "edit/{id}",method = RequestMethod.GET)
-    public ModelAndView edit(@PathVariable Integer id,ModelAndView modelAndView){
+
+    @RequestMapping(value = "edit/{id}", method = RequestMethod.GET)
+    public ModelAndView edit(@PathVariable Integer id, ModelAndView modelAndView) {
         Result<RcUser> result = userService.getById(id);
-        modelAndView.addObject("bean",result.getData());
+        modelAndView.addObject("bean", result.getData());
         modelAndView.setViewName("/system/admin/user/edit");
         return modelAndView;
     }
-    @RequestMapping(value = "view/{id}",method = RequestMethod.GET)
-    public ModelAndView view(@PathVariable Integer id,ModelAndView modelAndView){
+
+    @RequestMapping(value = "view/{id}", method = RequestMethod.GET)
+    public ModelAndView view(@PathVariable Integer id, ModelAndView modelAndView) {
         Result<RcUser> result = userService.getById(id);
-        modelAndView.addObject("bean",result.getData());
+        modelAndView.addObject("bean", result.getData());
         modelAndView.setViewName("/system/admin/user/view");
         return modelAndView;
     }
-    @RequestMapping(value = "update",method = RequestMethod.POST)
-    public @ResponseBody Result update(Integer id,String name,Integer sex,Integer roleId){
+
+    @RequestMapping(value = "update", method = RequestMethod.POST)
+    public
+    @ResponseBody
+    Result update(Integer id, String name, Integer sex, Integer roleId) {
         Result<RcUser> userResult = userService.getById(id);
         Result<Integer> result = new Result<>();
-        if (userResult.isStatus()){
+        if (userResult.isStatus()) {
             RcUser user = userResult.getData();
             user.setName(name);
             user.setSex(sex);
@@ -101,32 +115,38 @@ public class UserMgrController extends BaseController{
         }
         return result;
     }
+
     @RequestMapping(value = "save")
-    public @ResponseBody Result save(RcUser rcUser){
+    public
+    @ResponseBody
+    Result save(RcUser rcUser) {
         rcUser.setCreateTime(new Date());
         rcUser.setStatus(1);
         String salt = ShiroKit.getRandomSalt(5);
         rcUser.setSalt(salt);
-        String saltPwd = ShiroKit.md5(rcUser.getPassword(),salt);
+        String saltPwd = ShiroKit.md5(rcUser.getPassword(), salt);
         rcUser.setPassword(saltPwd);
         Result<Integer> result = userService.save(rcUser);
         return result;
     }
-    @RequestMapping(value = "goResetPwd/{id}",method = RequestMethod.GET)
-    public ModelAndView goResetPwd(ModelAndView modelAndView,@PathVariable Integer id){
+
+    @RequestMapping(value = "goResetPwd/{id}", method = RequestMethod.GET)
+    public ModelAndView goResetPwd(ModelAndView modelAndView, @PathVariable Integer id) {
         modelAndView.setViewName("system/admin/user/reset_pwd");
         RcUser user = userService.getById(id).getData();
-        modelAndView.addObject("bean",user);
+        modelAndView.addObject("bean", user);
         return modelAndView;
     }
-    @RequestMapping(value = "doResetPwd",method = RequestMethod.POST)
-    public @ResponseBody
-    Result doResetPwd(Integer id,String password){
+
+    @RequestMapping(value = "doResetPwd", method = RequestMethod.POST)
+    public
+    @ResponseBody
+    Result doResetPwd(Integer id, String password) {
         Result result = new Result();
         Result<RcUser> rcUserResult = userService.getById(id);
         RcUser user = rcUserResult.getData();
         String salt = ShiroKit.getRandomSalt(5);
-        String saltPwd = ShiroKit.md5(password,salt);
+        String saltPwd = ShiroKit.md5(password, salt);
         user.setPassword(saltPwd);
         user.setSalt(salt);
         userService.modifyPwd(user);
@@ -135,36 +155,41 @@ public class UserMgrController extends BaseController{
         result.setMsg("操作成功");
         return result;
     }
-    @RequestMapping(value = "goModifyPwd/{id}",method = RequestMethod.GET)
-    public ModelAndView goModifyPwd(ModelAndView modelAndView,@PathVariable Integer id){
+
+    @RequestMapping(value = "goModifyPwd/{id}", method = RequestMethod.GET)
+    public ModelAndView goModifyPwd(ModelAndView modelAndView, @PathVariable Integer id) {
         modelAndView.setViewName("system/admin/user/modify_pwd");
         RcUser user = userService.getById(id).getData();
-        modelAndView.addObject("bean",user);
+        modelAndView.addObject("bean", user);
         return modelAndView;
     }
+
     /**
      * <p>修改密码</p>
+     *
      * @param id
      * @return
      */
-    @RequestMapping(value = "modifyPwd",method = RequestMethod.POST)
-    public @ResponseBody Result modifyPwd(Integer id,String oldPassword,String password){
+    @RequestMapping(value = "modifyPwd", method = RequestMethod.POST)
+    public
+    @ResponseBody
+    Result modifyPwd(Integer id, String oldPassword, String password) {
         Result result = new Result();
-        if (StringUtils.isEmpty(password)){
+        if (StringUtils.isEmpty(password)) {
             result.setMsg("新密码不能为空");
             return result;
         }
         Result<RcUser> rcUserResult = userService.getById(id);
         RcUser user = rcUserResult.getData();
-        String md5pwd = ShiroKit.md5(oldPassword,user.getSalt());
-        if (!user.getPassword().equals(md5pwd)){
+        String md5pwd = ShiroKit.md5(oldPassword, user.getSalt());
+        if (!user.getPassword().equals(md5pwd)) {
             result.setCode(MsgCode.FAILED);
             result.setStatus(false);
             result.setMsg("密码不正确");
             return result;
         }
         String salt = ShiroKit.getRandomSalt(5);
-        String saltPwd = ShiroKit.md5(password,salt);
+        String saltPwd = ShiroKit.md5(password, salt);
         user.setPassword(saltPwd);
         user.setSalt(salt);
         try {
@@ -177,24 +202,25 @@ public class UserMgrController extends BaseController{
         }
         return result;
     }
-    @RequestMapping(value = "goDispatcherRole/{id}",method = RequestMethod.GET)
-    public ModelAndView goDispatcherRole(ModelAndView modelAndView,@PathVariable Integer id){
+
+    @RequestMapping(value = "goDispatcherRole/{id}", method = RequestMethod.GET)
+    public ModelAndView goDispatcherRole(ModelAndView modelAndView, @PathVariable Integer id) {
         modelAndView.setViewName("/system/admin/user/dispatcher_role");
         List<RcRoleWrapper> roleWrappers = roleService.getRoleWrapperList();
-        modelAndView.addObject("roles",roleWrappers);
-        modelAndView.addObject("userId",id);
+        modelAndView.addObject("roles", roleWrappers);
+        modelAndView.addObject("userId", id);
         RcUser user = userService.getById(id).getData();
-        modelAndView.addObject("bean",user);
+        modelAndView.addObject("bean", user);
         List<RcUserRole> list = userRoleService.selectList(new Wrapper<RcUserRole>() {
             @Override
             public String getSqlSegment() {
-                return "where user_id="+id;
+                return "where user_id=" + id;
             }
         });
-        for (RcRoleWrapper w:roleWrappers){
-            if (list != null){
-                for (RcUserRole r:list){
-                    if (w.getId().equals(r.getRoleId())){
+        for (RcRoleWrapper w : roleWrappers) {
+            if (list != null) {
+                for (RcUserRole r : list) {
+                    if (w.getId().equals(r.getRoleId())) {
                         w.setChecked(true);
                     }
                 }
@@ -202,22 +228,24 @@ public class UserMgrController extends BaseController{
         }
         return modelAndView;
     }
-    @RequestMapping(value = "doDispatcherRole",method = RequestMethod.POST)
-    public @ResponseBody
-    Result doDispatcherRole(Integer id,String roleId){
-        LOGGER.info("roleId="+roleId);
+
+    @RequestMapping(value = "doDispatcherRole", method = RequestMethod.POST)
+    public
+    @ResponseBody
+    Result doDispatcherRole(Integer id, String roleId) {
+        LOGGER.info("roleId=" + roleId);
         Result result = new Result();
-        if (StringUtils.isEmpty(roleId)){
-            if (userRoleService.deleteByUserId(id)){
+        if (StringUtils.isEmpty(roleId)) {
+            if (userRoleService.deleteByUserId(id)) {
                 result.setStatus(true);
                 result.setCode(MsgCode.SUCCESS);
             }
-        }else {
+        } else {
             String[] roleIds = roleId.split(",");
             //删除旧记录
             userRoleService.deleteByUserId(id);
             List<RcUserRole> list = new ArrayList<>();
-            for (int i=0;i<roleIds.length;i++){
+            for (int i = 0; i < roleIds.length; i++) {
                 RcUserRole userRole = new RcUserRole();
                 userRole.setUserId(id);
                 userRole.setRoleId(Integer.valueOf(roleIds[i]));
@@ -225,23 +253,24 @@ public class UserMgrController extends BaseController{
                 userRole.setCreateBy(getUser().getName());
                 list.add(userRole);
             }
-            if (userRoleService.insertBatch(list)){
+            if (userRoleService.insertBatch(list)) {
                 result.setStatus(true);
                 result.setCode(MsgCode.SUCCESS);
             }
         }
         return result;
     }
-    @RequestMapping(value = "exportExcel",method = RequestMethod.GET)
-    public void exportExcel(ModelMap modelMap,HttpServletRequest request,
-                              HttpServletResponse response){
-        PageInfo<RcUser> result = userService.listForPage(null,null);
-        ExportParams params = new ExportParams("用户信息",null, ExcelType.XSSF);
+
+    @RequestMapping(value = "exportExcel", method = RequestMethod.GET)
+    public void exportExcel(ModelMap modelMap, HttpServletRequest request,
+                            HttpServletResponse response) {
+        PageInfo<RcUser> result = userService.listForPage(null, null);
+        ExportParams params = new ExportParams("用户信息", null, ExcelType.XSSF);
         modelMap.put(NormalExcelConstants.DATA_LIST, result.getList());
         modelMap.put(NormalExcelConstants.CLASS, RcUser.class);
         modelMap.put(NormalExcelConstants.PARAMS, params);
-        String fileName = DateUtil.format(new Date(),DateUtil.NORM_DATETIME_PATTERN);
-        modelMap.put(NormalExcelConstants.FILE_NAME, "用户信息表:"+fileName);
+        String fileName = DateUtil.format(new Date(), DateUtil.NORM_DATETIME_PATTERN);
+        modelMap.put(NormalExcelConstants.FILE_NAME, "用户信息表:" + fileName);
         PoiBaseView.render(modelMap, request, response, NormalExcelConstants.EASYPOI_EXCEL_VIEW);
     }
 }
