@@ -1,6 +1,11 @@
 package com.common.system.interceptor;
 
 
+import com.common.system.entity.RcOperationLog;
+import com.common.system.service.RcOperationLogService;
+import com.common.system.shiro.ShiroFactory;
+import com.common.system.shiro.ShiroKit;
+import com.common.system.shiro.ShiroUser;
 import com.google.gson.Gson;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.logging.Log;
@@ -8,8 +13,10 @@ import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.plugin.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
 import java.util.Properties;
 
 /**<p>数据库操作拦截器</p>
@@ -26,6 +33,10 @@ public class DataBaseActionInterceptor implements Interceptor {
 
     private Properties properties;
 
+    //无法实例化Spring bean ，放弃使用
+//    @Autowired
+//    private RcOperationLogService operationLogService;
+
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
         Object[] args = invocation.getArgs();
@@ -33,7 +44,7 @@ public class DataBaseActionInterceptor implements Interceptor {
         if (args.length > 1) {
             // 传入的对象
             Object obj = args[1];
-            if (obj instanceof Log) {
+            if (obj instanceof RcOperationLog) {
                 // 若是日志对象 则直接跳过
                 return invocation.proceed();
             }
