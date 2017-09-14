@@ -12,8 +12,6 @@
     <result column="sex" jdbcType="INTEGER" property="sex" />
     <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="phone" jdbcType="VARCHAR" property="phone" />
-    <result column="role_id" jdbcType="INTEGER" property="roleId" />
-    <result column="deptid" jdbcType="INTEGER" property="deptid" />
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
@@ -77,8 +75,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, avatar, username, password, salt, name, birthday, sex, email, phone, role_id, 
-    deptid, status, create_time, update_time
+    id, avatar, username, password, salt, name, birthday, sex, email, phone, status, create_time, update_time
   </sql>
   <select id="selectByExample" parameterType="com.common.system.entity.RcUserExample" resultMap="BaseResultMap">
     select
@@ -114,13 +111,13 @@
     insert into rc_user (id, avatar, username, 
       password, salt, name, 
       birthday, sex, email, 
-      phone, role_id, deptid, 
+      phone,
       status, create_time, update_time
       )
     values (#{id,jdbcType=INTEGER}, #{avatar,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
       #{password,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{birthday,jdbcType=TIMESTAMP}, #{sex,jdbcType=INTEGER}, #{email,jdbcType=VARCHAR}, 
-      #{phone,jdbcType=VARCHAR}, #{roleId,jdbcType=INTEGER}, #{deptid,jdbcType=INTEGER}, 
+      #{phone,jdbcType=VARCHAR},
       #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
       )
   </insert>
@@ -156,12 +153,6 @@
       </if>
       <if test="phone != null">
         phone,
-      </if>
-      <if test="roleId != null">
-        role_id,
-      </if>
-      <if test="deptid != null">
-        deptid,
       </if>
       <if test="status != null">
         status,
@@ -204,12 +195,7 @@
       <if test="phone != null">
         #{phone,jdbcType=VARCHAR},
       </if>
-      <if test="roleId != null">
-        #{roleId,jdbcType=INTEGER},
-      </if>
-      <if test="deptid != null">
-        #{deptid,jdbcType=INTEGER},
-      </if>
+
       <if test="status != null">
         #{status,jdbcType=INTEGER},
       </if>
@@ -254,12 +240,7 @@
       <if test="record.phone != null">
         phone = #{record.phone,jdbcType=VARCHAR},
       </if>
-      <if test="record.roleId != null">
-        role_id = #{record.roleId,jdbcType=INTEGER},
-      </if>
-      <if test="record.deptid != null">
-        deptid = #{record.deptid,jdbcType=INTEGER},
-      </if>
+
       <if test="record.status != null">
         status = #{record.status,jdbcType=INTEGER},
       </if>
@@ -286,8 +267,6 @@
       sex = #{record.sex,jdbcType=INTEGER},
       email = #{record.email,jdbcType=VARCHAR},
       phone = #{record.phone,jdbcType=VARCHAR},
-      role_id = #{record.roleId,jdbcType=INTEGER},
-      deptid = #{record.deptid,jdbcType=INTEGER},
       status = #{record.status,jdbcType=INTEGER},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP}
@@ -325,12 +304,6 @@
       <if test="phone != null">
         phone = #{phone,jdbcType=VARCHAR},
       </if>
-      <if test="roleId != null">
-        role_id = #{roleId,jdbcType=INTEGER},
-      </if>
-      <if test="deptid != null">
-        deptid = #{deptid,jdbcType=INTEGER},
-      </if>
       <if test="status != null">
         status = #{status,jdbcType=INTEGER},
       </if>
@@ -354,8 +327,6 @@
       sex = #{sex,jdbcType=INTEGER},
       email = #{email,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
-      role_id = #{roleId,jdbcType=INTEGER},
-      deptid = #{deptid,jdbcType=INTEGER},
       status = #{status,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}

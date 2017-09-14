@@ -29,10 +29,6 @@ public class RcUser implements Serializable{
     @Excel(name = "电话")
     private String phone;
 
-    private Integer roleId;
-
-    private Integer deptid;
-
     private Integer status;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
@@ -119,22 +115,6 @@ public class RcUser implements Serializable{
 
     public void setPhone(String phone) {
         this.phone = phone == null ? null : phone.trim();
-    }
-
-    public Integer getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(Integer roleId) {
-        this.roleId = roleId;
-    }
-
-    public Integer getDeptid() {
-        return deptid;
-    }
-
-    public void setDeptid(Integer deptid) {
-        this.deptid = deptid;
     }
 
     public Integer getStatus() {

@@ -103,14 +103,13 @@ public class UserMgrController extends BaseController {
     @RequestMapping(value = "update", method = RequestMethod.POST)
     public
     @ResponseBody
-    Result update(Integer id, String name, Integer sex, Integer roleId) {
+    Result update(Integer id, String name, Integer sex) {
         Result<RcUser> userResult = userService.getById(id);
         Result<Integer> result = new Result<>();
         if (userResult.isStatus()) {
             RcUser user = userResult.getData();
             user.setName(name);
             user.setSex(sex);
-            user.setRoleId(roleId);
             result = userService.update(user);
         }
         return result;

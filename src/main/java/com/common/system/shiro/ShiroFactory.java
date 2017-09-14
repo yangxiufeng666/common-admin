@@ -55,11 +55,6 @@ public class ShiroFactory {
         ShiroUser shiroUser = new ShiroUser();
         shiroUser.setId(user.getId());            // 账号id
         shiroUser.setUsername(user.getUsername());// 账号
-        shiroUser.setDeptId(user.getDeptid());    // 部门id
-        RcDept dept = deptMapper.selectByPrimaryKey(user.getDeptid());
-        if (dept != null){
-            shiroUser.setDeptName(dept.getSimpleName());
-        }
         shiroUser.setName(user.getName());        // 用户名称
         List<RcUserRole> userRoleList = userRoleService.getByUserId(user.getId());
         List<RcRole> roleList = new ArrayList<>();

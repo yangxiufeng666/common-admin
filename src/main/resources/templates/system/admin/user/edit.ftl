@@ -36,7 +36,7 @@
 </div>
 <script type="text/javascript">
     function securityUpdateUser() {
-        debugger;
+//        debugger;
         $.ajax({
             url: '/user/update',
             type: 'post',

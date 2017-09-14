@@ -66,6 +66,7 @@ public class UserServiceImpl implements UserService {
     public Result<Integer> update(RcUser user) {
         Result<Integer> result = new Result<>();
         try {
+            user.setUpdateTime(new Date());
             userMapper.updateByPrimaryKeySelective(user);
             result.setStatus(true);
             result.setCode(MsgCode.SUCCESS);
