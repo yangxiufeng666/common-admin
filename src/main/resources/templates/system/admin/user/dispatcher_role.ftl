@@ -47,7 +47,7 @@
         </div>
     </form>
 </div>
-<script>
+<script type="text/javascript">
     function securitySetRole(){
         $.ajax({
             url: '/user/doDispatcherRole',
