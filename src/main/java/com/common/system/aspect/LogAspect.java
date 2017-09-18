@@ -18,11 +18,11 @@ public class LogAspect {
     public void update(){
 
     }
-    @Pointcut("execution(* com.common.system.service.impl.*.*(..))")
+//    @Pointcut("execution(* com.common.system.service.impl.*.*(..))")
     public void select(){
         System.out.println("...........................................................");
     }
-    @AfterReturning(value = "select()")
+//    @AfterReturning(value = "select()")
     public void select1(){
         System.out.println("...........................................................");
     }

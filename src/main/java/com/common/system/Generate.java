@@ -54,7 +54,7 @@ public class Generate {
         // 策略配置
         StrategyConfig strategy = new StrategyConfig();
         strategy.setNaming(NamingStrategy.underline_to_camel);// 表名生成策略
-         strategy.setInclude(new String[] { "rc_operation_log" }); // 需要生成的表
+         strategy.setInclude(new String[] { "rc_user" }); // 需要生成的表
         // strategy.setExclude(new String[]{"test"}); // 排除生成的表
         generator.setStrategy(strategy);
 

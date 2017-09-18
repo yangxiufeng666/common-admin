@@ -1,14 +1,20 @@
 package com.common.system.entity;
 
 import cn.afterturn.easypoi.excel.annotation.Excel;
+import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.IdType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-
-public class RcUser implements Serializable{
+@TableName("rc_user")
+public class RcUser extends Model<RcUser> implements Serializable{
     private static final long serialVersionUID = -8597875106667295283L;
+    @TableId(value="id", type= IdType.AUTO)
     private Integer id;
     @Excel(name = "头像")
     private String avatar;
@@ -31,10 +37,17 @@ public class RcUser implements Serializable{
 
     private Integer status;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @TableField("create_time")
     private Date createTime;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @TableField("update_time")
     private Date updateTime;
 
+    @Override
+    protected Serializable pkVal() {
+        return this.id;
+    }
+    @TableField(exist = false)
     private List<RcRole> roleList;
 
     public Integer getId() {
@@ -147,5 +160,25 @@ public class RcUser implements Serializable{
 
     public void setRoleList(List<RcRole> roleList) {
         this.roleList = roleList;
+    }
+
+    @Override
+    public String toString() {
+        return "RcUser{" +
+                "id=" + id +
+                ", avatar='" + avatar + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", salt='" + salt + '\'' +
+                ", name='" + name + '\'' +
+                ", birthday=" + birthday +
+                ", sex=" + sex +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", status=" + status +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                ", roleList=" + roleList +
+                '}';
     }
 }

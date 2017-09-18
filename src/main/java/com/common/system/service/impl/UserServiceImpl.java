@@ -2,7 +2,6 @@ package com.common.system.service.impl;
 
 import com.common.system.entity.RcRole;
 import com.common.system.entity.RcUser;
-import com.common.system.entity.RcUserExample;
 import com.common.system.entity.RcUserRole;
 import com.common.system.mapper.RcUserMapper;
 import com.common.system.service.RcUserRoleService;
@@ -39,7 +38,7 @@ public class UserServiceImpl implements UserService {
     public Result<Integer> deleteById(Integer userId) {
         Result<Integer> result = new Result<>();
         try {
-            userMapper.deleteByPrimaryKey(userId);
+            userMapper.deleteById(userId);
             result.setStatus(true);
             result.setCode(MsgCode.SUCCESS);
             result.setMsg("操作成功");
@@ -52,7 +51,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Result<RcUser> getById(Integer userId) {
         Result<RcUser> result = new Result<>();
-        RcUser user = userMapper.selectByPrimaryKey(userId);
+        RcUser user = userMapper.selectById(userId);
         if (user != null){
             result.setData(user);
             result.setStatus(true);
@@ -115,7 +114,7 @@ public class UserServiceImpl implements UserService {
         if (pageNum != null && pageSize != null){
             PageHelper.startPage(pageNum,pageSize);
         }
-        List<RcUser> userList = userMapper.selectByExample(new RcUserExample());
+        List<RcUser> userList = userMapper.selectList(null);
         for (RcUser u: userList
              ) {
             List<RcUserRole> userRoleList = userRoleService.getByUserId(u.getId());
