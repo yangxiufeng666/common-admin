@@ -30,7 +30,7 @@
 		<swagger.ui.version>2.7.0</swagger.ui.version>
 		<!--mybatis plus-->
 		<mybatisplus-spring-boot-starter.version>1.0.4</mybatisplus-spring-boot-starter.version>
-		<mybatisplus.version>2.1.0</mybatisplus.version>
+		<mybatisplus.version>2.1.2</mybatisplus.version>
 		<easy-poi-version>3.0.1</easy-poi-version>
 		<itextpdf-version>5.5.6</itextpdf-version>
 		<itext-asian-version>5.2.0</itext-asian-version>
