@@ -10,13 +10,15 @@
    - 1.5 数据库日志
 
 ## 技术选型
-* Spring boot 1.5.6
-* Apache Shiro 1.4
-* mybatis
-* mybatis plus 2.1.2
-* swagger2 2.7.0
-* easy-poi 3.0.1
-* freemarker
+* 核心框架：Spring boot 1.5.6
+* 安全框架：Apache Shiro 1.4
+* 持久层框架：mybatis、mybatis plus 2.1.2
+* 数据库连接池：Alibaba Druid 1.1.2
+* 数据库：MYSQL
+* API文档管理：swagger2 2.7.0
+* Excel导出工具：easy-poi 3.0.1
+* 模版引擎：freemarker
+* 前端UI框架：JQuery2.2.3 + bootstrap3 + AdminLte2.3.6 + Ztree
 
 ## 版权说明
 使用 Apache License 2.0 协议.
